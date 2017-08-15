@@ -1,5 +1,7 @@
 import React, { Component } from 'react' 
-import { APIManager } from '../../utils'  //import { APIManager } from '../../utils/APIManager'
+import { APIManager } from '../../utils'  
+import actions from '../../actions'
+import { connect } from 'react-redux'
 
 class Signup extends Component {
 	constructor(){
@@ -26,19 +28,21 @@ class Signup extends Component {
         console.log(JSON.stringify(this.state.visitor))
 	}
 
-	register(event){
-		event.preventDefault()
+    register(event){
+        event.preventDefault()
         // console.log('register: ')
         APIManager.post('/api/profile', this.state.visitor, (err, response) => {
             if (err) {
-            	const msg = err.message || err
+                const msg = err.message || err
                 alert(msg)
-            	return
+                return
             }
 
             console.log('register: '+JSON.stringify(response))//console.log(JSON.stringify(response.result))
+            var result = response.result
+            this.props.profileCreated(result)//this.state.profileCreated(result)
         })
-	}
+    }
 
 	render(){
 		return(
@@ -56,4 +60,16 @@ class Signup extends Component {
 
 }
 
-export default Signup
+const stateToProps = (state) => {
+    return {
+        profile: state.profile.user
+    }
+}
+
+const dispatchToProps = (dispatch) => {
+    return {
+        profileCreated: (profile) => dispatch(actions.profileCreated(profile))
+    }
+}
+
+export default connect(stateToProps, dispatchToProps)(Signup)
