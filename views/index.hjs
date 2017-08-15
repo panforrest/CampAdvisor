@@ -1,31 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- <title>{{ title }}</title> -->
+    <!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
-    <h1>Create A Camp</h1>
-    <form action="/api/camp" method="post">
-    	<input type="text" name="title" placeholder="Title" /> <br / >
-    	<input type="text" name="description" placeholder="Description" /> <br />
-      <input type="text" name="url" placeholder="url" /> <br />
-    	<input type="submit" value="Submit">
-    </form>
-    <br />
-    <h1>Create Profile</h1>
-    <form action="/api/profile" method="post">
-      <input type="text" name="email" placeholder="Email" /> <br / >
-      <input type="text" name="password" placeholder="Password" /> <br / >
-      <input type="text" name="firstName" placeholder="First Name" /> <br />
-      <input type="text" name="lastName" placeholder="Last Name" /><br />
-      <input type="submit" value="Submit">
-    </form>
-    <h1>Log in</h1>
-    <form action="/account/login" method="post">
-      <input type="text" name="email" placeholder="Email" /> <br / >
-      <input type="text" name="password" placeholder="Password" /> <br / >
-      <input type="submit" value="Submit">
-    </form>
+<!--     <h1>{{ title }}</h1>
+    <p>Welcome to {{ title }}</p> -->
+    <div id="root"><div>
+    <!-- <script type="text/javascript" src="/dist/bundle.js"></script> -->
+    <script type="text/javascript" src="dist/bundle.js"></script>
   </body>
 </html>
