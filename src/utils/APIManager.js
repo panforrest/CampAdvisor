@@ -44,6 +44,12 @@ export default  {
                 callback(err, null)
                 return
             }
+            console.log('APIManager: '+JSON.stringify(response.body))
+            const confirmation = response.body.confirmation
+            if (confirmation != 'success'){
+                callback({message: response.body.message}, null)
+                return
+            }
 
             callback(null, response.body)   //callback(null, response.result)
         })

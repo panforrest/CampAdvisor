@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
 var CampSchema = new mongoose.Schema({
     title: {type:String, defualt:''},
     description: {type:String, default:''},
+    country: {type:String, default:''},
     url: {type:String, default:''},    
     timestamp: {type:String, default:Date.now}
 })
@@ -12,6 +13,7 @@ CampSchema.methods.summary = function(){
         id: this._id,
         title: this.title,
         url: this.url,
+        country: this.country,
         description: this.description,
         timestamp: this.timestamp
 	}

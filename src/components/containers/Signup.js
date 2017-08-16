@@ -28,6 +28,22 @@ class Signup extends Component {
         console.log(JSON.stringify(this.state.visitor))
 	}
 
+    login(event){
+        event.preventDefault()
+        APIManager.post('/account/login', this.state.visitor, (err, response) => {
+            if (err) {
+                const msg = err.message || err
+                // console.log(msg)
+                alert(msg)
+                return
+            }
+
+            console.log(JSON.stringify(response))
+            var result = response.profile
+            this.props.currentUserReceived(result)
+        })
+    }
+
     register(event){
         event.preventDefault()
         // console.log('register: ')
@@ -56,6 +72,12 @@ class Signup extends Component {
                     <input onChange={this.update.bind(this)} type='text' id='password' placeholder='Password' /><br />
 
                     <button onClick={this.register.bind(this)}>Submit</button>
+
+                    <h2>Log in</h2>
+                    <input onChange={this.update.bind(this)} type='text' id='email' placeholder='Email' /><br />
+                    <input onChange={this.update.bind(this)} type='text' id='password' placeholder='Password' /><br />
+
+                    <button onClick={this.login.bind(this)}>Submit</button>
             
                 </div> 
 
@@ -76,7 +98,8 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
     return {
-        profileCreated: (profile) => dispatch(actions.profileCreated(profile))
+        profileCreated: (profile) => dispatch(actions.profileCreated(profile)),
+        currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile))
     }
 }
 

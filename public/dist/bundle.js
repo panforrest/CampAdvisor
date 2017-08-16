@@ -27360,9 +27360,28 @@ var Signup = function (_Component) {
             console.log(JSON.stringify(this.state.visitor));
         }
     }, {
+        key: 'login',
+        value: function login(event) {
+            var _this2 = this;
+
+            event.preventDefault();
+            _utils.APIManager.post('/account/login', this.state.visitor, function (err, response) {
+                if (err) {
+                    var msg = err.message || err;
+                    // console.log(msg)
+                    alert(msg);
+                    return;
+                }
+
+                console.log(JSON.stringify(response));
+                var result = response.profile;
+                _this2.props.currentUserReceived(result);
+            });
+        }
+    }, {
         key: 'register',
         value: function register(event) {
-            var _this2 = this;
+            var _this3 = this;
 
             event.preventDefault();
             // console.log('register: ')
@@ -27375,7 +27394,7 @@ var Signup = function (_Component) {
 
                 console.log('register: ' + JSON.stringify(response)); //console.log(JSON.stringify(response.result))
                 var result = response.profile; //var result = response.result
-                _this2.props.profileCreated(result); //this.state.profileCreated(result)
+                _this3.props.profileCreated(result); //this.state.profileCreated(result)
             });
         }
     }, {
@@ -27409,6 +27428,20 @@ var Signup = function (_Component) {
                         'button',
                         { onClick: this.register.bind(this) },
                         'Submit'
+                    ),
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Log in'
+                    ),
+                    _react2.default.createElement('input', { onChange: this.update.bind(this), type: 'text', id: 'email', placeholder: 'Email' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.update.bind(this), type: 'text', id: 'password', placeholder: 'Password' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'button',
+                        { onClick: this.login.bind(this) },
+                        'Submit'
                     )
                 )
             );
@@ -27429,6 +27462,9 @@ var dispatchToProps = function dispatchToProps(dispatch) {
     return {
         profileCreated: function profileCreated(profile) {
             return dispatch(_actions2.default.profileCreated(profile));
+        },
+        currentUserReceived: function currentUserReceived(profile) {
+            return dispatch(_actions2.default.currentUserReceived(profile));
         }
     };
 };
@@ -27654,6 +27690,12 @@ exports.default = {
         .set('Accept', 'application/json').end(function (err, response) {
             if (err) {
                 callback(err, null);
+                return;
+            }
+            console.log('APIManager: ' + JSON.stringify(response.body));
+            var confirmation = response.body.confirmation;
+            if (confirmation != 'success') {
+                callback({ message: response.body.message }, null);
                 return;
             }
 
