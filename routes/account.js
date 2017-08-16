@@ -42,7 +42,7 @@ router.post('/login', function(req, res, next){
         	res.json({
         		confirmation: 'success',
         		token: token,
-        		user: profile.summary() 
+        		profile: profile.summary() //user: profile.summary()
         	})
         	return
         })
