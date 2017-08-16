@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
-import { profileReducer } from '../reducers'
+import { profileReducer, accountReducer } from '../reducers'
 
 var store;
 
@@ -11,8 +11,9 @@ export default {
     configureStore: () => {
     	
     	const reducers = combineReducers({
-    		profile: profileReducer   // profileReducer, THIS CAUSES THE PROBLEM: cannot read the list of undefined
-    	}),
+    		profile: profileReducer,   // profileReducer, THIS CAUSES THE PROBLEM: cannot read the list of undefined
+    	    account: accountReducer
+        }),
 
     	store = createStore(
     		reducers,

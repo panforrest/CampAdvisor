@@ -11445,6 +11445,13 @@ exports.default = {
             type: _constants2.default.PROFILE_CREATED,
             profile: profile
         };
+    },
+
+    currentUserReceived: function currentUserReceived(profile) {
+        return {
+            type: _constants2.default.CURRENT_USER_RECEIVED,
+            profile: profile
+        };
     }
 
 };
@@ -11462,7 +11469,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = { //export {
 
     PROFILES_RECEIVED: 'PROFILES_RECEIVED',
-    PROFILE_CREATED: 'PROFILE_CREATED'
+    PROFILE_CREATED: 'PROFILE_CREATED',
+    CURRENT_USER_RECEIVED: 'CURRENT_USER_RECEIVED'
 
 };
 
@@ -11545,7 +11553,8 @@ exports.default = {
     configureStore: function configureStore() {
 
         var reducers = (0, _redux.combineReducers)({
-            profile: _reducers.profileReducer // profileReducer, THIS CAUSES THE PROBLEM: cannot read the list of undefined
+            profile: _reducers.profileReducer, // profileReducer, THIS CAUSES THE PROBLEM: cannot read the list of undefined
+            account: _reducers.accountReducer
         }),
             store = (0, _redux.createStore)(reducers, (0, _redux.applyMiddleware)());
 
@@ -27375,23 +27384,32 @@ var Signup = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(
-                    'h2',
+                this.props.currentUser != null ? _react2.default.createElement(
+                    'p',
                     null,
-                    'Sign up'
-                ),
-                _react2.default.createElement('input', { onChange: this.update.bind(this), type: 'text', id: 'email', placeholder: 'Email' }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.update.bind(this), type: 'text', id: 'firstName', placeholder: 'First Name' }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.update.bind(this), type: 'text', id: 'lastName', placeholder: 'Last Name' }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.update.bind(this), type: 'text', id: 'password', placeholder: 'Password' }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement(
-                    'button',
-                    { onClick: this.register.bind(this) },
-                    'Submit'
+                    'Welcome, ',
+                    this.props.currentUser.email
+                ) : _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Sign up'
+                    ),
+                    _react2.default.createElement('input', { onChange: this.update.bind(this), type: 'text', id: 'email', placeholder: 'Email' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.update.bind(this), type: 'text', id: 'firstName', placeholder: 'First Name' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.update.bind(this), type: 'text', id: 'lastName', placeholder: 'Last Name' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.update.bind(this), type: 'text', id: 'password', placeholder: 'Password' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'button',
+                        { onClick: this.register.bind(this) },
+                        'Submit'
+                    )
                 )
             );
         }
@@ -27402,7 +27420,8 @@ var Signup = function (_Component) {
 
 var stateToProps = function stateToProps(state) {
     return {
-        profile: state.profile.user
+        profile: state.profile.user,
+        currentUser: state.account.currentUser
     };
 };
 
@@ -27522,15 +27541,20 @@ exports.default = Home;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.profileReducer = undefined;
+exports.accountReducer = exports.profileReducer = undefined;
 
 var _profileReducer = __webpack_require__(244);
 
 var _profileReducer2 = _interopRequireDefault(_profileReducer);
 
+var _accountReducer = __webpack_require__(246);
+
+var _accountReducer2 = _interopRequireDefault(_accountReducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.profileReducer = _profileReducer2.default;
+exports.accountReducer = _accountReducer2.default;
 
 /***/ }),
 /* 244 */
@@ -27635,6 +27659,50 @@ exports.default = {
 
             callback(null, response.body); //callback(null, response.result)
         });
+    }
+};
+
+/***/ }),
+/* 246 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _constants = __webpack_require__(99);
+
+var _constants2 = _interopRequireDefault(_constants);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {
+
+    currentUser: null //{}
+
+};
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    var updatedState = Object.assign({}, state);
+    switch (action.type) {
+        // let updatedState = Object.assign({}, state)
+        case _constants2.default.PROFILE_CREATED:
+            updatedState['currentUser'] = action.profile;
+            return updatedState;
+
+        case _constants2.default.CURRENT_USER_RECEIVED:
+            updatedState['currentUser'] = action.profile;
+            return updatedState;
+
+        default:
+            return state;
+
     }
 };
 
