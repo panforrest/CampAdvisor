@@ -53,7 +53,6 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {  
     return {
-        //profileReceived: (profiles) => this.props.actions.profileReceived(profiles)
         profilesReceived: (profiles) => dispatch(actions.profilesReceived(profiles))
     }
 }

@@ -1,68 +1,71 @@
 var Profile = require('../models/Profile')
 var Promise = require('bluebird')
 var bcrypt = require('bcryptjs')
+var jwt = require('jsonwebtoken')
 
 module.exports = {
 
     find: function(params, isRaw){
         return new Promise(function(resolve, reject){
-        	Profile.find(params, function(err, profiles){
-        		if (err){
-        			reject(err)
-        			return
-        		}
+            Profile.find(params, function(err, profiles){
+                if (err){
+                    reject(err)
+                    return
+                }
 
-        		if (isRaw == true){
-        			resolve(profiles)
-        			return
-        		}
+                if (isRaw == true){
+                    resolve(profiles)
+                    return
+                }
 
-        		var summaries = []
-        		profiles.forEach(function(profile){
+                var summaries = []
+                profiles.forEach(function(profile){
                     summaries.push(profile.summary())
-        		})
+                })
 
-        		resolve(summaries)
-        	})
+                resolve(summaries)
+            })
         })
     },
 
     create: function(params){
-    	return new Promise(function(resolve, reject){
+        return new Promise(function(resolve, reject){
 
             var password = params.password
             passwordHashed = bcrypt.hashSync(password, 10)
             params['password'] = passwordHashed    //params[password]
 
-    		Profile.create(params, function(err, profile){
+            // var token = jwt.sign()
+
+            Profile.create(params, function(err, profile){
                 if (err) {
-                	reject(err)
-                	return
+                    reject(err)
+                    return
                 }
 
                 // var password = params.password
                 // passwordHashed = bcrypt.hashSync(password, 10)
                 // params['password'] = passwordHashed    //params[password]
                 resolve(profile.summary())
-    		})
-    	})
+            })
+        })
     },
 
-    findById: function(id, isRaw){     //params NOT id
-    	return new Promise(function(resolve, reject){
-	    	Profile.findById(id, function(err, profile){  //params NOT id
-	    		if (err) {
-	    			reject(err)
-	    			return 
-	    		}
+    findById: function(id){     //params NOT id
+        return new Promise(function(resolve, reject){
+            Profile.findById(id, function(err, profile){  //params NOT id
+                if (err) {
+                    reject(err)
+                    return 
+                }
 
-	    		if (isRaw == true){
-	    			resolve(profile)
-	    			return
-	    		}
+                // if (isRaw == true){
+                //  resolve(profile)
+                //  return
+                // }
 
-	            resolve(profile.summary())
-	    	})	
-    	})
+                resolve(profile.summary())
+            })  
+        })
     }
 }

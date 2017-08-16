@@ -4,6 +4,7 @@ var bcrypt = require('bcryptjs')  //MUST HAVE bcrypt, THIS IS THE KEY
 // var Profile = require('../models/Profile')
 var controllers = require('../controllers')
 var jwt = require('jsonwebtoken')
+var utils = require('../utils')
 
 // router.post('/:action', function(req, res, next){
 router.post('/login', function(req, res, next){
@@ -83,37 +84,57 @@ router.get('/:action', function(req, res, next){
             return
 		}
         // console.log(req.session.token) 
-        jwt.verify(req.session.token, process.env.TOKEN_SECRET, function(err, decoded){
-            console.log('decoded: '+JSON.stringify(decoded))            
-            if (err){
-                req.session.reset()
-
-                res.json({
-                    confirmation: 'success',
-                    user: 'null here'
-                })
-                return
-            }
-
-            // console.log('decoded.id: '+JSON.stringify(decoded.id))
-            controllers.profile
-            .findById(decoded.id, false)  //.getById(decoded.id)
-            .then(function(profile){
-                res.json({
-                    confirmation: 'successes',
-                    user: profile
-                })
-                return
+        var token = req.session.token
+        utils.JWT.verify(token, process.env.TOKEN_SECRET)               // var secret = utils.JWT.verify()
+        .then(function(decode){ //.then(function(token){
+            // res.json({
+            //  confirmation: 'success',
+            //  token: decode,    //token: token
+            //  // profile: profile
+            // })
+            return controllers.profile.findById(decode.id)   //controllers.profile.findById(decode.id)
+        })
+        .then(function(profile){
+            res.json({
+                confirmation: 'success',
+                profile: profile
             })
-            .catch(function(error){
-                res.json({
-                    confirmation: 'fail',
-                    message: error.message
-                })
-                return
+        })
+        .catch(function(err){
+            res.json({
+                confirmation: 'success',
+                message: 'invalid token'
             })
-        }) 
-	}
+        })
+    }
+})
+
+router.post('/register', function(req, res, next){
+
+    controllers.profile   //controller.profile
+
+    // console.log(JSON.stringify(req.body))
+    .create(req.body) //create(req.body) 
+    .then(function(profile){  //.then(function(result){
+        //var token = jwt.sign({id:profile._id}, process.env.TOKEN_SECRET, {expiresIn: 4000})  //({id:result.id}
+        var token = utils.JWT.sign({id: profile.id}, process.env.TOKEN_SECRET)
+        req.session.token = token 
+
+        res.json({
+            confirmation: 'success',
+            profile: profile,  //result: result
+            token: token
+        })
+
+    })
+    .catch(function(err){
+        if (err) {
+            res.json({
+                confirmation: 'fail',
+                err: err.message
+            })
+        }
+    })  
 })
 
 module.exports = router
