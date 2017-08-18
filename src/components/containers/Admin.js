@@ -8,7 +8,27 @@ class Admin extends Component {
 
     constructor(){
         super()
-        this.state
+        this.state = {
+            review: {
+                profile: '',
+                camp: '',
+                text: ''
+            }
+        }
+    }
+
+    componentDidMount(){
+        APIManager.get('/account/currentuser', null, (err, response) => {
+            if (err) {
+                const msg = err.message || err
+                alert(msg)
+                return
+            }
+            console.log('Admin.js: '+JSON.stringify(response.profile)) 
+            this.props.currentUserReceived(response.profile)
+        })
+
+        
     }
 
     register(visitor){
@@ -28,7 +48,7 @@ class Admin extends Component {
         APIManager.post('/account/login', credentials, (err, response) => {
             if (err) {
                 const msg = err.message || err
-                // console.log(msg)
+                
                 alert(msg)
                 return
             }
@@ -38,29 +58,49 @@ class Admin extends Component {
         })
     }
 
-    componentDidMount(){
-        APIManager.get('/account/currentuser', null, (err, response) => {
-            if (err) {
+    updateReview(event){
+        event.preventDefault()
+        // console.log(event.target.id+" == "+event.target.value)
+        let updatedReview = Object.assign({}, this.state.review)
+        updatedReview[event.target.id] = event.target.value  
+        this.setState({
+            review: updatedReview 
+        }) 
+        console.log('updatedReview: '+JSON.stringify(this.state.review))
+    }
+
+    submitReview(event){
+        event.preventDefault()
+        var review = this.state.review
+        review['profile'] = this.props.currentUser.id
+
+        APIManager.post('/api/review', review, (err, response) => {
+            if (err){
                 const msg = err.message || err
-                alert(msg)
+                // console.log(msg)
+                alert(JSON.stringify(msg))
                 return
             }
-            console.log('Admin.js: '+JSON.stringify(response.profile)) 
-            this.props.currentUserReceived(response.profile)
+            console.log('submit: '+JSON.stringify(response.result))
         })
-
-        
     }
 
     render(){
     	return(
-    		<div>
+            <div>
                 {(this.props.currentUser == null) ? <Signup onRegister={this.register.bind(this)} onLogin={this.login.bind(this)}/> : 
-                    
+                  <div>    
                     <h2>Welcome, {this.props.currentUser.email}</h2> 
 
-                }  
-    		</div>
+                        <h3>Create Review</h3>
+                        
+                        <input onChange={this.updateReview.bind(this)} type="text" id="camp" placeholder="Camp" /><br />
+                        <input onChange={this.updateReview.bind(this)} type="text" id="text" placeholder="Text" /><br />
+                        <input onClick={this.submitReview.bind(this)} type="submit" value="Submit" />
+                  </div>
+
+                }   
+            </div>
     	)
     }
 }

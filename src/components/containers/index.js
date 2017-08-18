@@ -1,11 +1,11 @@
 import Profiles from './Profiles'
-// import Signup from './Signup'
+import Reviews from './Reviews'
 import Admin from './Admin'
 
 export {
 
     Profiles,
-    // Signup,
+    Reviews,
     Admin
 
 }
