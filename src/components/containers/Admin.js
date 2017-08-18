@@ -13,6 +13,12 @@ class Admin extends Component {
                 profile: '',
                 camp: '',
                 text: ''
+            },
+            camp: {
+                title: '',
+                description: '',
+                country: '',
+                url: ''
             }
         }
     }
@@ -85,6 +91,31 @@ class Admin extends Component {
         })
     }
 
+    updateCamp(event){
+        event.preventDefault()
+        console.log('updateCamp: '+event.target.id+' == '+event.target.value)
+        var updatedCamp = Object.assign({}, this.state.camp)
+        updatedCamp[event.target.id] = event.target.value
+        this.setState({
+            camp: updatedCamp
+        })
+    }
+
+    submitCamp(event){
+        event.preventDefault()
+        console.log('to submitCamp: '+JSON.stringify(this.state.camp))
+        APIManager.post('/api/camp', this.state.camp, (err, response) => {
+            if (err){
+                const msg = err.message || err
+                alert(msg)
+                return
+            }
+
+            console.log('camp submitted: '+JSON.stringify(response.result))
+            this.props.campCreated(response.result)
+        })
+    }
+
     render(){
     	return(
             <div>
@@ -97,6 +128,12 @@ class Admin extends Component {
                         <input onChange={this.updateReview.bind(this)} type="text" id="camp" placeholder="Camp" /><br />
                         <input onChange={this.updateReview.bind(this)} type="text" id="text" placeholder="Text" /><br />
                         <input onClick={this.submitReview.bind(this)} type="submit" value="Submit" />
+                        <h3>Create Camp</h3>
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="title" placeholder="Camp Title" /><br />
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="description" placeholder="Camp Description" /><br />
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="country" placeholder="Camp Country" /><br />
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="url" placeholder="Camp Url" /><br />
+                        <input onClick={this.submitCamp.bind(this)} type="submit" value="Submit" />
                   </div>
 
                 }   
@@ -115,9 +152,9 @@ const stateToProps = (state) => {
 const dispatchToProps = (dispatch) => {
     return {
         profileCreated: (profile) => dispatch(actions.profileCreated(profile)),
-        // currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile))
         currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile)),
-        reviewCreated: (review) => dispatch(actions.reviewCreated(review))
+        reviewCreated: (review) => dispatch(actions.reviewCreated(review)),
+        campCreated: (camp) => dispatch(actions.campCreated(camp))
     }
 }
 

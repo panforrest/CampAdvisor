@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Profiles, Reviews, Admin } from '../containers'
+import { Profiles, Reviews, Admin, Camps } from '../containers'
 
 class Home extends Component {
 	render(){
@@ -13,6 +13,7 @@ class Home extends Component {
 
                     <div className="col-md-6">
                         <Reviews />
+                        <Camps />
                     </div>
 
                     <div className="col-md-3">

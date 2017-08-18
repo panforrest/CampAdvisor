@@ -1,11 +1,13 @@
 import profileReducer from './profileReducer'
 import accountReducer from './accountReducer'
 import reviewReducer from './reviewReducer'
+import campReducer from './campReducer'
 
-export {   //export default {
+export {
 
     profileReducer,
     accountReducer,
-    reviewReducer
+    reviewReducer,
+    campReducer
 
 }

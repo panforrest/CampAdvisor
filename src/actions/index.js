@@ -34,6 +34,20 @@ export default {
             type: constants.REVIEW_CREATED,
             review: review
         }
+    },
+
+    campsReceived: (camps) => {
+        return {
+            type: constants.CAMPS_RECEIVED,
+            camps: camps
+        }
+    },
+
+    campCreated: (camp) => {
+        return {
+            type: constants.CAMP_CREATED,
+            camp: camp
+        }
     }
     
 }
