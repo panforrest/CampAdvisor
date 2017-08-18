@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { APIManager } from '../../utils'
+import actions from '../../actions'
+import { connect } from 'react-redux'
 
 class Reviews extends Component {
 
@@ -20,16 +22,17 @@ class Reviews extends Component {
 
 			console.log(JSON.stringify(response.results))
 			var results = response.results
-			this.setState({
-				reviews: results
-			})
+			// this.setState({
+			// 	reviews: results
+			// })
+			this.props.reviewsReceived(results)
 		})
 	}
 
 	render(){
-        const reviews = this.state.reviews.map((review, i) => {
+        const reviews = this.props.reviews.map((review, i) => {
         	return(
-                <li key={review.id}>{review.text}</li>
+                <li key={i}>{review.text}</li>
         	)
         })
 
@@ -44,4 +47,17 @@ class Reviews extends Component {
 	}
 }
 
-export default Reviews
+const stateToProps = (state) => {
+	return {
+        reviews: state.review.list
+	}
+}
+
+const dispatchToProps = (dispatch) => {
+	return {
+        reviewsReceived: (reviews) => dispatch(actions.reviewsReceived(reviews))
+
+	}
+}
+
+export default connect(stateToProps, dispatchToProps)(Reviews)

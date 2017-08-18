@@ -20,6 +20,20 @@ export default {
             type: constants.CURRENT_USER_RECEIVED,
             profile: profile
         }
+    },
+
+    reviewsReceived: (reviews) => {
+        return {
+            type: constants.REVIEWS_RECEIVED,
+            reviews: reviews
+        }
+    },
+
+    reviewCreated: (review) => {
+        return{
+            type: constants.REVIEW_CREATED,
+            review: review
+        }
     }
     
 }

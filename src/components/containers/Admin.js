@@ -60,7 +60,6 @@ class Admin extends Component {
 
     updateReview(event){
         event.preventDefault()
-        // console.log(event.target.id+" == "+event.target.value)
         let updatedReview = Object.assign({}, this.state.review)
         updatedReview[event.target.id] = event.target.value  
         this.setState({
@@ -77,11 +76,12 @@ class Admin extends Component {
         APIManager.post('/api/review', review, (err, response) => {
             if (err){
                 const msg = err.message || err
-                // console.log(msg)
                 alert(JSON.stringify(msg))
                 return
             }
             console.log('submit: '+JSON.stringify(response.result))
+            var result = response.result
+            this.props.reviewCreated(review)
         })
     }
 
@@ -116,7 +116,8 @@ const dispatchToProps = (dispatch) => {
     return {
         profileCreated: (profile) => dispatch(actions.profileCreated(profile)),
         // currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile))
-        currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile))
+        currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile)),
+        reviewCreated: (review) => dispatch(actions.reviewCreated(review))
     }
 }
 

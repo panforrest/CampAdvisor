@@ -6806,6 +6806,20 @@ exports.default = {
             type: _constants2.default.CURRENT_USER_RECEIVED,
             profile: profile
         };
+    },
+
+    reviewsReceived: function reviewsReceived(reviews) {
+        return {
+            type: _constants2.default.REVIEWS_RECEIVED,
+            reviews: reviews
+        };
+    },
+
+    reviewCreated: function reviewCreated(review) {
+        return {
+            type: _constants2.default.REVIEW_CREATED,
+            review: review
+        };
     }
 
 };
@@ -6824,8 +6838,9 @@ exports.default = { //export {
 
     PROFILES_RECEIVED: 'PROFILES_RECEIVED',
     PROFILE_CREATED: 'PROFILE_CREATED',
-    CURRENT_USER_RECEIVED: 'CURRENT_USER_RECEIVED'
-
+    CURRENT_USER_RECEIVED: 'CURRENT_USER_RECEIVED',
+    REVIEWS_RECEIVED: 'REVIEWS_RECEIVED',
+    REVIEW_CREATED: 'REVIEW_CREATED'
 };
 
 /***/ }),
@@ -11547,14 +11562,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var store;
 
 exports.default = {
-    // configureStore
-    // combineReducer
 
     configureStore: function configureStore() {
 
         var reducers = (0, _redux.combineReducers)({
-            profile: _reducers.profileReducer, // profileReducer, THIS CAUSES THE PROBLEM: cannot read the list of undefined
-            account: _reducers.accountReducer
+            profile: _reducers.profileReducer,
+            account: _reducers.accountReducer,
+            review: _reducers.reviewReducer
         }),
             store = (0, _redux.createStore)(reducers, (0, _redux.applyMiddleware)());
 
@@ -27291,7 +27305,6 @@ var Admin = function (_Component) {
         key: 'updateReview',
         value: function updateReview(event) {
             event.preventDefault();
-            // console.log(event.target.id+" == "+event.target.value)
             var updatedReview = Object.assign({}, this.state.review);
             updatedReview[event.target.id] = event.target.value;
             this.setState({
@@ -27302,6 +27315,8 @@ var Admin = function (_Component) {
     }, {
         key: 'submitReview',
         value: function submitReview(event) {
+            var _this5 = this;
+
             event.preventDefault();
             var review = this.state.review;
             review['profile'] = this.props.currentUser.id;
@@ -27309,11 +27324,12 @@ var Admin = function (_Component) {
             _utils.APIManager.post('/api/review', review, function (err, response) {
                 if (err) {
                     var msg = err.message || err;
-                    // console.log(msg)
                     alert(JSON.stringify(msg));
                     return;
                 }
                 console.log('submit: ' + JSON.stringify(response.result));
+                var result = response.result;
+                _this5.props.reviewCreated(review);
             });
         }
     }, {
@@ -27364,6 +27380,9 @@ var dispatchToProps = function dispatchToProps(dispatch) {
         // currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile))
         currentUserReceived: function currentUserReceived(profile) {
             return dispatch(_actions2.default.currentUserReceived(profile));
+        },
+        reviewCreated: function reviewCreated(review) {
+            return dispatch(_actions2.default.reviewCreated(review));
         }
     };
 };
@@ -27497,6 +27516,12 @@ var _react2 = _interopRequireDefault(_react);
 
 var _utils = __webpack_require__(57);
 
+var _actions = __webpack_require__(55);
+
+var _actions2 = _interopRequireDefault(_actions);
+
+var _reactRedux = __webpack_require__(25);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27533,18 +27558,19 @@ var Reviews = function (_Component) {
 
 				console.log(JSON.stringify(response.results));
 				var results = response.results;
-				_this2.setState({
-					reviews: results
-				});
+				// this.setState({
+				// 	reviews: results
+				// })
+				_this2.props.reviewsReceived(results);
 			});
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-			var reviews = this.state.reviews.map(function (review, i) {
+			var reviews = this.props.reviews.map(function (review, i) {
 				return _react2.default.createElement(
 					'li',
-					{ key: review.id },
+					{ key: i },
 					review.text
 				);
 			});
@@ -27561,7 +27587,22 @@ var Reviews = function (_Component) {
 	return Reviews;
 }(_react.Component);
 
-exports.default = Reviews;
+var stateToProps = function stateToProps(state) {
+	return {
+		reviews: state.review.list
+	};
+};
+
+var dispatchToProps = function dispatchToProps(dispatch) {
+	return {
+		reviewsReceived: function reviewsReceived(reviews) {
+			return dispatch(_actions2.default.reviewsReceived(reviews));
+		}
+
+	};
+};
+
+exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Reviews);
 
 /***/ }),
 /* 242 */
@@ -27913,7 +27954,7 @@ exports.default = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.accountReducer = exports.profileReducer = undefined;
+exports.reviewReducer = exports.accountReducer = exports.profileReducer = undefined;
 
 var _profileReducer = __webpack_require__(248);
 
@@ -27923,10 +27964,15 @@ var _accountReducer = __webpack_require__(246);
 
 var _accountReducer2 = _interopRequireDefault(_accountReducer);
 
+var _reviewReducer = __webpack_require__(250);
+
+var _reviewReducer2 = _interopRequireDefault(_reviewReducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.profileReducer = _profileReducer2.default;
 exports.accountReducer = _accountReducer2.default;
+exports.reviewReducer = _reviewReducer2.default;
 
 /***/ }),
 /* 248 */
@@ -28037,6 +28083,51 @@ exports.default = {
 
             callback(null, response.body); //callback(null, response.result)
         });
+    }
+};
+
+/***/ }),
+/* 250 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _constants = __webpack_require__(56);
+
+var _constants2 = _interopRequireDefault(_constants);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {
+
+    list: []
+
+};
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    var updated = Object.assign({}, state);
+    switch (action.type) {
+        case _constants2.default.REVIEWS_RECEIVED:
+            console.log('REVIEWS_RECEIVED: ' + JSON.stringify(action.reviews));
+            updated['list'] = action.reviews;
+            return updated;
+
+        case _constants2.default.REVIEW_CREATED:
+            var updatedList = Object.assign([], updated.list);
+            updatedList.push(action.review);
+            updated['list'] = updatedList;
+            return updated;
+
+        default:
+            return state;
     }
 };
 
