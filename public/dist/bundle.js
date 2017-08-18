@@ -27495,6 +27495,8 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _utils = __webpack_require__(57);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27509,16 +27511,49 @@ var Reviews = function (_Component) {
 	function Reviews() {
 		_classCallCheck(this, Reviews);
 
-		return _possibleConstructorReturn(this, (Reviews.__proto__ || Object.getPrototypeOf(Reviews)).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, (Reviews.__proto__ || Object.getPrototypeOf(Reviews)).call(this));
+
+		_this.state = {
+			reviews: []
+		};
+		return _this;
 	}
 
 	_createClass(Reviews, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var _this2 = this;
+
+			_utils.APIManager.get('/api/review', null, function (err, response) {
+				if (err) {
+					var msg = err.message || err;
+					alert(msg);
+					return;
+				}
+
+				console.log(JSON.stringify(response.results));
+				var results = response.results;
+				_this2.setState({
+					reviews: results
+				});
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var reviews = this.state.reviews.map(function (review, i) {
+				return _react2.default.createElement(
+					'li',
+					{ key: review.id },
+					review.text
+				);
+			});
+
 			return _react2.default.createElement(
 				'div',
 				null,
-				'This is Reviews container.'
+				'This is Reviews List:',
+				reviews
 			);
 		}
 	}]);
