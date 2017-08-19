@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 
 class Camps extends Component {
 
-	constructor(){
-		super()
+	constructor(context, props){
+		super(context, props)
 		this.state = {
 			camps: []
 		}
@@ -27,18 +27,18 @@ class Camps extends Component {
 	}
 
 	render(){
-        const camps = this.props.camps.map((camp, i) => {
+        var camps = this.props.camps.map((camp, i) => {
         	return(
-                <li key={i}>{camp.title}, {camp.description}, {camp.country}, {camp.url}</li>
+                <li key={camp._id}><a href={'/camp/'+camp.slug}>{camp.title}</a></li>
         	)
         })
 
 		return(
 			<div>
-                This is Camps List:
-               
+                <h2>Camp List</h2>
+                  <ol>
                     {camps}
-                
+                  </ol>
             </div>    
 		)
 	}

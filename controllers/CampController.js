@@ -5,54 +5,57 @@ module.exports = {
 
 	find: function(params, isRaw){                  //get: {
 		return new Promise(function(resolve, reject){         
-		    Camp.find(params, function(err, camps){if (err){
+		    Camp.find(params, function(err, response){
+		    	if (err){
 		    		reject(err)
 		    		return
 		    	}
 
-                if (isRaw){
-                	resolve(camps)
-                	return
-                }
+		    	resolve(response)
 
-                var summaries = []
-                camps.forEach(function(camp){
-                	summaries.push(camp.summary())
-                })
+       //          if (isRaw){
+       //          	resolve(camps)
+       //          	return
+       //          }
+
+       //          var summaries = []
+       //          camps.forEach(function(camp){
+       //          	summaries.push(camp.summary())
+       //          })
 		    	
-		    	resolve(summaries)
+		    	// resolve(summaries)
 		    })
 		})
 	},
 
 	create: function(params){
 		return new Promise(function(resolve, reject){
-			Camp.create(params, function(err, camp){
+			Camp.create(params, function(err, response){
 				if (err){
 					reject(err)
 					return
 				} 
-				resolve(camp)    
+				resolve(response)    
 			})
 		})
 	},
 
-	findById: function(id, isRaw){
-		return new Promise(function(resolve, reject){
-			Camp.findById(id, function(err, camp){
-				if (err) {
-					reject(err)
-					return
-				}
+	// findById: function(id, isRaw){
+	// 	return new Promise(function(resolve, reject){
+	// 		Camp.findById(id, function(err, camp){
+	// 			if (err) {
+	// 				reject(err)
+	// 				return
+	// 			}
 
-				if (isRaw){
-					resolve(camp)
-					return
-				}
+	// 			if (isRaw){
+	// 				resolve(camp)
+	// 				return
+	// 			}
 
-				resolve(camp.summary())
+	// 			resolve(camp.summary())
 				
-			})
-		})
-	} 
+	// 		})
+	// 	})
+	// } 
 }

@@ -441,91 +441,41 @@ module.exports = reactProdInvariant;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
 
 
-/* eslint-disable no-unused-vars */
-
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
 var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
-function toObject(val) {
-	if (val === null || val === undefined) {
+function ToObject(val) {
+	if (val == null) {
 		throw new TypeError('Object.assign cannot be called with null or undefined');
 	}
 
 	return Object(val);
 }
 
-function shouldUseNative() {
-	try {
-		if (!Object.assign) {
-			return false;
-		}
+function ownEnumerableKeys(obj) {
+	var keys = Object.getOwnPropertyNames(obj);
 
-		// Detect buggy property enumeration order in older V8 versions.
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc'); // eslint-disable-line no-new-wrappers
-		test1[5] = 'de';
-		if (Object.getOwnPropertyNames(test1)[0] === '5') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test2 = {};
-		for (var i = 0; i < 10; i++) {
-			test2['_' + String.fromCharCode(i)] = i;
-		}
-		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-			return test2[n];
-		});
-		if (order2.join('') !== '0123456789') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-			test3[letter] = letter;
-		});
-		if (Object.keys(Object.assign({}, test3)).join('') !== 'abcdefghijklmnopqrst') {
-			return false;
-		}
-
-		return true;
-	} catch (err) {
-		// We don't expect any of the above to throw, but better to be safe.
-		return false;
+	if (Object.getOwnPropertySymbols) {
+		keys = keys.concat(Object.getOwnPropertySymbols(obj));
 	}
+
+	return keys.filter(function (key) {
+		return propIsEnumerable.call(obj, key);
+	});
 }
 
-module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+module.exports = Object.assign || function (target, source) {
 	var from;
-	var to = toObject(target);
-	var symbols;
+	var keys;
+	var to = ToObject(target);
 
 	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments[s]);
+		from = arguments[s];
+		keys = ownEnumerableKeys(Object(from));
 
-		for (var key in from) {
-			if (hasOwnProperty.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
-
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
+		for (var i = 0; i < keys.length; i++) {
+			to[keys[i]] = from[keys[i]];
 		}
 	}
 
@@ -11535,26 +11485,7 @@ module.exports = g;
 module.exports = __webpack_require__(145);
 
 /***/ }),
-/* 102 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.Main = undefined;
-
-var _Main = __webpack_require__(253);
-
-var _Main2 = _interopRequireDefault(_Main);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.Main = _Main2.default; // import Home from './Home'
-
-/***/ }),
+/* 102 */,
 /* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11577,26 +11508,42 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var store;
 
-exports.default = {
+// export default {
 
-    configureStore: function configureStore() {
+//     configureStore: () => {
 
-        var reducers = (0, _redux.combineReducers)({
-            profile: _reducers.profileReducer,
-            account: _reducers.accountReducer,
-            review: _reducers.reviewReducer,
-            camp: _reducers.campReducer
-        }),
-            store = (0, _redux.createStore)(reducers, (0, _redux.applyMiddleware)());
+//     	const reducers = combineReducers({
+//     		profile: profileReducer, 
+//     	    account: accountReducer,
+//             review: reviewReducer,
+//             camp: campReducer
+//         }),
 
-        return store;
-    },
+//     	store = createStore(
+//     		reducers,
+//     		applyMiddleware()
+//     	)
 
-    currentStore: function currentStore() {
-        return store;
-    }
 
-};
+//     	return store
+//     },
+
+//     currentStore: () => {
+//     	return store
+//     }
+
+// }
+
+var reducers = (0, _redux.combineReducers)({
+    profile: _reducers.profileReducer,
+    account: _reducers.accountReducer,
+    review: _reducers.reviewReducer,
+    camp: _reducers.campReducer
+});
+
+var store = (0, _redux.createStore)(reducers, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+
+exports.default = store;
 
 /***/ }),
 /* 104 */
@@ -13280,12 +13227,12 @@ var KNOWN_STATICS = {
     arity: true
 };
 
+var defineProperty = Object.defineProperty;
+var getOwnPropertyNames = Object.getOwnPropertyNames;
 var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 var getPrototypeOf = Object.getPrototypeOf;
 var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
-var getOwnPropertyNames = Object.getOwnPropertyNames;
 
 module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
     if (typeof sourceComponent !== 'string') {
@@ -13307,13 +13254,11 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
         for (var i = 0; i < keys.length; ++i) {
             var key = keys[i];
             if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
-                // Only hoist enumerables and non-enumerable functions
-                if (propIsEnumerable.call(sourceComponent, key) || typeof sourceComponent[key] === 'function') {
-                    try {
-                        // Avoid failures from read-only properties
-                        targetComponent[key] = sourceComponent[key];
-                    } catch (e) {}
-                }
+                var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+                try {
+                    // Avoid failures from read-only properties
+                    defineProperty(targetComponent, key, descriptor);
+                } catch (e) {}
             }
         }
 
@@ -27172,7 +27117,7 @@ var _reactDom = __webpack_require__(101);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _layout = __webpack_require__(102);
+var _containers = __webpack_require__(242);
 
 var _reactRedux = __webpack_require__(21);
 
@@ -27186,8 +27131,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import { Home } from './components/layout' 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //     render() {
+//         return (
+//             <Provider store = {store.configureStore()}>
+//                 <div>
+
+//                     <Main page={this.state.page} slug={this.state.slug}/>
+//                 </div>
+//             </Provider>    
+//         )
+//     }
+// } 
+
+// ReactDom.render(<App />, document.getElementById('root'))
+
+// import { Home } from './components/layout'
 
 
 // class App extends Component {
@@ -27198,59 +27156,66 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 // 	                <Home />
 // 	            </div>
-//             </Provider> 
+// 	        </Provider>    
 // 		)
 // 	}
 // } 
 
+// ReactDom.render(<App />, document.getElementById('root'))
+
 var App = function (_Component) {
-  _inherits(App, _Component);
+    _inherits(App, _Component);
 
-  function App(props, context) {
-    _classCallCheck(this, App);
+    function App(props, context) {
+        _classCallCheck(this, App);
 
-    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props, context));
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props, context));
 
-    _this.state = {
-      page: 'home'
-    };
-    return _this;
-  }
-
-  _createClass(App, [{
-    key: 'comopnentWillMount',
-    value: function comopnentWillMount() {
-      var path = widow.location.pathname.replace('/', '');
-
-      var page = 'home';
-      if (path.length) {
-        var parts = path.split('/');
-        page = parts[0];
-      }
-
-      this.setState({
-        page: page
-      });
+        _this.state = {
+            page: 'home',
+            slug: null
+        };
+        return _this;
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        _reactRedux.Provider,
-        { store: _store2.default.configureStore() },
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(_layout.Main, { page: this.state.page })
-        )
-      );
-    }
-  }]);
 
-  return App;
+    _createClass(App, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            //comopnentWillMount(){
+            var pathname = window.location.pathname;
+            console.log(pathname);
+            var path = pathname.replace('/', '');
+
+            var page = 'home';
+            var slug = null;
+            if (path.length > 0) {
+                var parts = path.split('/');
+                page = parts[0];
+                if (parts.length > 1) slug = parts[1];
+            }
+
+            this.setState({
+                page: page,
+                slug: slug
+            });
+            // console.log('state: '+JSON.stringify(this.state))
+            // alert('state: '+JSON.stringify(this.state))
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(_containers.Main, { page: this.state.page, slug: this.state.slug });
+        }
+    }]);
+
+    return App;
 }(_react.Component);
 
-_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('root'));
+_reactDom2.default.render(_react2.default.createElement(
+    _reactRedux.Provider,
+    { store: _store2.default },
+    _react2.default.createElement(App, null)
+), document.getElementById('app'));
 
 /***/ }),
 /* 239 */
@@ -27303,9 +27268,10 @@ var Admin = function (_Component) {
             },
             camp: {
                 title: '',
-                description: '',
-                country: '',
-                url: ''
+                slug: ''
+                // description: '',
+                // country: '',
+                // url: ''
             }
         };
         return _this;
@@ -27408,10 +27374,25 @@ var Admin = function (_Component) {
 
             event.preventDefault();
             console.log('to submitCamp: ' + JSON.stringify(this.state.camp));
-            _utils.APIManager.post('/api/camp', this.state.camp, function (err, response) {
+            var camp = this.state.camp;
+            var tilte = track.title;
+            var parts = title.split(' ');
+
+            var slug = '';
+            for (var i = 0; i < parts.length; i++) {
+                var word = parts[i];
+                slug += word;
+                if (i != parts.length - 1) slug += '-';
+            }
+
+            // slug = slug.repalce('?', '-')
+            camp['slug'] = slug;
+            console.log(JSON.stringify(camp));
+
+            _utils.APIManager.post('/api/camp', camp, function (err, response) {
                 if (err) {
                     var msg = err.message || err;
-                    alert(msg);
+                    alert(JSON.stringify(msg));
                     return;
                 }
 
@@ -27717,7 +27698,7 @@ exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Review
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Camps = exports.Admin = exports.Reviews = exports.Profiles = undefined;
+exports.Main = exports.Camps = exports.Admin = exports.Reviews = exports.Profiles = undefined;
 
 var _Profiles = __webpack_require__(240);
 
@@ -27735,12 +27716,17 @@ var _Camps = __webpack_require__(252);
 
 var _Camps2 = _interopRequireDefault(_Camps);
 
+var _Main = __webpack_require__(254);
+
+var _Main2 = _interopRequireDefault(_Main);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Profiles = _Profiles2.default;
 exports.Reviews = _Reviews2.default;
 exports.Admin = _Admin2.default;
 exports.Camps = _Camps2.default;
+exports.Main = _Main2.default;
 
 /***/ }),
 /* 243 */,
@@ -28255,10 +28241,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Camps = function (_Component) {
 	_inherits(Camps, _Component);
 
-	function Camps() {
+	function Camps(context, props) {
 		_classCallCheck(this, Camps);
 
-		var _this = _possibleConstructorReturn(this, (Camps.__proto__ || Object.getPrototypeOf(Camps)).call(this));
+		var _this = _possibleConstructorReturn(this, (Camps.__proto__ || Object.getPrototypeOf(Camps)).call(this, context, props));
 
 		_this.state = {
 			camps: []
@@ -28289,22 +28275,28 @@ var Camps = function (_Component) {
 			var camps = this.props.camps.map(function (camp, i) {
 				return _react2.default.createElement(
 					'li',
-					{ key: i },
-					camp.title,
-					', ',
-					camp.description,
-					', ',
-					camp.country,
-					', ',
-					camp.url
+					{ key: camp._id },
+					_react2.default.createElement(
+						'a',
+						{ href: '/camp/' + camp.slug },
+						camp.title
+					)
 				);
 			});
 
 			return _react2.default.createElement(
 				'div',
 				null,
-				'This is Camps List:',
-				camps
+				_react2.default.createElement(
+					'h2',
+					null,
+					'Camp List'
+				),
+				_react2.default.createElement(
+					'ol',
+					null,
+					camps
+				)
 			);
 		}
 	}]);
@@ -28330,7 +28322,110 @@ var dispatchToProps = function dispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Camps);
 
 /***/ }),
-/* 253 */
+/* 253 */,
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Camps = __webpack_require__(252);
+
+var _Camps2 = _interopRequireDefault(_Camps);
+
+var _Admin = __webpack_require__(239);
+
+var _Admin2 = _interopRequireDefault(_Admin);
+
+var _Camp = __webpack_require__(255);
+
+var _Camp2 = _interopRequireDefault(_Camp);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // import React, { Component } from 'react'
+// import { Camps, Admin } from '../containers'
+
+// class Main extends Component {
+//     componentDidMount(){
+//     	console.log('Main componentDidMount:'+this.props.page)
+//     }
+
+// 	render(){
+// 		return(
+// 			<div>
+// 			    This is Main layout.
+// 			    < Admin />
+//                 < Camps />
+// 	        </div>
+// 		)
+// 	}
+// }
+
+// export default Main
+
+
+// import { Track } from '../layout'
+
+var Main = function (_Component) {
+    _inherits(Main, _Component);
+
+    function Main() {
+        _classCallCheck(this, Main);
+
+        return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+    }
+
+    _createClass(Main, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log('Main componentDidMount props.page: ' + this.props.page);
+            // console.log('page: '+JSON.stringify(this.state.page))
+            // alert('slug: '+JSON.stringify(this.state.slug))
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var content = null;
+            var page = this.props.page;
+            if (page == 'home') content = _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(_Camps2.default, null),
+                _react2.default.createElement(_Admin2.default, null)
+            );
+
+            if (page == 'camp') content = _react2.default.createElement(_Camp2.default, { slug: this.props.slug });
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                content
+            );
+        }
+    }]);
+
+    return Main;
+}(_react.Component);
+
+exports.default = Main;
+
+/***/ }),
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28346,8 +28441,6 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _containers = __webpack_require__(242);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28356,37 +28449,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Main = function (_Component) {
-	_inherits(Main, _Component);
+var Camp = function (_Component) {
+	_inherits(Camp, _Component);
 
-	function Main() {
-		_classCallCheck(this, Main);
+	function Camp() {
+		_classCallCheck(this, Camp);
 
-		return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+		return _possibleConstructorReturn(this, (Camp.__proto__ || Object.getPrototypeOf(Camp)).apply(this, arguments));
 	}
 
-	_createClass(Main, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			console.log('Main componentDidMount:' + this.props.page);
-		}
-	}, {
+	_createClass(Camp, [{
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
 				null,
-				'This is Main layout.',
-				_react2.default.createElement(_containers.Admin, null),
-				_react2.default.createElement(_containers.Camps, null)
+				'This is Camp component.'
 			);
 		}
 	}]);
 
-	return Main;
+	return Camp;
 }(_react.Component);
 
-exports.default = Main;
+exports.default = Camp;
 
 /***/ })
 /******/ ]);

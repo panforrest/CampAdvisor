@@ -4,28 +4,42 @@ import { profileReducer, accountReducer, reviewReducer, campReducer } from '../r
 
 var store;
 
-export default {
+// export default {
 
-    configureStore: () => {
+//     configureStore: () => {
     	
-    	const reducers = combineReducers({
-    		profile: profileReducer, 
-    	    account: accountReducer,
-            review: reviewReducer,
-            camp: campReducer
-        }),
+//     	const reducers = combineReducers({
+//     		profile: profileReducer, 
+//     	    account: accountReducer,
+//             review: reviewReducer,
+//             camp: campReducer
+//         }),
 
-    	store = createStore(
-    		reducers,
-    		applyMiddleware()
-    	)
+//     	store = createStore(
+//     		reducers,
+//     		applyMiddleware()
+//     	)
 
 
-    	return store
-    },
+//     	return store
+//     },
 
-    currentStore: () => {
-    	return store
-    }
+//     currentStore: () => {
+//     	return store
+//     }
 
-}
+// }
+
+var reducers = combineReducers({
+    profile: profileReducer, 
+    account: accountReducer,
+    review: reviewReducer,
+    camp: campReducer
+})
+
+var store = createStore(
+    reducers,
+    applyMiddleware(thunk)
+)
+
+export default store

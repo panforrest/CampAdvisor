@@ -16,9 +16,10 @@ class Admin extends Component {
             },
             camp: {
                 title: '',
-                description: '',
-                country: '',
-                url: ''
+                slug: ''
+                // description: '',
+                // country: '',
+                // url: ''
             }
         }
     }
@@ -104,10 +105,26 @@ class Admin extends Component {
     submitCamp(event){
         event.preventDefault()
         console.log('to submitCamp: '+JSON.stringify(this.state.camp))
-        APIManager.post('/api/camp', this.state.camp, (err, response) => {
+        var camp = this.state.camp
+        var tilte = track.title
+        var parts = title.split(' ')
+
+        var slug = ''
+        for (var i=0; i<parts.length; i++){
+            var word = parts[i]
+            slug += word
+            if (i != parts.length-1)
+                slug += '-'
+        }
+
+        // slug = slug.repalce('?', '-')
+        camp['slug'] = slug
+        console.log(JSON.stringify(camp))
+
+        APIManager.post('/api/camp', camp, (err, response) => {
             if (err){
                 const msg = err.message || err
-                alert(msg)
+                alert(JSON.stringify(msg))
                 return
             }
 
