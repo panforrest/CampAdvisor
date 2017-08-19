@@ -68,6 +68,7 @@ var Register = (function (Component) {
         },
         login: {
             value: function login(credentials) {
+                var _this = this;
                 APIManager.post("/account/login", credentials, function (err, response) {
                     if (err) {
                         var msg = err.message || err;
@@ -77,7 +78,7 @@ var Register = (function (Component) {
                     }
 
                     // console.log(JSON.stringify(response))
-                    // this.props.currentUserReceived(response.profile)
+                    _this.props.currentUserReceived(response.profile);
                     console.log("USER LOGGED IN: " + JSON.stringify(response));
                     window.location.href = "/account";
                 });

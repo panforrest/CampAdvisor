@@ -28666,6 +28666,8 @@ var Register = function (_Component) {
     }, {
         key: 'login',
         value: function login(credentials) {
+            var _this3 = this;
+
             _utils.APIManager.post('/account/login', credentials, function (err, response) {
                 if (err) {
                     var msg = err.message || err;
@@ -28675,7 +28677,7 @@ var Register = function (_Component) {
                 }
 
                 // console.log(JSON.stringify(response))
-                // this.props.currentUserReceived(response.profile)
+                _this3.props.currentUserReceived(response.profile);
                 console.log('USER LOGGED IN: ' + JSON.stringify(response));
                 window.location.href = '/account';
             });

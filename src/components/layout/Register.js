@@ -44,7 +44,7 @@ class Register extends Component {
             }
 
             // console.log(JSON.stringify(response))
-            // this.props.currentUserReceived(response.profile)
+            this.props.currentUserReceived(response.profile)
     		console.log('USER LOGGED IN: '+JSON.stringify(response))
     		window.location.href = '/account'
         })
