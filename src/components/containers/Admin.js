@@ -118,6 +118,7 @@ class Admin extends Component {
         }
 
         // slug = slug.repalce('?', '-')
+        slug = slug.replace('?', '-')
         camp['slug'] = slug
         console.log(JSON.stringify(camp))
 

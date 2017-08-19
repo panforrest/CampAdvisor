@@ -1,28 +1,8 @@
-// import React, { Component } from 'react'
-// import { Camps, Admin } from '../containers'
-
-// class Main extends Component {
-//     componentDidMount(){
-//     	console.log('Main componentDidMount:'+this.props.page)
-//     }
-
-// 	render(){
-// 		return(
-// 			<div>
-// 			    This is Main layout.
-// 			    < Admin />
-//                 < Camps />
-// 	        </div>
-// 		)
-// 	}
-// }
-
-// export default Main
 import React, { Component } from 'react'
 import Camps from './Camps'
 import Admin from './Admin'
-import Camp from '../layout/Camp'
-// import { Track } from '../layout'
+// import Camp from '../layout/Camp'
+import { Camp, Register, Account } from '../layout'
 
 class Main extends Component {
     componentDidMount(){
@@ -39,6 +19,12 @@ class Main extends Component {
 
         if (page == 'camp')
             content = <Camp slug={this.props.slug} />
+
+        if (page == 'register')
+            content = <Register />
+
+        if (page == 'account')
+            content = <Account />
 
 		return(
 			<div>

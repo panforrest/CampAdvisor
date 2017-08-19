@@ -2,7 +2,14 @@ import constants from '../constants'
 
 var initialState = {
 
-    currentUser: null //{}
+    // currentUser: null //{}
+    currentUser:{
+        // id: null,
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: ''
+    }    
 
 }
 

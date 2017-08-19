@@ -8,26 +8,6 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-// import React, { Component } from 'react'
-// import { Camps, Admin } from '../containers'
-
-// class Main extends Component {
-//     componentDidMount(){
-//     	console.log('Main componentDidMount:'+this.props.page)
-//     }
-
-// 	render(){
-// 		return(
-// 			<div>
-// 			    This is Main layout.
-// 			    < Admin />
-//                 < Camps />
-// 	        </div>
-// 		)
-// 	}
-// }
-
-// export default Main
 var _react = require("react");
 
 var React = _interopRequire(_react);
@@ -37,10 +17,12 @@ var Camps = _interopRequire(require("./Camps"));
 
 var Admin = _interopRequire(require("./Admin"));
 
-var Camp = _interopRequire(require("../layout/Camp"));
+// import Camp from '../layout/Camp'
+var _layout = require("../layout");
 
-// import { Track } from '../layout'
-
+var Camp = _layout.Camp;
+var Register = _layout.Register;
+var Account = _layout.Account;
 var Main = (function (Component) {
     function Main() {
         _classCallCheck(this, Main);
@@ -72,6 +54,10 @@ var Main = (function (Component) {
                 );
 
                 if (page == "camp") content = React.createElement(Camp, { slug: this.props.slug });
+
+                if (page == "register") content = React.createElement(Register, null);
+
+                if (page == "account") content = React.createElement(Account, null);
 
                 return React.createElement(
                     "div",

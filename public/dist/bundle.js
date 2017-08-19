@@ -11485,7 +11485,37 @@ module.exports = g;
 module.exports = __webpack_require__(145);
 
 /***/ }),
-/* 102 */,
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.Register = exports.Account = exports.Camp = undefined;
+
+var _Camp = __webpack_require__(255);
+
+var _Camp2 = _interopRequireDefault(_Camp);
+
+var _Account = __webpack_require__(256);
+
+var _Account2 = _interopRequireDefault(_Account);
+
+var _Register = __webpack_require__(257);
+
+var _Register2 = _interopRequireDefault(_Register);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Camp = _Camp2.default;
+exports.Account = _Account2.default;
+exports.Register = _Register2.default; // import Home from './Home'
+// import Main from './Main'
+
+/***/ }),
 /* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27386,6 +27416,7 @@ var Admin = function (_Component) {
             }
 
             // slug = slug.repalce('?', '-')
+            slug = slug.replace('?', '-');
             camp['slug'] = slug;
             console.log(JSON.stringify(camp));
 
@@ -27837,10 +27868,15 @@ var Signup = function (_Component) {
                 'div',
                 null,
                 this.props.currentUser != null ? _react2.default.createElement(
-                    'p',
+                    'h2',
                     null,
-                    'Welcome, ',
-                    this.props.currentUser.email
+                    ' Welcome, ',
+                    this.props.currentUser.email,
+                    ' ',
+                    this.props.currentUser.firstName,
+                    ' ',
+                    this.props.currentUser.lastName,
+                    ' '
                 ) : _react2.default.createElement(
                     'div',
                     null,
@@ -27943,7 +27979,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var initialState = {
 
-    currentUser: null //{}
+    // currentUser: null //{}
+    currentUser: {
+        // id: null,
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: ''
+    }
 
 };
 
@@ -28347,9 +28390,7 @@ var _Admin = __webpack_require__(239);
 
 var _Admin2 = _interopRequireDefault(_Admin);
 
-var _Camp = __webpack_require__(255);
-
-var _Camp2 = _interopRequireDefault(_Camp);
+var _layout = __webpack_require__(102);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28357,29 +28398,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // import React, { Component } from 'react'
-// import { Camps, Admin } from '../containers'
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import Camp from '../layout/Camp'
 
-// class Main extends Component {
-//     componentDidMount(){
-//     	console.log('Main componentDidMount:'+this.props.page)
-//     }
-
-// 	render(){
-// 		return(
-// 			<div>
-// 			    This is Main layout.
-// 			    < Admin />
-//                 < Camps />
-// 	        </div>
-// 		)
-// 	}
-// }
-
-// export default Main
-
-
-// import { Track } from '../layout'
 
 var Main = function (_Component) {
     _inherits(Main, _Component);
@@ -28409,7 +28430,11 @@ var Main = function (_Component) {
                 _react2.default.createElement(_Admin2.default, null)
             );
 
-            if (page == 'camp') content = _react2.default.createElement(_Camp2.default, { slug: this.props.slug });
+            if (page == 'camp') content = _react2.default.createElement(_layout.Camp, { slug: this.props.slug });
+
+            if (page == 'register') content = _react2.default.createElement(_layout.Register, null);
+
+            if (page == 'account') content = _react2.default.createElement(_layout.Account, null);
 
             return _react2.default.createElement(
                 'div',
@@ -28473,6 +28498,286 @@ var Camp = function (_Component) {
 }(_react.Component);
 
 exports.default = Camp;
+
+/***/ }),
+/* 256 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _utils = __webpack_require__(36);
+
+var _actions = __webpack_require__(35);
+
+var _actions2 = _interopRequireDefault(_actions);
+
+var _reactRedux = __webpack_require__(21);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <h3>Hi, {this.props.currentUser.firstName} {this.props.currentUser.lastName}</h3>
+//import actions from '../../constants'
+
+
+var Account = function (_Component) {
+  _inherits(Account, _Component);
+
+  function Account(props, context) {
+    _classCallCheck(this, Account);
+
+    var _this = _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).call(this, props, context));
+
+    _this.state = {
+      currentUser: {
+        // firstName: '',
+        // lastName: '',
+        // email: ''
+      }
+    };
+    return _this;
+  }
+
+  _createClass(Account, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      // console.log('componentDidMount: ')
+      _utils.APIManager.get('/account/currentuser', null, function (err, response) {
+        if (err) {
+          var msg = err.message || err;
+          alert(msg);
+          return;
+        }
+        // console.log('Admin.js: ', JSON.stringify(response.profile))
+        _this2.props.currentUserReceived(response.profile);
+      });
+    }
+  }, {
+    key: 'logout',
+    value: function logout(event) {
+      var _this3 = this;
+
+      //logout(){
+      // console.log('logout: ')
+      _utils.APIManager.get('/account/logout', null, function (err, response) {
+        if (err) {
+          var msg = err.message || err;
+          alert(msg);
+          return;
+        }
+        console.log(_this3.props.currentUser.firstName);
+        window.location.href = '/';
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        'This is Account Layout.',
+        _react2.default.createElement(
+          'h3',
+          null,
+          'Hi, ',
+          this.props.currentUser.firstName,
+          ' ',
+          this.props.currentUser.lastName
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.logout.bind(this) },
+          'logout'
+        )
+      );
+    }
+  }]);
+
+  return Account;
+}(_react.Component);
+
+var stateToProps = function stateToProps(state) {
+  return {
+    // profile: state.account.currentUser
+    //currentUser: state.account.currentUser
+    currentUser: state.account.currentUser
+  };
+};
+
+var dispatchToProps = function dispatchToProps(dispatch) {
+  return {
+    // currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile))
+    currentUserReceived: function currentUserReceived(profile) {
+      return dispatch(_actions2.default.currentUserReceived(profile));
+    }
+
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Account);
+
+/***/ }),
+/* 257 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _presentation = __webpack_require__(245);
+
+var _utils = __webpack_require__(36);
+
+var _actions = __webpack_require__(35);
+
+var _actions2 = _interopRequireDefault(_actions);
+
+var _reactRedux = __webpack_require__(21);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Register = function (_Component) {
+    _inherits(Register, _Component);
+
+    function Register() {
+        _classCallCheck(this, Register);
+
+        return _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).apply(this, arguments));
+    }
+
+    _createClass(Register, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            // console.log('componentDidMount: ')
+            _utils.APIManager.get('/account/currentuser', null, function (err, response) {
+                if (err) {
+                    var msg = err.message || err;
+                    alert(msg);
+                    return;
+                }
+                console.log('Admin.js: ', JSON.stringify(response.profile));
+                _this2.props.currentUserReceived(response.profile);
+            });
+        }
+    }, {
+        key: 'register',
+        value: function register(visitor) {
+            _utils.APIManager.post('/account/register', visitor, function (err, response) {
+                if (err) {
+                    var msg = err.message || err;
+                    alert(msg);
+                    return;
+                }
+
+                // console.log('register: '+JSON.stringify(response))
+                // this.props.profileCreated(response.profile)
+                console.log('PROFILE CREATED:' + JSON.stringify(response));
+                window.location.href = '/account';
+            });
+        }
+    }, {
+        key: 'login',
+        value: function login(credentials) {
+            _utils.APIManager.post('/account/login', credentials, function (err, response) {
+                if (err) {
+                    var msg = err.message || err;
+                    // console.log(msg)
+                    alert(msg);
+                    return;
+                }
+
+                // console.log(JSON.stringify(response))
+                // this.props.currentUserReceived(response.profile)
+                console.log('USER LOGGED IN: ' + JSON.stringify(response));
+                window.location.href = '/account';
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                this.props.currentUser != null ? _react2.default.createElement(
+                    'h2',
+                    null,
+                    ' Welcome, ',
+                    this.props.currentUser.email,
+                    ' ',
+                    this.props.currentUser.firstName,
+                    ' ',
+                    this.props.currentUser.lastName,
+                    ' '
+                ) : _react2.default.createElement(
+                    'div',
+                    null,
+                    'This is Register container.',
+                    _react2.default.createElement(_presentation.Signup, { onRegister: this.register.bind(this), onLogin: this.login.bind(this) })
+                )
+            );
+        }
+    }]);
+
+    return Register;
+}(_react.Component);
+
+var stateToProps = function stateToProps(state) {
+    return {
+        // profiles: state.profile.list,
+        currentUser: state.account.currentUser
+    };
+};
+
+var dispatchToProps = function dispatchToProps(dispatch) {
+    return {
+        profileCreated: function profileCreated(profile) {
+            return dispatch(_actions2.default.profileCreated(profile));
+        },
+        //profilesReceived: (profiles) => disptach(actions.profilesReceived(profiles)),
+        currentUserReceived: function currentUserReceived(profile) {
+            return dispatch(_actions2.default.currentUserReceived(profile));
+        }
+        // bugCreated: (bug) => dispatch(actions.bugCreated(bug)),
+        // trackCreated: (track) => dispatch(actions.trackCreated(track))
+
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Register);
 
 /***/ })
 /******/ ]);
