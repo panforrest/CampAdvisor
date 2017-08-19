@@ -69,11 +69,16 @@ class Camp extends Component {
 
     submitReview(event){
         event.preventDefault()
+        if (this.props.currentUser == null) {
+            alert('Please log in to record new bug')
+            return
+        }
+
         var review = Object.assign({}, this.state.review)   
         console.log(JSON.stringify(this.props.camp._id))
         console.log(JSON.stringify(this.props.currentUser._id))
         review['camp'] = this.props.camp._id
-        review['profile'] = this.props.currentUser._id
+        review['profile'] = this.props.currentUser.id  //WHY NOT _id?
 
         APIManager.post('/api/review', review, (err, response) => {
             if (err) {
