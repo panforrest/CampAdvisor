@@ -37,7 +37,7 @@ var Footer = (function (Component) {
                             "div",
                             { className: "col_half" },
                             React.createElement("img", { src: "images/footer-logo.png", alt: "", className: "footer-logo" }),
-                            "Copyrights © 2014 All Rights Reserved by Canvas Inc."
+                            "Copyrights © 2017 All Rights Reserved by CampAdvisor Inc."
                         ),
                         React.createElement(
                             "div",

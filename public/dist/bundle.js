@@ -29359,7 +29359,7 @@ exports.default = CampPreview;
 
 
 Object.defineProperty(exports, "__esModule", {
-				value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -29368,111 +29368,153 @@ var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _utils = __webpack_require__(16);
+
+var _actions = __webpack_require__(19);
+
+var _actions2 = _interopRequireDefault(_actions);
+
+var _reactRedux = __webpack_require__(14);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <li><a href="/"><div>{this.props.currentUser.email}</div></a></li>
+
 
 var Nav = function (_Component) {
-				_inherits(Nav, _Component);
+	_inherits(Nav, _Component);
 
-				function Nav() {
-								_classCallCheck(this, Nav);
+	function Nav() {
+		_classCallCheck(this, Nav);
 
-								return _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).apply(this, arguments));
+		return _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).apply(this, arguments));
+	}
+
+	_createClass(Nav, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var _this2 = this;
+
+			// console.log('Nav componentDidMount: ')
+			_utils.APIManager.get('/account/currentuser', null, function (err, response) {
+				if (err) {
+					var msg = err.message || err;
+					alert(msg);
+					return;
 				}
 
-				_createClass(Nav, [{
-								key: "render",
-								value: function render() {
-												return _react2.default.createElement(
-																"header",
-																{ id: "header", className: "transparent-header dark" },
-																_react2.default.createElement(
-																				"div",
-																				{ id: "header-wrap" },
-																				_react2.default.createElement(
-																								"div",
-																								{ className: "container clearfix" },
-																								_react2.default.createElement(
-																												"div",
-																												{ id: "primary-menu-trigger" },
-																												_react2.default.createElement("i", { className: "icon-reorder" })
-																								),
-																								_react2.default.createElement(
-																												"div",
-																												{ id: "logo" },
-																												_react2.default.createElement(
-																																"a",
-																																{ href: "/", className: "standard-logo", "data-dark-logo": "/images/logo-dark.png" },
-																																_react2.default.createElement("img", { src: "/images/logo.png", alt: "Canvas Logo" })
-																												),
-																												_react2.default.createElement(
-																																"a",
-																																{ href: "/", className: "retina-logo", "data-dark-logo": "/images/logo-dark@2x.png" },
-																																_react2.default.createElement("img", { src: "/images/logo@2x.png", alt: "Canvas Logo" })
-																												)
-																								),
-																								_react2.default.createElement(
-																												"nav",
-																												{ id: "primary-menu" },
-																												_react2.default.createElement(
-																																"ul",
-																																null,
-																																_react2.default.createElement(
-																																				"li",
-																																				null,
-																																				_react2.default.createElement(
-																																								"a",
-																																								{ href: "/" },
-																																								_react2.default.createElement(
-																																												"div",
-																																												null,
-																																												"Home"
-																																								)
-																																				)
-																																),
-																																_react2.default.createElement(
-																																				"li",
-																																				null,
-																																				_react2.default.createElement(
-																																								"a",
-																																								{ href: "/register" },
-																																								_react2.default.createElement(
-																																												"div",
-																																												null,
-																																												"Register"
-																																								)
-																																				)
-																																),
-																																_react2.default.createElement(
-																																				"li",
-																																				null,
-																																				_react2.default.createElement(
-																																								"a",
-																																								{ href: "/" },
-																																								_react2.default.createElement(
-																																												"div",
-																																												null,
-																																												"Home"
-																																								)
-																																				)
-																																)
-																												)
-																								)
-																				)
-																)
-												);
-								}
-				}]);
+				console.log('Nav componentDidMount: currentuser is ' + JSON.stringify(response.profile));
+				_this2.props.currentUserReceived(response.profile);
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var content = this.props.currentUser == null ? '' : this.props.currentUser.email;
 
-				return Nav;
+			return _react2.default.createElement(
+				'header',
+				{ id: 'header', className: 'transparent-header dark' },
+				_react2.default.createElement(
+					'div',
+					{ id: 'header-wrap' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'container clearfix' },
+						_react2.default.createElement(
+							'div',
+							{ id: 'primary-menu-trigger' },
+							_react2.default.createElement('i', { className: 'icon-reorder' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ id: 'logo' },
+							_react2.default.createElement(
+								'a',
+								{ href: '/', className: 'standard-logo', 'data-dark-logo': '/images/logo-dark.png' },
+								_react2.default.createElement('img', { src: '/images/logo.png', alt: 'Canvas Logo' })
+							),
+							_react2.default.createElement(
+								'a',
+								{ href: '/', className: 'retina-logo', 'data-dark-logo': '/images/logo-dark@2x.png' },
+								_react2.default.createElement('img', { src: '/images/logo@2x.png', alt: 'Canvas Logo' })
+							)
+						),
+						_react2.default.createElement(
+							'nav',
+							{ id: 'primary-menu' },
+							_react2.default.createElement(
+								'ul',
+								null,
+								_react2.default.createElement(
+									'li',
+									null,
+									_react2.default.createElement(
+										'a',
+										{ href: '/' },
+										_react2.default.createElement(
+											'div',
+											null,
+											'Home'
+										)
+									)
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									_react2.default.createElement(
+										'a',
+										{ href: '/register' },
+										_react2.default.createElement(
+											'div',
+											null,
+											'Register'
+										)
+									)
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									_react2.default.createElement(
+										'a',
+										{ href: '/' },
+										_react2.default.createElement(
+											'div',
+											null,
+											content
+										)
+									)
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return Nav;
 }(_react.Component);
 
-exports.default = Nav;
+var stateToProps = function stateToProps(state) {
+	return {
+		currentUser: state.account.currentUser
+	};
+};
+
+var dispatchToProps = function dispatchToProps(dispatch) {
+	return {
+		currentUserReceived: function currentUserReceived(profile) {
+			return dispatch(_actions2.default.currentUserReceived(profile));
+		}
+	};
+};
+
+exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Nav);
 
 /***/ }),
 /* 260 */
@@ -29521,7 +29563,7 @@ var Footer = function (_Component) {
                         "div",
                         { className: "col_half" },
                         _react2.default.createElement("img", { src: "images/footer-logo.png", alt: "", className: "footer-logo" }),
-                        "Copyrights \xA9 2014 All Rights Reserved by CampAdvisor Inc."
+                        "Copyrights \xA9 2017 All Rights Reserved by CampAdvisor Inc."
                     ),
                     _react2.default.createElement(
                         "div",
