@@ -28,7 +28,9 @@ var Camp = (function (Component) {
         this.state = {
             camp: {
                 title: ""
-            }
+            },
+            review: {
+                text: "" }
         };
     }
 
@@ -37,6 +39,7 @@ var Camp = (function (Component) {
     _prototypeProperties(Camp, null, {
         componentDidMount: {
             value: function componentDidMount() {
+                var _this2 = this;
                 var _this = this;
                 APIManager.get("/api/camp?slug=" + this.props.slug, null, function (err, response) {
                     if (err) {
@@ -46,8 +49,70 @@ var Camp = (function (Component) {
                     }
                     console.log(JSON.stringify(response.results));
                     var camps = response.results;
-                    _this.props.campsReceived(camps);
+                    _this2.props.campsReceived(camps);
+                    _this.fetchPosts();
                 });
+            },
+            writable: true,
+            configurable: true
+        },
+        fetchPosts: {
+            value: function fetchPosts() {
+                console.log("fetchPosts: ");
+                console.log(JSON.stringify(this.props.camp._id));
+                if (this.props.camp._id == null) {
+                    return;
+                }
+
+                var id = this.props.camp._id;
+                APIManager.get("/api/review?camp=" + id, null, function (err, response) {
+                    if (err) {
+                        var msg = err.message || err;
+                        alert(msg);
+                        return;
+                    }
+
+                    console.log(JSON.stringify(response.results));
+                });
+            },
+            writable: true,
+            configurable: true
+        },
+        updateReview: {
+            value: function updateReview(event) {
+                event.preventDefault();
+                console.log(event.target.id + " == " + event.target.value);
+                var updatedReview = Object.assign({}, this.state.review);
+                updatedReview[event.target.id] = event.target.value;
+                var review = updatedReview;
+                this.setState({
+                    review: review
+                });
+                console.log("updatedReview: " + JSON.stringify(this.state.Review));
+            },
+            writable: true,
+            configurable: true
+        },
+        submitReview: {
+            value: function submitReview(event) {
+                var _this = this;
+                event.preventDefault();
+                var review = Object.assign({}, this.state.review);
+                console.log(JSON.stringify(this.props.camp._id));
+                console.log(JSON.stringify(this.props.currentUser._id));
+                review.camp = this.props.camp._id;
+                review.profile = this.props.currentUser._id;
+
+                APIManager.post("/api/review", review, function (err, response) {
+                    if (err) {
+                        var msg = err.message || err;
+                        alert(msg);
+                        return;
+                    }
+                    _this.props.reviewCreated(response.result);
+                    console.log("submitReview: " + JSON.stringify(response.result));
+                });
+
             },
             writable: true,
             configurable: true
@@ -74,11 +139,11 @@ var Camp = (function (Component) {
                                         null,
                                         this.props.camp.title
                                     ),
-                                    React.createElement("textarea", { placeholder: "Add your review here", className: "form-control" }),
+                                    React.createElement("textarea", { onChange: this.updateReview.bind(this), placeholder: "Add Your Review Here", id: "text", className: "form-control" }),
                                     React.createElement("br", null),
                                     React.createElement(
                                         "button",
-                                        { className: "btn btn-success" },
+                                        { onClick: this.submitReview.bind(this), className: "btn btn-success" },
                                         "Add Review"
                                     ),
                                     React.createElement("br", null),
@@ -148,7 +213,9 @@ var stateToProps = function (state) {
     var campsArray = state.camp.list;
 
     return {
-        camp: campsArray.length == 0 ? { name: "" } : campsArray[0]
+        camp: campsArray.length == 0 ? { name: "" } : campsArray[0],
+        reviews: state.review.list,
+        currentUser: state.account.currentUser
     };
 };
 
@@ -156,8 +223,12 @@ var dispatchToProps = function (dispatch) {
     return {
         campsReceived: function (camps) {
             return dispatch(actions.campsReceived(camps));
+        },
+        reviewCreated: function (review) {
+            return dispatch(actions.reviewCreated(review));
         }
     };
 };
 
 module.exports = connect(stateToProps, dispatchToProps)(Camp);
+// profile:''

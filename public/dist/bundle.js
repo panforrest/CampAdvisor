@@ -28385,21 +28385,26 @@ var Camp = function (_Component) {
     function Camp() {
         _classCallCheck(this, Camp);
 
-        var _this = _possibleConstructorReturn(this, (Camp.__proto__ || Object.getPrototypeOf(Camp)).call(this));
+        var _this2 = _possibleConstructorReturn(this, (Camp.__proto__ || Object.getPrototypeOf(Camp)).call(this));
 
-        _this.state = {
+        _this2.state = {
             camp: {
                 title: ''
+            },
+            review: {
+                text: ''
+                // profile:''
             }
         };
-        return _this;
+        return _this2;
     }
 
     _createClass(Camp, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this2 = this;
+            var _this3 = this;
 
+            var _this = this;
             _utils.APIManager.get('/api/camp?slug=' + this.props.slug, null, function (err, response) {
                 if (err) {
                     var msg = err.message || err;
@@ -28408,7 +28413,63 @@ var Camp = function (_Component) {
                 }
                 console.log(JSON.stringify(response.results));
                 var camps = response.results;
-                _this2.props.campsReceived(camps);
+                _this3.props.campsReceived(camps);
+                _this.fetchPosts();
+            });
+        }
+    }, {
+        key: 'fetchPosts',
+        value: function fetchPosts() {
+            console.log('fetchPosts: ');
+            console.log(JSON.stringify(this.props.camp._id));
+            if (this.props.camp._id == null) {
+                return;
+            }
+
+            var id = this.props.camp._id;
+            _utils.APIManager.get('/api/review?camp=' + id, null, function (err, response) {
+                if (err) {
+                    var msg = err.message || err;
+                    alert(msg);
+                    return;
+                }
+
+                console.log(JSON.stringify(response.results));
+            });
+        }
+    }, {
+        key: 'updateReview',
+        value: function updateReview(event) {
+            event.preventDefault();
+            console.log(event.target.id + ' == ' + event.target.value);
+            var updatedReview = Object.assign({}, this.state.review);
+            updatedReview[event.target.id] = event.target.value;
+            var review = updatedReview;
+            this.setState({
+                review: review
+            });
+            console.log('updatedReview: ' + JSON.stringify(this.state.Review));
+        }
+    }, {
+        key: 'submitReview',
+        value: function submitReview(event) {
+            var _this4 = this;
+
+            event.preventDefault();
+            var review = Object.assign({}, this.state.review);
+            console.log(JSON.stringify(this.props.camp._id));
+            console.log(JSON.stringify(this.props.currentUser._id));
+            review['camp'] = this.props.camp._id;
+            review['profile'] = this.props.currentUser._id;
+
+            _utils.APIManager.post('/api/review', review, function (err, response) {
+                if (err) {
+                    var msg = err.message || err;
+                    alert(msg);
+                    return;
+                }
+                _this4.props.reviewCreated(response.result);
+                console.log('submitReview: ' + JSON.stringify(response.result));
             });
         }
     }, {
@@ -28434,11 +28495,11 @@ var Camp = function (_Component) {
                                     null,
                                     this.props.camp.title
                                 ),
-                                _react2.default.createElement('textarea', { placeholder: 'Add your review here', className: 'form-control' }),
+                                _react2.default.createElement('textarea', { onChange: this.updateReview.bind(this), placeholder: 'Add Your Review Here', id: 'text', className: 'form-control' }),
                                 _react2.default.createElement('br', null),
                                 _react2.default.createElement(
                                     'button',
-                                    { className: 'btn btn-success' },
+                                    { onClick: this.submitReview.bind(this), className: 'btn btn-success' },
                                     'Add Review'
                                 ),
                                 _react2.default.createElement('br', null),
@@ -28505,7 +28566,9 @@ var stateToProps = function stateToProps(state) {
     var campsArray = state.camp.list;
 
     return {
-        camp: campsArray.length == 0 ? { name: '' } : campsArray[0]
+        camp: campsArray.length == 0 ? { name: '' } : campsArray[0],
+        reviews: state.review.list,
+        currentUser: state.account.currentUser
     };
 };
 
@@ -28513,6 +28576,9 @@ var dispatchToProps = function dispatchToProps(dispatch) {
     return {
         campsReceived: function campsReceived(camps) {
             return dispatch(_actions2.default.campsReceived(camps));
+        },
+        reviewCreated: function reviewCreated(review) {
+            return dispatch(_actions2.default.reviewCreated(review));
         }
     };
 };
@@ -29090,6 +29156,7 @@ exports.default = function () {
             var updatedList = Object.assign([], updated.list);
             updatedList.push(action.review);
             updated['list'] = updatedList;
+            console.log('REVIEW_CREATED: ' + JSON.stringify(updated['list']));
             return updated;
 
         default:
