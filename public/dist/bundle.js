@@ -27405,7 +27405,7 @@ var Admin = function (_Component) {
             event.preventDefault();
             console.log('to submitCamp: ' + JSON.stringify(this.state.camp));
             var camp = this.state.camp;
-            var tilte = track.title;
+            var title = camp.title;
             var parts = title.split(' ');
 
             var slug = '';
@@ -28457,7 +28457,7 @@ exports.default = Main;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28465,6 +28465,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _utils = __webpack_require__(36);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28475,26 +28477,56 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Camp = function (_Component) {
-	_inherits(Camp, _Component);
+  _inherits(Camp, _Component);
 
-	function Camp() {
-		_classCallCheck(this, Camp);
+  function Camp() {
+    _classCallCheck(this, Camp);
 
-		return _possibleConstructorReturn(this, (Camp.__proto__ || Object.getPrototypeOf(Camp)).apply(this, arguments));
-	}
+    var _this = _possibleConstructorReturn(this, (Camp.__proto__ || Object.getPrototypeOf(Camp)).call(this));
 
-	_createClass(Camp, [{
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement(
-				'div',
-				null,
-				'This is Camp component.'
-			);
-		}
-	}]);
+    _this.state = {
+      camp: {
+        title: ''
+      }
+    };
+    return _this;
+  }
 
-	return Camp;
+  _createClass(Camp, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _utils.APIManager.get('/api/camp?slug=' + this.props.slug, null, function (err, response) {
+        if (err) {
+          var msg = err.message || err;
+          alert(msg);
+          return;
+        }
+        console.log(JSON.stringify(response.results)); //(response.result))
+        var camp = response.results[0];
+        _this2.setState({
+          camp: camp
+        });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'This is Camp component.',
+        _react2.default.createElement(
+          'h2',
+          null,
+          this.state.camp.title
+        )
+      );
+    }
+  }]);
+
+  return Camp;
 }(_react.Component);
 
 exports.default = Camp;

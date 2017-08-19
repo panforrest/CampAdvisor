@@ -106,7 +106,7 @@ class Admin extends Component {
         event.preventDefault()
         console.log('to submitCamp: '+JSON.stringify(this.state.camp))
         var camp = this.state.camp
-        var tilte = track.title
+        var title = camp.title
         var parts = title.split(' ')
 
         var slug = ''
