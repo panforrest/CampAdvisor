@@ -1,7 +1,9 @@
-import Home from './Home'
+// import Home from './Home'
+import Main from './Main'
 
 export {
 
-	Home
+	// Home
+	Main
 
 }
