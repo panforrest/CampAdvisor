@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Camps from './Camps'
-import Admin from './Admin'
+import Nav from './Nav'
 // import Camp from '../layout/Camp'
 import { Camp, Register, Account } from '../layout'
 
@@ -15,7 +15,7 @@ class Main extends Component {
         var content = null
         var page = this.props.page
         if (page == 'home')
-        	content = <div><Camps /><Admin /></div>
+        	content = <div><Camps /></div>
 
         if (page == 'camp')
             content = <Camp slug={this.props.slug} />
@@ -28,6 +28,7 @@ class Main extends Component {
 
 		return(
 			<div>
+                <Nav />
                 { content }
 	        </div>
 		)

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {APIManager} from '../../utils' 
+import { Nav } from '../containers'
 
 class Camp extends Component {
     constructor(){
@@ -31,7 +32,11 @@ class Camp extends Component {
 			<div>
 			    This is Camp component.
 			    <h2>{this.state.camp.title}</h2>
-			</div>
+			    <ol>
+                    <li>Review1</li>
+                    <li>Review2</li>
+                </ol>
+            </div>
 		)
 	}
 }

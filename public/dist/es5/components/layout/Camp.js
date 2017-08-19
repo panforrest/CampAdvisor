@@ -16,6 +16,7 @@ var React = _interopRequire(_react);
 
 var Component = _react.Component;
 var APIManager = require("../../utils").APIManager;
+var Nav = require("../containers").Nav;
 var Camp = (function (Component) {
   function Camp() {
     _classCallCheck(this, Camp);
@@ -60,6 +61,20 @@ var Camp = (function (Component) {
             "h2",
             null,
             this.state.camp.title
+          ),
+          React.createElement(
+            "ol",
+            null,
+            React.createElement(
+              "li",
+              null,
+              "Review1"
+            ),
+            React.createElement(
+              "li",
+              null,
+              "Review2"
+            )
           )
         );
       },

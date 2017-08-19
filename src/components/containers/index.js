@@ -3,6 +3,7 @@ import Reviews from './Reviews'
 import Admin from './Admin'
 import Camps from './Camps'
 import Main from './Main'
+import Nav from './Nav'
 
 export {
 
@@ -10,6 +11,7 @@ export {
     Reviews,
     Admin,
     Camps,
-    Main
+    Main,
+    Nav
 
 }

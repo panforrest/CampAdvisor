@@ -3,6 +3,7 @@ import { Signup } from '../presentation'
 import { APIManager } from '../../utils' 
 import actions from '../../actions'
 import { connect } from 'react-redux'
+import { Nav } from '../containers'
 
 class Register extends Component {
     componentDidMount(){

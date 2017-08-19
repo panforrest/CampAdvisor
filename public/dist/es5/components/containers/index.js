@@ -12,11 +12,14 @@ var Camps = _interopRequire(require("./Camps"));
 
 var Main = _interopRequire(require("./Main"));
 
+var Nav = _interopRequire(require("./Nav"));
+
 exports.Profiles = Profiles;
 exports.Reviews = Reviews;
 exports.Admin = Admin;
 exports.Camps = Camps;
 exports.Main = Main;
+exports.Nav = Nav;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });

@@ -19,6 +19,10 @@ var APIManager = require("../../utils").APIManager;
 var actions = _interopRequire(require("../../actions"));
 
 var connect = require("react-redux").connect;
+var CampPreview = _interopRequire(require("./CampPreview"));
+
+var Admin = _interopRequire(require("./Admin"));
+
 var Camps = (function (Component) {
 	function Camps(context, props) {
 		_classCallCheck(this, Camps);
@@ -52,31 +56,32 @@ var Camps = (function (Component) {
 		},
 		render: {
 			value: function render() {
-				var camps = this.props.camps.map(function (camp, i) {
-					return React.createElement(
-						"li",
-						{ key: camp._id },
-						React.createElement(
-							"a",
-							{ href: "/camp/" + camp.slug },
-							camp.title
-						)
-					);
+				var campList = this.props.camps.map(function (camp, i) {
+					return React.createElement(CampPreview, { key: camp._id, camp: camp });
 				});
 
 				return React.createElement(
 					"div",
-					null,
+					{ className: "container clearifx" },
 					React.createElement(
-						"h2",
-						null,
-						"Camp List"
+						"div",
+						{ className: "col_three_fifth bothsidebar nobottommargin" },
+						React.createElement(
+							"div",
+							{ className: "fancy-title title-border" },
+							React.createElement(
+								"h3",
+								null,
+								"Camps"
+							)
+						),
+						React.createElement(
+							"div",
+							{ id: "posts", className: "events small-thumbs" },
+							campList
+						)
 					),
-					React.createElement(
-						"ol",
-						null,
-						camps
-					)
+					React.createElement(Admin, null)
 				);
 			},
 			writable: true,

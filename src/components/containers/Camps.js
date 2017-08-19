@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { APIManager } from '../../utils'
 import actions from '../../actions'
 import { connect } from 'react-redux'
+import CampPreview from './CampPreview'
+import Admin from './Admin'
 
 class Camps extends Component {
-
 	constructor(context, props){
 		super(context, props)
 		this.state = {
@@ -27,20 +28,24 @@ class Camps extends Component {
 	}
 
 	render(){
-        var camps = this.props.camps.map((camp, i) => {
-        	return(
-                <li key={camp._id}><a href={'/camp/'+camp.slug}>{camp.title}</a></li>
-        	)
+        var campList = this.props.camps.map((camp, i) => {
+        	return <CampPreview key={camp._id} camp={camp} />
         })
 
-		return(
-			<div>
-                <h2>Camp List</h2>
-                  <ol>
-                    {camps}
-                  </ol>
+    	return(
+    		<div className="container clearifx">
+                <div className="col_three_fifth bothsidebar nobottommargin">
+                    <div className="fancy-title title-border">
+                        <h3>Camps</h3>
+                    </div>
+
+                    <div id="posts" className="events small-thumbs">
+                        {campList}
+                    </div>    
+                </div>
+                <Admin />
             </div>    
-		)
+        )
 	}
 }
 

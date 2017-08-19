@@ -15,7 +15,7 @@ var React = _interopRequire(_react);
 var Component = _react.Component;
 var Camps = _interopRequire(require("./Camps"));
 
-var Admin = _interopRequire(require("./Admin"));
+var Nav = _interopRequire(require("./Nav"));
 
 // import Camp from '../layout/Camp'
 var _layout = require("../layout");
@@ -49,8 +49,7 @@ var Main = (function (Component) {
                 if (page == "home") content = React.createElement(
                     "div",
                     null,
-                    React.createElement(Camps, null),
-                    React.createElement(Admin, null)
+                    React.createElement(Camps, null)
                 );
 
                 if (page == "camp") content = React.createElement(Camp, { slug: this.props.slug });
@@ -62,6 +61,7 @@ var Main = (function (Component) {
                 return React.createElement(
                     "div",
                     null,
+                    React.createElement(Nav, null),
                     content
                 );
             },

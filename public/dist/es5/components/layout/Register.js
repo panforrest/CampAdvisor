@@ -18,6 +18,7 @@ var APIManager = require("../../utils").APIManager;
 var actions = _interopRequire(require("../../actions"));
 
 var connect = require("react-redux").connect;
+var Nav = require("../containers").Nav;
 var Register = (function (Component) {
     function Register() {
         _classCallCheck(this, Register);
