@@ -15,7 +15,7 @@ export default (state=initialState, action) => {
 		    return updatedState
         
         case constants.CAMP_CREATED:
-            // const updatedList = Object.assign([], updatedState.list)
+            const updatedList = Object.assign([], updatedState.list)
             updatedList.push(action.camp)
             updatedState['list'] = updatedList
             return updatedState

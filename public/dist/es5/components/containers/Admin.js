@@ -96,41 +96,35 @@ var Admin = (function (Component) {
             writable: true,
             configurable: true
         },
-        updateReview: {
-            value: function updateReview(event) {
-                event.preventDefault();
-                var updatedReview = Object.assign({}, this.state.review);
-                updatedReview[event.target.id] = event.target.value;
-                this.setState({
-                    review: updatedReview
-                });
-                console.log("updatedReview: " + JSON.stringify(this.state.review));
-            },
-            writable: true,
-            configurable: true
-        },
-        submitReview: {
-            value: function submitReview(event) {
-                var _this = this;
-                event.preventDefault();
-                var review = this.state.review;
-                review.profile = this.props.currentUser.id;
-
-                APIManager.post("/api/review", review, function (err, response) {
-                    if (err) {
-                        var msg = err.message || err;
-                        alert(JSON.stringify(msg));
-                        return;
-                    }
-                    console.log("submit: " + JSON.stringify(response.result));
-                    var result = response.result;
-                    _this.props.reviewCreated(review);
-                });
-            },
-            writable: true,
-            configurable: true
-        },
         updateCamp: {
+
+            // updateReview(event){
+            //     event.preventDefault()
+            //     let updatedReview = Object.assign({}, this.state.review)
+            //     updatedReview[event.target.id] = event.target.value 
+            //     this.setState({
+            //         review: updatedReview
+            //     })
+            //     console.log('updatedReview: '+JSON.stringify(this.state.review))
+            // }
+
+            // submitReview(event){
+            //     event.preventDefault()
+            //     var review = this.state.review
+            //     review['profile'] = this.props.currentUser.id
+
+            //     APIManager.post('/api/review', review, (err, response) => {
+            //         if (err){
+            //             const msg = err.message || err
+            //             alert(JSON.stringify(msg))
+            //             return
+            //         }
+            //         console.log('submit: '+JSON.stringify(response.result))
+            //         var result = response.result
+            //         this.props.reviewCreated(review)
+            //     })
+            // }
+
             value: function updateCamp(event) {
                 event.preventDefault();
                 console.log("updateCamp: " + event.target.id + " == " + event.target.value);
@@ -173,6 +167,7 @@ var Admin = (function (Component) {
 
                     console.log("camp submitted: " + JSON.stringify(response.result));
                     _this.props.campCreated(response.result);
+                    window.location.href = "/camp/" + camp.slug;
                 });
             },
             writable: true,
@@ -189,19 +184,11 @@ var Admin = (function (Component) {
                         React.createElement(
                             "h2",
                             null,
-                            "Welcome, ",
-                            this.props.currentUser.email
+                            "Welcome! ",
+                            this.props.currentUser.firstName,
+                            " ",
+                            this.props.currentUser.lastName
                         ),
-                        React.createElement(
-                            "h3",
-                            null,
-                            "Create Review"
-                        ),
-                        React.createElement("input", { onChange: this.updateReview.bind(this), type: "text", id: "camp", placeholder: "Camp" }),
-                        React.createElement("br", null),
-                        React.createElement("input", { onChange: this.updateReview.bind(this), type: "text", id: "text", placeholder: "Text" }),
-                        React.createElement("br", null),
-                        React.createElement("input", { onClick: this.submitReview.bind(this), type: "submit", value: "Submit" }),
                         React.createElement(
                             "h3",
                             null,

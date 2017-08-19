@@ -8,6 +8,7 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
+// <img src="images/footer-logo.png" alt="" className="footer-logo" />
 var _react = require("react");
 
 var React = _interopRequire(_react);
@@ -36,7 +37,6 @@ var Footer = (function (Component) {
                         React.createElement(
                             "div",
                             { className: "col_half" },
-                            React.createElement("img", { src: "images/footer-logo.png", alt: "", className: "footer-logo" }),
                             "Copyrights © 2017 All Rights Reserved by CampAdvisor Inc."
                         ),
                         React.createElement(
@@ -61,12 +61,6 @@ var Footer = (function (Component) {
                                     "a",
                                     { href: "#" },
                                     "Features"
-                                ),
-                                "/",
-                                React.createElement(
-                                    "a",
-                                    { href: "#" },
-                                    "Portfolio"
                                 ),
                                 "/",
                                 React.createElement(

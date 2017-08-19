@@ -1,3 +1,4 @@
+// <img src="images/footer-logo.png" alt="" className="footer-logo" />
 import React, { Component } from 'react'
 
 class Footer extends Component {
@@ -13,14 +14,14 @@ class Footer extends Component {
                 <div className="container clearfix">
 
                     <div className="col_half">
-                        <img src="images/footer-logo.png" alt="" className="footer-logo" />
+                        
 
                         Copyrights &copy; 2017 All Rights Reserved by CampAdvisor Inc.
                     </div>
 
                     <div className="col_half col_last tright">
                         <div className="copyrights-menu copyright-links fright clearfix">
-                            <a href="#">Home</a>/<a href="#">About</a>/<a href="#">Features</a>/<a href="#">Portfolio</a>/<a href="#">FAQs</a>/<a href="#">Contact</a>
+                            <a href="#">Home</a>/<a href="#">About</a>/<a href="#">Features</a>/<a href="#">FAQs</a>/<a href="#">Contact</a>
                         </div>
                         <div className="fright clearfix">
                             <a href="#" className="social-icon si-small si-borderless nobottommargin si-facebook">

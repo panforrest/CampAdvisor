@@ -53,15 +53,25 @@ class Register extends Component {
 	render(){
 		return(
             <div>
-                {(this.props.currentUser != null) ? <h2> Welcome, { this.props.currentUser.email } { this.props.currentUser.firstName } { this.props.currentUser.lastName } </h2> :  
+                <section id="content">
+                    <div className="content-wrap">
+                        <div className="container clearfix">
+                            <div className="postcontent nobottommargin clearfix">
 
-        			<div>
-                        This is Register container. 
-        			    <Signup onRegister={this.register.bind(this)} onLogin={this.login.bind(this)}/>
+                                {(this.props.currentUser != null) ? <h2> Welcome! { this.props.currentUser.firstName } { this.props.currentUser.lastName } </h2> :  
+
+                                    <div>
+                                        
+                                        <Signup onRegister={this.register.bind(this)} onLogin={this.login.bind(this)}/>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
                     </div>
-                }
+                </section>            
             </div>
-		)
+        )
 	}
 
 }

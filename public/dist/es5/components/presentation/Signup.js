@@ -100,7 +100,7 @@ var Signup = (function (Component) {
                     this.props.currentUser != null ? React.createElement(
                         "h2",
                         null,
-                        " Welcome, ",
+                        " Welcome! ",
                         this.props.currentUser.email,
                         " ",
                         this.props.currentUser.firstName,

@@ -8,6 +8,7 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
+// <li><span className="label label-warning">Private</span></li>
 var _react = require("react");
 
 var React = _interopRequire(_react);
@@ -58,15 +59,6 @@ var CampPreview = (function (Component) {
                         React.createElement(
                             "ul",
                             { className: "entry-meta clearfix" },
-                            React.createElement(
-                                "li",
-                                null,
-                                React.createElement(
-                                    "span",
-                                    { className: "label label-warning" },
-                                    "Private"
-                                )
-                            ),
                             React.createElement(
                                 "li",
                                 null,

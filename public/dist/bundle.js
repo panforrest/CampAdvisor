@@ -11729,37 +11729,34 @@ var Admin = function (_Component) {
                 _this4.props.currentUserReceived(response.profile);
             });
         }
-    }, {
-        key: 'updateReview',
-        value: function updateReview(event) {
-            event.preventDefault();
-            var updatedReview = Object.assign({}, this.state.review);
-            updatedReview[event.target.id] = event.target.value;
-            this.setState({
-                review: updatedReview
-            });
-            console.log('updatedReview: ' + JSON.stringify(this.state.review));
-        }
-    }, {
-        key: 'submitReview',
-        value: function submitReview(event) {
-            var _this5 = this;
 
-            event.preventDefault();
-            var review = this.state.review;
-            review['profile'] = this.props.currentUser.id;
+        // updateReview(event){
+        //     event.preventDefault()
+        //     let updatedReview = Object.assign({}, this.state.review)
+        //     updatedReview[event.target.id] = event.target.value  
+        //     this.setState({
+        //         review: updatedReview 
+        //     }) 
+        //     console.log('updatedReview: '+JSON.stringify(this.state.review))
+        // }
 
-            _utils.APIManager.post('/api/review', review, function (err, response) {
-                if (err) {
-                    var msg = err.message || err;
-                    alert(JSON.stringify(msg));
-                    return;
-                }
-                console.log('submit: ' + JSON.stringify(response.result));
-                var result = response.result;
-                _this5.props.reviewCreated(review);
-            });
-        }
+        // submitReview(event){
+        //     event.preventDefault()
+        //     var review = this.state.review
+        //     review['profile'] = this.props.currentUser.id
+
+        //     APIManager.post('/api/review', review, (err, response) => {
+        //         if (err){
+        //             const msg = err.message || err
+        //             alert(JSON.stringify(msg))
+        //             return
+        //         }
+        //         console.log('submit: '+JSON.stringify(response.result))
+        //         var result = response.result
+        //         this.props.reviewCreated(review)
+        //     })
+        // }
+
     }, {
         key: 'updateCamp',
         value: function updateCamp(event) {
@@ -11774,7 +11771,7 @@ var Admin = function (_Component) {
     }, {
         key: 'submitCamp',
         value: function submitCamp(event) {
-            var _this6 = this;
+            var _this5 = this;
 
             event.preventDefault();
             console.log('to submitCamp: ' + JSON.stringify(this.state.camp));
@@ -11802,7 +11799,8 @@ var Admin = function (_Component) {
                 }
 
                 console.log('camp submitted: ' + JSON.stringify(response.result));
-                _this6.props.campCreated(response.result);
+                _this5.props.campCreated(response.result);
+                window.location.href = '/camp/' + camp['slug'];
             });
         }
     }, {
@@ -11817,19 +11815,11 @@ var Admin = function (_Component) {
                     _react2.default.createElement(
                         'h2',
                         null,
-                        'Welcome, ',
-                        this.props.currentUser.email
+                        'Welcome! ',
+                        this.props.currentUser.firstName,
+                        ' ',
+                        this.props.currentUser.lastName
                     ),
-                    _react2.default.createElement(
-                        'h3',
-                        null,
-                        'Create Review'
-                    ),
-                    _react2.default.createElement('input', { onChange: this.updateReview.bind(this), type: 'text', id: 'camp', placeholder: 'Camp' }),
-                    _react2.default.createElement('br', null),
-                    _react2.default.createElement('input', { onChange: this.updateReview.bind(this), type: 'text', id: 'text', placeholder: 'Text' }),
-                    _react2.default.createElement('br', null),
-                    _react2.default.createElement('input', { onClick: this.submitReview.bind(this), type: 'submit', value: 'Submit' }),
                     _react2.default.createElement(
                         'h3',
                         null,
@@ -28687,21 +28677,34 @@ var Register = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                this.props.currentUser != null ? _react2.default.createElement(
-                    'h2',
-                    null,
-                    ' Welcome, ',
-                    this.props.currentUser.email,
-                    ' ',
-                    this.props.currentUser.firstName,
-                    ' ',
-                    this.props.currentUser.lastName,
-                    ' '
-                ) : _react2.default.createElement(
-                    'div',
-                    null,
-                    'This is Register container.',
-                    _react2.default.createElement(_presentation.Signup, { onRegister: this.register.bind(this), onLogin: this.login.bind(this) })
+                _react2.default.createElement(
+                    'section',
+                    { id: 'content' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'content-wrap' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'container clearfix' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'postcontent nobottommargin clearfix' },
+                                this.props.currentUser != null ? _react2.default.createElement(
+                                    'h2',
+                                    null,
+                                    ' Welcome! ',
+                                    this.props.currentUser.firstName,
+                                    ' ',
+                                    this.props.currentUser.lastName,
+                                    ' '
+                                ) : _react2.default.createElement(
+                                    'div',
+                                    null,
+                                    _react2.default.createElement(_presentation.Signup, { onRegister: this.register.bind(this), onLogin: this.login.bind(this) })
+                                )
+                            )
+                        )
+                    )
                 )
             );
         }
@@ -28875,7 +28878,7 @@ var Signup = function (_Component) {
                 this.props.currentUser != null ? _react2.default.createElement(
                     'h2',
                     null,
-                    ' Welcome, ',
+                    ' Welcome! ',
                     this.props.currentUser.email,
                     ' ',
                     this.props.currentUser.firstName,
@@ -29031,7 +29034,7 @@ exports.default = function () {
 			return updatedState;
 
 		case _constants2.default.CAMP_CREATED:
-			// const updatedList = Object.assign([], updatedState.list)
+			var updatedList = Object.assign([], updatedState.list);
 			updatedList.push(action.camp);
 			updatedState['list'] = updatedList;
 			return updatedState;
@@ -29257,7 +29260,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <li><span className="label label-warning">Private</span></li>
+
 
 var CampPreview = function (_Component) {
     _inherits(CampPreview, _Component);
@@ -29302,15 +29306,6 @@ var CampPreview = function (_Component) {
                     _react2.default.createElement(
                         "ul",
                         { className: "entry-meta clearfix" },
-                        _react2.default.createElement(
-                            "li",
-                            null,
-                            _react2.default.createElement(
-                                "span",
-                                { className: "label label-warning" },
-                                "Private"
-                            )
-                        ),
                         _react2.default.createElement(
                             "li",
                             null,
@@ -29435,20 +29430,7 @@ var Nav = function (_Component) {
 							{ id: 'primary-menu-trigger' },
 							_react2.default.createElement('i', { className: 'icon-reorder' })
 						),
-						_react2.default.createElement(
-							'div',
-							{ id: 'logo' },
-							_react2.default.createElement(
-								'a',
-								{ href: '/', className: 'standard-logo', 'data-dark-logo': '/images/logo-dark.png' },
-								_react2.default.createElement('img', { src: '/images/logo.png', alt: 'Canvas Logo' })
-							),
-							_react2.default.createElement(
-								'a',
-								{ href: '/', className: 'retina-logo', 'data-dark-logo': '/images/logo-dark@2x.png' },
-								_react2.default.createElement('img', { src: '/images/logo@2x.png', alt: 'Canvas Logo' })
-							)
-						),
+						_react2.default.createElement('div', { id: 'logo' }),
 						_react2.default.createElement(
 							'nav',
 							{ id: 'primary-menu' },
@@ -29477,7 +29459,7 @@ var Nav = function (_Component) {
 										_react2.default.createElement(
 											'div',
 											null,
-											'Register'
+											'Signup/Login'
 										)
 									)
 								),
@@ -29544,7 +29526,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <img src="images/footer-logo.png" alt="" className="footer-logo" />
+
 
 var Footer = function (_Component) {
     _inherits(Footer, _Component);
@@ -29567,7 +29550,6 @@ var Footer = function (_Component) {
                     _react2.default.createElement(
                         "div",
                         { className: "col_half" },
-                        _react2.default.createElement("img", { src: "images/footer-logo.png", alt: "", className: "footer-logo" }),
                         "Copyrights \xA9 2017 All Rights Reserved by CampAdvisor Inc."
                     ),
                     _react2.default.createElement(
@@ -29592,12 +29574,6 @@ var Footer = function (_Component) {
                                 "a",
                                 { href: "#" },
                                 "Features"
-                            ),
-                            "/",
-                            _react2.default.createElement(
-                                "a",
-                                { href: "#" },
-                                "Portfolio"
                             ),
                             "/",
                             _react2.default.createElement(

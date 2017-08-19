@@ -91,21 +91,34 @@ var Register = (function (Component) {
                 return React.createElement(
                     "div",
                     null,
-                    this.props.currentUser != null ? React.createElement(
-                        "h2",
-                        null,
-                        " Welcome, ",
-                        this.props.currentUser.email,
-                        " ",
-                        this.props.currentUser.firstName,
-                        " ",
-                        this.props.currentUser.lastName,
-                        " "
-                    ) : React.createElement(
-                        "div",
-                        null,
-                        "This is Register container.",
-                        React.createElement(Signup, { onRegister: this.register.bind(this), onLogin: this.login.bind(this) })
+                    React.createElement(
+                        "section",
+                        { id: "content" },
+                        React.createElement(
+                            "div",
+                            { className: "content-wrap" },
+                            React.createElement(
+                                "div",
+                                { className: "container clearfix" },
+                                React.createElement(
+                                    "div",
+                                    { className: "postcontent nobottommargin clearfix" },
+                                    this.props.currentUser != null ? React.createElement(
+                                        "h2",
+                                        null,
+                                        " Welcome! ",
+                                        this.props.currentUser.firstName,
+                                        " ",
+                                        this.props.currentUser.lastName,
+                                        " "
+                                    ) : React.createElement(
+                                        "div",
+                                        null,
+                                        React.createElement(Signup, { onRegister: this.register.bind(this), onLogin: this.login.bind(this) })
+                                    )
+                                )
+                            )
+                        )
                     )
                 );
             },

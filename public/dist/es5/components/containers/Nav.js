@@ -66,20 +66,7 @@ var Nav = (function (Component) {
 								{ id: "primary-menu-trigger" },
 								React.createElement("i", { className: "icon-reorder" })
 							),
-							React.createElement(
-								"div",
-								{ id: "logo" },
-								React.createElement(
-									"a",
-									{ href: "/", className: "standard-logo", "data-dark-logo": "/images/logo-dark.png" },
-									React.createElement("img", { src: "/images/logo.png", alt: "Canvas Logo" })
-								),
-								React.createElement(
-									"a",
-									{ href: "/", className: "retina-logo", "data-dark-logo": "/images/logo-dark@2x.png" },
-									React.createElement("img", { src: "/images/logo@2x.png", alt: "Canvas Logo" })
-								)
-							),
+							React.createElement("div", { id: "logo" }),
 							React.createElement(
 								"nav",
 								{ id: "primary-menu" },
@@ -108,7 +95,7 @@ var Nav = (function (Component) {
 											React.createElement(
 												"div",
 												null,
-												"Register"
+												"Signup/Login"
 											)
 										)
 									),

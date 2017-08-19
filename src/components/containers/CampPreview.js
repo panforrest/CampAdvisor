@@ -1,3 +1,4 @@
+// <li><span className="label label-warning">Private</span></li>
 import React, { Component } from 'react'
 
 class CampPreview extends Component {
@@ -17,7 +18,7 @@ class CampPreview extends Component {
                         </h2>
                     </div>
                     <ul className="entry-meta clearfix">
-                        <li><span className="label label-warning">Private</span></li>
+                        
                         <li><a href="#"><i className="icon-time"></i> {this.props.camp.url} </a></li>
                         <li><a href="#"><i className="icon-map-marker2"></i> {this.props.camp.country} </a></li>
                     </ul>

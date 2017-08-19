@@ -65,32 +65,32 @@ class Admin extends Component {
         })
     }
 
-    updateReview(event){
-        event.preventDefault()
-        let updatedReview = Object.assign({}, this.state.review)
-        updatedReview[event.target.id] = event.target.value  
-        this.setState({
-            review: updatedReview 
-        }) 
-        console.log('updatedReview: '+JSON.stringify(this.state.review))
-    }
+    // updateReview(event){
+    //     event.preventDefault()
+    //     let updatedReview = Object.assign({}, this.state.review)
+    //     updatedReview[event.target.id] = event.target.value  
+    //     this.setState({
+    //         review: updatedReview 
+    //     }) 
+    //     console.log('updatedReview: '+JSON.stringify(this.state.review))
+    // }
 
-    submitReview(event){
-        event.preventDefault()
-        var review = this.state.review
-        review['profile'] = this.props.currentUser.id
+    // submitReview(event){
+    //     event.preventDefault()
+    //     var review = this.state.review
+    //     review['profile'] = this.props.currentUser.id
 
-        APIManager.post('/api/review', review, (err, response) => {
-            if (err){
-                const msg = err.message || err
-                alert(JSON.stringify(msg))
-                return
-            }
-            console.log('submit: '+JSON.stringify(response.result))
-            var result = response.result
-            this.props.reviewCreated(review)
-        })
-    }
+    //     APIManager.post('/api/review', review, (err, response) => {
+    //         if (err){
+    //             const msg = err.message || err
+    //             alert(JSON.stringify(msg))
+    //             return
+    //         }
+    //         console.log('submit: '+JSON.stringify(response.result))
+    //         var result = response.result
+    //         this.props.reviewCreated(review)
+    //     })
+    // }
 
     updateCamp(event){
         event.preventDefault()
@@ -131,6 +131,7 @@ class Admin extends Component {
 
             console.log('camp submitted: '+JSON.stringify(response.result))
             this.props.campCreated(response.result)
+            window.location.href = '/camp/'+camp['slug']
         })
     }
 
@@ -139,13 +140,9 @@ class Admin extends Component {
             <div>
                 {(this.props.currentUser == null) ? <Signup onRegister={this.register.bind(this)} onLogin={this.login.bind(this)}/> : 
                   <div>    
-                    <h2>Welcome, {this.props.currentUser.email}</h2> 
+                    <h2>Welcome! { this.props.currentUser.firstName } { this.props.currentUser.lastName }</h2> 
 
-                        <h3>Create Review</h3>
                         
-                        <input onChange={this.updateReview.bind(this)} type="text" id="camp" placeholder="Camp" /><br />
-                        <input onChange={this.updateReview.bind(this)} type="text" id="text" placeholder="Text" /><br />
-                        <input onClick={this.submitReview.bind(this)} type="submit" value="Submit" />
                         <h3>Create Camp</h3>
                         <input onChange={this.updateCamp.bind(this)} type="text" id="title" placeholder="Camp Title" /><br />
                         <input onChange={this.updateCamp.bind(this)} type="text" id="description" placeholder="Camp Description" /><br />
