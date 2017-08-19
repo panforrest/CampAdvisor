@@ -11672,10 +11672,10 @@ var Admin = function (_Component) {
             },
             camp: {
                 title: '',
-                slug: ''
-                // description: '',
-                // country: '',
-                // url: ''
+                slug: '',
+                description: '',
+                country: '',
+                url: ''
             }
         };
         return _this;
@@ -11700,6 +11700,31 @@ var Admin = function (_Component) {
         key: 'register',
         value: function register(visitor) {
             var _this3 = this;
+
+            var email = visitor.email;
+            var firstName = visitor.firstName;
+            var lastName = visitor.lastName;
+            var password = visitor.password;
+
+            if (email.length == 0) {
+                alert('Please fill in Email!');
+                return;
+            }
+
+            if (firstName.length == 0) {
+                alert('Please fill in First Name!');
+                return;
+            }
+
+            if (lastName.length == 0) {
+                alert('Please fill in Last Name!');
+                return;
+            }
+
+            if (password.length == 0) {
+                alert('Please fill in Password!');
+                return;
+            }
 
             _utils.APIManager.post('/account/register', visitor, function (err, response) {
                 if (err) {
@@ -11774,9 +11799,35 @@ var Admin = function (_Component) {
             var _this5 = this;
 
             event.preventDefault();
-            console.log('to submitCamp: ' + JSON.stringify(this.state.camp));
             var camp = this.state.camp;
             var title = camp.title;
+            var description = camp.description;
+            var country = camp.country;
+            var url = camp.url;
+
+            if (title.length == 0) {
+                alert('Please fill in Camp Title!');
+                return;
+            }
+
+            if (description.length == 0) {
+                alert('Please fill in Camp Description!');
+                return;
+            }
+
+            if (country.length == 0) {
+                alert('Please fill in Camp Country!');
+                return;
+            }
+
+            if (url.length == 0) {
+                alert('Please fill in Camp Url!');
+                return;
+            }
+
+            // console.log('to submitCamp: '+JSON.stringify(this.state.camp))
+            // var camp = this.state.camp
+            // var title = camp.title
             var parts = title.split(' ');
 
             var slug = '';
@@ -11959,7 +12010,7 @@ var Camps = function (_Component) {
 						_react2.default.createElement(
 							'h3',
 							null,
-							'Camps'
+							'CampAdvisor\'s Camping Review'
 						)
 					),
 					_react2.default.createElement(
@@ -28293,7 +28344,6 @@ var Account = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        'This is Account Layout.',
         _react2.default.createElement(
           'h3',
           null,
@@ -28449,8 +28499,13 @@ var Camp = function (_Component) {
             var _this5 = this;
 
             event.preventDefault();
+            var text = this.state.review.text;
+            if (text.length == 0) {
+                alert('Please key in your review!');
+                return;
+            }
             if (this.props.currentUser == null) {
-                alert('Please log in to record new bug');
+                alert('Please log in to contribute your review');
                 return;
             }
 
@@ -28480,7 +28535,9 @@ var Camp = function (_Component) {
                     _react2.default.createElement(
                         'h4',
                         { className: 'list-group-item-heading' },
-                        review.profile
+                        review.profile,
+                        ', ',
+                        review.timestamp
                     ),
                     _react2.default.createElement(
                         'p',
@@ -28639,6 +28696,31 @@ var Register = function (_Component) {
     }, {
         key: 'register',
         value: function register(visitor) {
+            var email = visitor.email;
+            var firstName = visitor.firstName;
+            var lastName = visitor.lastName;
+            var password = visitor.password;
+
+            if (email.length == 0) {
+                alert('Please fill in Email!');
+                return;
+            }
+
+            if (firstName.length == 0) {
+                alert('Please fill in First Name!');
+                return;
+            }
+
+            if (lastName.length == 0) {
+                alert('Please fill in Last Name!');
+                return;
+            }
+
+            if (password.length == 0) {
+                alert('Please fill in Password!');
+                return;
+            }
+
             _utils.APIManager.post('/account/register', visitor, function (err, response) {
                 if (err) {
                     var msg = err.message || err;
@@ -29261,6 +29343,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <li><span className="label label-warning">Private</span></li>
+// <a href={'/camp/'+this.props.camp.slug} className="btn  btn-danger">Visit</a>
+
+// <div className="entry-image hidden-sm">
+//                     <a href={'/camp/'+this.props.camp.slug}>
+//                         <img src="images/events/thumbs/1.jpg" alt="tenetur" />
+//                     </a>
+//                 </div>
 
 
 var CampPreview = function (_Component) {
@@ -29278,15 +29367,6 @@ var CampPreview = function (_Component) {
             return _react2.default.createElement(
                 "div",
                 { className: "entry clearfix" },
-                _react2.default.createElement(
-                    "div",
-                    { className: "entry-image hidden-sm" },
-                    _react2.default.createElement(
-                        "a",
-                        { href: '/camp/' + this.props.camp.slug },
-                        _react2.default.createElement("img", { src: "images/events/thumbs/1.jpg", alt: "tenetur" })
-                    )
-                ),
                 _react2.default.createElement(
                     "div",
                     { className: "entry-c" },
@@ -29336,9 +29416,10 @@ var CampPreview = function (_Component) {
                         "div",
                         { className: "entry-content" },
                         _react2.default.createElement(
-                            "a",
-                            { href: '/camp/' + this.props.camp.slug, className: "btn  btn-danger" },
-                            "Visit"
+                            "p",
+                            null,
+                            "Description: ",
+                            this.props.camp.description
                         )
                     )
                 )

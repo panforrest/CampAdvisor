@@ -16,10 +16,10 @@ class Admin extends Component {
             },
             camp: {
                 title: '',
-                slug: ''
-                // description: '',
-                // country: '',
-                // url: ''
+                slug: '',
+                description: '',
+                country: '',
+                url: ''
             }
         }
     }
@@ -39,6 +39,33 @@ class Admin extends Component {
     }
 
     register(visitor){
+        var email = visitor.email
+        var firstName = visitor.firstName
+        var lastName = visitor.lastName
+        var password = visitor.password
+
+        if (email.length == 0) {
+            alert('Please fill in Email!')
+            return              
+        }
+
+        
+        if (firstName.length == 0) {
+            alert('Please fill in First Name!')
+            return              
+        }
+
+        
+        if (lastName.length == 0) {
+            alert('Please fill in Last Name!')
+            return              
+        }
+
+        if (password.length == 0) {
+            alert('Please fill in Password!')
+            return              
+        }
+
         APIManager.post('/account/register', visitor, (err, response) => {
             if (err) {
              const msg = err.message || err
@@ -104,9 +131,35 @@ class Admin extends Component {
 
     submitCamp(event){
         event.preventDefault()
-        console.log('to submitCamp: '+JSON.stringify(this.state.camp))
         var camp = this.state.camp
         var title = camp.title
+        var description = camp.description
+        var country = camp.country 
+        var url = camp.url
+
+        if (title.length == 0) {
+            alert('Please fill in Camp Title!')
+            return 
+        }
+
+        if (description.length == 0) {
+            alert('Please fill in Camp Description!')
+            return 
+        }
+
+        if (country.length == 0) {
+            alert('Please fill in Camp Country!')
+            return 
+        }
+
+        if (url.length == 0) {
+            alert('Please fill in Camp Url!')
+            return 
+        }
+
+        // console.log('to submitCamp: '+JSON.stringify(this.state.camp))
+        // var camp = this.state.camp
+        // var title = camp.title
         var parts = title.split(' ')
 
         var slug = ''

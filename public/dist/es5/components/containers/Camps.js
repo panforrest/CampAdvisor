@@ -72,7 +72,7 @@ var Camps = (function (Component) {
 							React.createElement(
 								"h3",
 								null,
-								"Camps"
+								"CampAdvisor's Camping Review"
 							)
 						),
 						React.createElement(

@@ -20,6 +20,34 @@ class Register extends Component {
     } 
 
     register(visitor){
+        var email = visitor.email
+        var firstName = visitor.firstName
+        var lastName = visitor.lastName
+        var password = visitor.password
+
+        if (email.length == 0) {
+            alert('Please fill in Email!')
+            return              
+        }
+
+        
+        if (firstName.length == 0) {
+            alert('Please fill in First Name!')
+            return              
+        }
+
+        
+        if (lastName.length == 0) {
+            alert('Please fill in Last Name!')
+            return              
+        }
+
+        if (password.length == 0) {
+            alert('Please fill in Password!')
+            return              
+        }
+
+
         APIManager.post('/account/register', visitor, (err, response) => {
             if (err) {
              const msg = err.message || err

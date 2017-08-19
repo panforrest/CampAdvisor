@@ -99,8 +99,13 @@ var Camp = (function (Component) {
             value: function submitReview(event) {
                 var _this = this;
                 event.preventDefault();
+                var text = this.state.review.text;
+                if (text.length == 0) {
+                    alert("Please key in your review!");
+                    return;
+                }
                 if (this.props.currentUser == null) {
-                    alert("Please log in to record new bug");
+                    alert("Please log in to contribute your review");
                     return;
                 }
 
@@ -133,7 +138,9 @@ var Camp = (function (Component) {
                         React.createElement(
                             "h4",
                             { className: "list-group-item-heading" },
-                            review.profile
+                            review.profile,
+                            ", ",
+                            review.timestamp
                         ),
                         React.createElement(
                             "p",

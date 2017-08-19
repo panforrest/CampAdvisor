@@ -69,8 +69,13 @@ class Camp extends Component {
 
     submitReview(event){
         event.preventDefault()
+        var text = this.state.review.text
+        if (text.length == 0) {
+            alert('Please key in your review!')
+            return   
+        }
         if (this.props.currentUser == null) {
-            alert('Please log in to record new bug')
+            alert('Please log in to contribute your review')
             return
         }
 
@@ -98,7 +103,7 @@ class Camp extends Component {
         var reviewList = this.props.reviews.map((review, i) => {
             return (
                 <a key={i} href="#" className="list-group-item">
-                        <h4 className="list-group-item-heading">{review.profile}</h4>
+                        <h4 className="list-group-item-heading">{review.profile}, {review.timestamp}</h4>
                         <p className="list-group-item-text">{review.text}</p>
                 </a> 
             )

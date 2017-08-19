@@ -76,7 +76,6 @@ var Account = (function (Component) {
         return React.createElement(
           "div",
           null,
-          "This is Account Layout.",
           React.createElement(
             "h3",
             null,

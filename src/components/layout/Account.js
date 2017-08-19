@@ -48,7 +48,6 @@ class Account extends Component {
 
 		return(
 			<div>
-			    This is Account Layout. 
 
                 <h3>Hi, {this.props.currentUser.firstName} {this.props.currentUser.lastName}</h3>
 			    <button onClick={this.logout.bind(this)}>logout</button>

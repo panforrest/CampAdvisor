@@ -36,7 +36,7 @@ class Camps extends Component {
     		<div className="container clearifx">
                 <div className="col_three_fifth bothsidebar nobottommargin">
                     <div className="fancy-title title-border">
-                        <h3>Camps</h3>
+                        <h3>CampAdvisor's Camping Review</h3>
                     </div>
 
                     <div id="posts" className="events small-thumbs">
