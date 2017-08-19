@@ -28420,6 +28420,8 @@ var Camp = function (_Component) {
     }, {
         key: 'fetchPosts',
         value: function fetchPosts() {
+            var _this4 = this;
+
             console.log('fetchPosts: ');
             console.log(JSON.stringify(this.props.camp._id));
             if (this.props.camp._id == null) {
@@ -28435,6 +28437,7 @@ var Camp = function (_Component) {
                 }
 
                 console.log(JSON.stringify(response.results));
+                _this4.props.reviewsReceived(response.results);
             });
         }
     }, {
@@ -28453,7 +28456,7 @@ var Camp = function (_Component) {
     }, {
         key: 'submitReview',
         value: function submitReview(event) {
-            var _this4 = this;
+            var _this5 = this;
 
             event.preventDefault();
             var review = Object.assign({}, this.state.review);
@@ -28468,13 +28471,30 @@ var Camp = function (_Component) {
                     alert(msg);
                     return;
                 }
-                _this4.props.reviewCreated(response.result);
+                _this5.props.reviewCreated(response.result);
                 console.log('submitReview: ' + JSON.stringify(response.result));
             });
         }
     }, {
         key: 'render',
         value: function render() {
+            var reviewList = this.props.reviews.map(function (review, i) {
+                return _react2.default.createElement(
+                    'a',
+                    { key: i, href: '#', className: 'list-group-item' },
+                    _react2.default.createElement(
+                        'h4',
+                        { className: 'list-group-item-heading' },
+                        review.profile
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        { className: 'list-group-item-text' },
+                        review.text
+                    )
+                );
+            });
+
             return _react2.default.createElement(
                 'div',
                 null,
@@ -28495,60 +28515,31 @@ var Camp = function (_Component) {
                                     null,
                                     this.props.camp.title
                                 ),
-                                _react2.default.createElement('textarea', { onChange: this.updateReview.bind(this), placeholder: 'Add Your Review Here', id: 'text', className: 'form-control' }),
+                                _react2.default.createElement(
+                                    'p',
+                                    null,
+                                    'Country: ',
+                                    this.props.camp.country
+                                ),
+                                _react2.default.createElement(
+                                    'p',
+                                    null,
+                                    'Description: ',
+                                    this.props.camp.description
+                                ),
+                                _react2.default.createElement('textarea', { onChange: this.updateReview.bind(this), placeholder: 'Add your review here', id: 'text', className: 'form-control' }),
                                 _react2.default.createElement('br', null),
                                 _react2.default.createElement(
                                     'button',
                                     { onClick: this.submitReview.bind(this), className: 'btn btn-success' },
-                                    'Add Review'
+                                    'Submit Review'
                                 ),
                                 _react2.default.createElement('br', null),
                                 _react2.default.createElement('hr', { style: { borderTop: '1px solid red #444' } }),
                                 _react2.default.createElement(
-                                    'div',
-                                    { className: 'list-group' },
-                                    _react2.default.createElement(
-                                        'a',
-                                        { href: '#', className: 'list-group-item' },
-                                        _react2.default.createElement(
-                                            'h4',
-                                            { className: 'list-group-item-heading' },
-                                            'List group item heading'
-                                        ),
-                                        _react2.default.createElement(
-                                            'p',
-                                            { className: 'list-group-item-text' },
-                                            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        'a',
-                                        { href: '#', className: 'list-group-item' },
-                                        _react2.default.createElement(
-                                            'h4',
-                                            { className: 'list-group-item-heading' },
-                                            'List group item heading'
-                                        ),
-                                        _react2.default.createElement(
-                                            'p',
-                                            { className: 'list-group-item-text' },
-                                            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        'a',
-                                        { href: '#', className: 'list-group-item' },
-                                        _react2.default.createElement(
-                                            'h4',
-                                            { className: 'list-group-item-heading' },
-                                            'List group item heading'
-                                        ),
-                                        _react2.default.createElement(
-                                            'p',
-                                            { className: 'list-group-item-text' },
-                                            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.'
-                                        )
-                                    )
+                                    'ol',
+                                    null,
+                                    reviewList
                                 )
                             )
                         )
@@ -28579,6 +28570,9 @@ var dispatchToProps = function dispatchToProps(dispatch) {
         },
         reviewCreated: function reviewCreated(review) {
             return dispatch(_actions2.default.reviewCreated(review));
+        },
+        reviewsReceived: function reviewsReceived(reviews) {
+            return dispatch(_actions2.default.reviewsReceived(reviews));
         }
     };
 };
@@ -29527,7 +29521,7 @@ var Footer = function (_Component) {
                         "div",
                         { className: "col_half" },
                         _react2.default.createElement("img", { src: "images/footer-logo.png", alt: "", className: "footer-logo" }),
-                        "Copyrights \xA9 2014 All Rights Reserved by Canvas Inc."
+                        "Copyrights \xA9 2014 All Rights Reserved by CampAdvisor Inc."
                     ),
                     _react2.default.createElement(
                         "div",

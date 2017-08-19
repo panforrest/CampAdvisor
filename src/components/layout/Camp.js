@@ -50,6 +50,7 @@ class Camp extends Component {
             }
 
             console.log(JSON.stringify(response.results))
+            this.props.reviewsReceived(response.results)
 
         })
     } 
@@ -89,6 +90,15 @@ class Camp extends Component {
     }   
 
 	render(){
+        var reviewList = this.props.reviews.map((review, i) => {
+            return (
+                <a key={i} href="#" className="list-group-item">
+                        <h4 className="list-group-item-heading">{review.profile}</h4>
+                        <p className="list-group-item-text">{review.text}</p>
+                </a> 
+            )
+        })
+
         return(
             <div>
 
@@ -99,26 +109,16 @@ class Camp extends Component {
                             <div className="postcontent nobottommargin clearfix">
 
                                 <h4>{this.props.camp.title}</h4>
+                                <p>Country: {this.props.camp.country}</p>
+                                <p>Description: {this.props.camp.description}</p>
                                 
-                                <textarea onChange={this.updateReview.bind(this)} placeholder="Add Your Review Here" id="text" className="form-control"></textarea><br /> 
+                                <textarea onChange={this.updateReview.bind(this)} placeholder="Add your review here" id="text" className="form-control"></textarea><br /> 
                                 
-                                <button onClick={this.submitReview.bind(this)} className="btn btn-success">Add Review</button><br />
+                                <button onClick={this.submitReview.bind(this)} className="btn btn-success">Submit Review</button><br />
                                 <hr style={{borderTop: '1px solid red #444'}} />
-
-                                <div className="list-group">
-                                    <a href="#" className="list-group-item">
-                                        <h4 className="list-group-item-heading">List group item heading</h4>
-                                        <p className="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.</p>
-                                    </a>
-                                    <a href="#" className="list-group-item">
-                                        <h4 className="list-group-item-heading">List group item heading</h4>
-                                        <p className="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.</p>
-                                    </a>
-                                    <a href="#" className="list-group-item">
-                                        <h4 className="list-group-item-heading">List group item heading</h4>
-                                        <p className="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.</p>
-                                    </a>
-                                </div>
+                                <ol>
+                                    {reviewList}
+                                </ol>
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,8 @@ const stateToProps = (state) => {
 const dispatchToProps = (dispatch) => {
     return {
         campsReceived: (camps) => dispatch(actions.campsReceived(camps)),
-        reviewCreated: (review) => dispatch(actions.reviewCreated(review))
+        reviewCreated: (review) => dispatch(actions.reviewCreated(review)),
+        reviewsReceived: (reviews) => dispatch(actions.reviewsReceived(reviews))
     }
 }
 

@@ -15,7 +15,7 @@ class Footer extends Component {
                     <div className="col_half">
                         <img src="images/footer-logo.png" alt="" className="footer-logo" />
 
-                        Copyrights &copy; 2014 All Rights Reserved by Canvas Inc.
+                        Copyrights &copy; 2014 All Rights Reserved by CampAdvisor Inc.
                     </div>
 
                     <div className="col_half col_last tright">

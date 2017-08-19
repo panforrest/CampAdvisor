@@ -58,6 +58,7 @@ var Camp = (function (Component) {
         },
         fetchPosts: {
             value: function fetchPosts() {
+                var _this = this;
                 console.log("fetchPosts: ");
                 console.log(JSON.stringify(this.props.camp._id));
                 if (this.props.camp._id == null) {
@@ -73,6 +74,7 @@ var Camp = (function (Component) {
                     }
 
                     console.log(JSON.stringify(response.results));
+                    _this.props.reviewsReceived(response.results);
                 });
             },
             writable: true,
@@ -119,6 +121,23 @@ var Camp = (function (Component) {
         },
         render: {
             value: function render() {
+                var reviewList = this.props.reviews.map(function (review, i) {
+                    return React.createElement(
+                        "a",
+                        { key: i, href: "#", className: "list-group-item" },
+                        React.createElement(
+                            "h4",
+                            { className: "list-group-item-heading" },
+                            review.profile
+                        ),
+                        React.createElement(
+                            "p",
+                            { className: "list-group-item-text" },
+                            review.text
+                        )
+                    );
+                });
+
                 return React.createElement(
                     "div",
                     null,
@@ -139,60 +158,31 @@ var Camp = (function (Component) {
                                         null,
                                         this.props.camp.title
                                     ),
-                                    React.createElement("textarea", { onChange: this.updateReview.bind(this), placeholder: "Add Your Review Here", id: "text", className: "form-control" }),
+                                    React.createElement(
+                                        "p",
+                                        null,
+                                        "Country: ",
+                                        this.props.camp.country
+                                    ),
+                                    React.createElement(
+                                        "p",
+                                        null,
+                                        "Description: ",
+                                        this.props.camp.description
+                                    ),
+                                    React.createElement("textarea", { onChange: this.updateReview.bind(this), placeholder: "Add your review here", id: "text", className: "form-control" }),
                                     React.createElement("br", null),
                                     React.createElement(
                                         "button",
                                         { onClick: this.submitReview.bind(this), className: "btn btn-success" },
-                                        "Add Review"
+                                        "Submit Review"
                                     ),
                                     React.createElement("br", null),
                                     React.createElement("hr", { style: { borderTop: "1px solid red #444" } }),
                                     React.createElement(
-                                        "div",
-                                        { className: "list-group" },
-                                        React.createElement(
-                                            "a",
-                                            { href: "#", className: "list-group-item" },
-                                            React.createElement(
-                                                "h4",
-                                                { className: "list-group-item-heading" },
-                                                "List group item heading"
-                                            ),
-                                            React.createElement(
-                                                "p",
-                                                { className: "list-group-item-text" },
-                                                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio."
-                                            )
-                                        ),
-                                        React.createElement(
-                                            "a",
-                                            { href: "#", className: "list-group-item" },
-                                            React.createElement(
-                                                "h4",
-                                                { className: "list-group-item-heading" },
-                                                "List group item heading"
-                                            ),
-                                            React.createElement(
-                                                "p",
-                                                { className: "list-group-item-text" },
-                                                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio."
-                                            )
-                                        ),
-                                        React.createElement(
-                                            "a",
-                                            { href: "#", className: "list-group-item" },
-                                            React.createElement(
-                                                "h4",
-                                                { className: "list-group-item-heading" },
-                                                "List group item heading"
-                                            ),
-                                            React.createElement(
-                                                "p",
-                                                { className: "list-group-item-text" },
-                                                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio."
-                                            )
-                                        )
+                                        "ol",
+                                        null,
+                                        reviewList
                                     )
                                 )
                             )
@@ -226,6 +216,9 @@ var dispatchToProps = function (dispatch) {
         },
         reviewCreated: function (review) {
             return dispatch(actions.reviewCreated(review));
+        },
+        reviewsReceived: function (reviews) {
+            return dispatch(actions.reviewsReceived(reviews));
         }
     };
 };
