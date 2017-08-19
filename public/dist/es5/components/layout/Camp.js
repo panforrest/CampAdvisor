@@ -17,73 +17,147 @@ var React = _interopRequire(_react);
 var Component = _react.Component;
 var APIManager = require("../../utils").APIManager;
 var Nav = require("../containers").Nav;
+var actions = _interopRequire(require("../../actions"));
+
+var connect = require("react-redux").connect;
 var Camp = (function (Component) {
-  function Camp() {
-    _classCallCheck(this, Camp);
+    function Camp() {
+        _classCallCheck(this, Camp);
 
-    _get(Object.getPrototypeOf(Camp.prototype), "constructor", this).call(this);
-    this.state = {
-      camp: {
-        title: ""
-      }
-    };
-  }
-
-  _inherits(Camp, Component);
-
-  _prototypeProperties(Camp, null, {
-    componentDidMount: {
-      value: function componentDidMount() {
-        var _this = this;
-        APIManager.get("/api/camp?slug=" + this.props.slug, null, function (err, response) {
-          if (err) {
-            var msg = err.message || err;
-            alert(msg);
-            return;
-          }
-          console.log(JSON.stringify(response.results)); //(response.result))
-          var camp = response.results[0];
-          _this.setState({
-            camp: camp
-          });
-        });
-      },
-      writable: true,
-      configurable: true
-    },
-    render: {
-      value: function render() {
-        return React.createElement(
-          "div",
-          null,
-          "This is Camp component.",
-          React.createElement(
-            "h2",
-            null,
-            this.state.camp.title
-          ),
-          React.createElement(
-            "ol",
-            null,
-            React.createElement(
-              "li",
-              null,
-              "Review1"
-            ),
-            React.createElement(
-              "li",
-              null,
-              "Review2"
-            )
-          )
-        );
-      },
-      writable: true,
-      configurable: true
+        _get(Object.getPrototypeOf(Camp.prototype), "constructor", this).call(this);
+        this.state = {
+            camp: {
+                title: ""
+            }
+        };
     }
-  });
 
-  return Camp;
+    _inherits(Camp, Component);
+
+    _prototypeProperties(Camp, null, {
+        componentDidMount: {
+            value: function componentDidMount() {
+                var _this = this;
+                APIManager.get("/api/camp?slug=" + this.props.slug, null, function (err, response) {
+                    if (err) {
+                        var msg = err.message || err;
+                        alert(msg);
+                        return;
+                    }
+                    console.log(JSON.stringify(response.results));
+                    var camps = response.results;
+                    _this.props.campsReceived(camps);
+                });
+            },
+            writable: true,
+            configurable: true
+        },
+        render: {
+            value: function render() {
+                return React.createElement(
+                    "div",
+                    null,
+                    React.createElement(
+                        "section",
+                        { id: "content" },
+                        React.createElement(
+                            "div",
+                            { className: "content-wrap" },
+                            React.createElement(
+                                "div",
+                                { className: "container clearfix" },
+                                React.createElement(
+                                    "div",
+                                    { className: "postcontent nobottommargin clearfix" },
+                                    React.createElement(
+                                        "h4",
+                                        null,
+                                        this.props.camp.title
+                                    ),
+                                    React.createElement("textarea", { placeholder: "Add your review here", className: "form-control" }),
+                                    React.createElement("br", null),
+                                    React.createElement(
+                                        "button",
+                                        { className: "btn btn-success" },
+                                        "Add Review"
+                                    ),
+                                    React.createElement("br", null),
+                                    React.createElement("hr", { style: { borderTop: "1px solid red #444" } }),
+                                    React.createElement(
+                                        "div",
+                                        { className: "list-group" },
+                                        React.createElement(
+                                            "a",
+                                            { href: "#", className: "list-group-item" },
+                                            React.createElement(
+                                                "h4",
+                                                { className: "list-group-item-heading" },
+                                                "List group item heading"
+                                            ),
+                                            React.createElement(
+                                                "p",
+                                                { className: "list-group-item-text" },
+                                                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio."
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "a",
+                                            { href: "#", className: "list-group-item" },
+                                            React.createElement(
+                                                "h4",
+                                                { className: "list-group-item-heading" },
+                                                "List group item heading"
+                                            ),
+                                            React.createElement(
+                                                "p",
+                                                { className: "list-group-item-text" },
+                                                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio."
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "a",
+                                            { href: "#", className: "list-group-item" },
+                                            React.createElement(
+                                                "h4",
+                                                { className: "list-group-item-heading" },
+                                                "List group item heading"
+                                            ),
+                                            React.createElement(
+                                                "p",
+                                                { className: "list-group-item-text" },
+                                                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio."
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                );
+            },
+            writable: true,
+            configurable: true
+        }
+    });
+
+    return Camp;
 })(Component);
 
-module.exports = Camp;
+var stateToProps = function (state) {
+    // var campsArray = state.camps.list
+    var campsArray = state.camp.list;
+
+    return {
+        camp: campsArray.length == 0 ? { name: "" } : campsArray[0]
+    };
+};
+
+var dispatchToProps = function (dispatch) {
+    return {
+        campsReceived: function (camps) {
+            return dispatch(actions.campsReceived(camps));
+        }
+    };
+};
+
+module.exports = connect(stateToProps, dispatchToProps)(Camp);

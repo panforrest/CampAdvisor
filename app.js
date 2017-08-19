@@ -17,7 +17,9 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hjs');
+// app.set('view engine', 'hjs');
+app.set('view engine', 'mustache');
+app.engine('mustache', require('hogan-middleware').__express)
 
 mongoose.connect(process.env.DB_URL, function(err, res){ 
   if (err){

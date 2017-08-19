@@ -20,7 +20,7 @@ module.exports = function (_x, action) {
 			return updatedState;
 
 		case constants.CAMP_CREATED:
-			var updatedList = Object.assign([], updatedState.list);
+			// const updatedList = Object.assign([], updatedState.list)
 			updatedList.push(action.camp);
 			updatedState.list = updatedList;
 			return updatedState;

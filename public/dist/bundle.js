@@ -27930,6 +27930,10 @@ var _Nav = __webpack_require__(259);
 
 var _Nav2 = _interopRequireDefault(_Nav);
 
+var _Footer = __webpack_require__(260);
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
 var _layout = __webpack_require__(250);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -27939,7 +27943,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import Camp from '../layout/Camp'
+//import Footer from './Footer'  
 
 
 var Main = function (_Component) {
@@ -27979,7 +27983,8 @@ var Main = function (_Component) {
                 'div',
                 null,
                 _react2.default.createElement(_Nav2.default, null),
-                content
+                content,
+                _react2.default.createElement(_Footer2.default, null)
             );
         }
     }]);
@@ -28347,7 +28352,7 @@ exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Accoun
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28360,6 +28365,12 @@ var _utils = __webpack_require__(16);
 
 var _containers = __webpack_require__(106);
 
+var _actions = __webpack_require__(19);
+
+var _actions2 = _interopRequireDefault(_actions);
+
+var _reactRedux = __webpack_require__(14);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28369,73 +28380,144 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Camp = function (_Component) {
-  _inherits(Camp, _Component);
+    _inherits(Camp, _Component);
 
-  function Camp() {
-    _classCallCheck(this, Camp);
+    function Camp() {
+        _classCallCheck(this, Camp);
 
-    var _this = _possibleConstructorReturn(this, (Camp.__proto__ || Object.getPrototypeOf(Camp)).call(this));
+        var _this = _possibleConstructorReturn(this, (Camp.__proto__ || Object.getPrototypeOf(Camp)).call(this));
 
-    _this.state = {
-      camp: {
-        title: ''
-      }
-    };
-    return _this;
-  }
+        _this.state = {
+            camp: {
+                title: ''
+            }
+        };
+        return _this;
+    }
 
-  _createClass(Camp, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
+    _createClass(Camp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
 
-      _utils.APIManager.get('/api/camp?slug=' + this.props.slug, null, function (err, response) {
-        if (err) {
-          var msg = err.message || err;
-          alert(msg);
-          return;
+            _utils.APIManager.get('/api/camp?slug=' + this.props.slug, null, function (err, response) {
+                if (err) {
+                    var msg = err.message || err;
+                    alert(msg);
+                    return;
+                }
+                console.log(JSON.stringify(response.results));
+                var camps = response.results;
+                _this2.props.campsReceived(camps);
+            });
         }
-        console.log(JSON.stringify(response.results)); //(response.result))
-        var camp = response.results[0];
-        _this2.setState({
-          camp: camp
-        });
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        'This is Camp component.',
-        _react2.default.createElement(
-          'h2',
-          null,
-          this.state.camp.title
-        ),
-        _react2.default.createElement(
-          'ol',
-          null,
-          _react2.default.createElement(
-            'li',
-            null,
-            'Review1'
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            'Review2'
-          )
-        )
-      );
-    }
-  }]);
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'section',
+                    { id: 'content' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'content-wrap' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'container clearfix' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'postcontent nobottommargin clearfix' },
+                                _react2.default.createElement(
+                                    'h4',
+                                    null,
+                                    this.props.camp.title
+                                ),
+                                _react2.default.createElement('textarea', { placeholder: 'Add your review here', className: 'form-control' }),
+                                _react2.default.createElement('br', null),
+                                _react2.default.createElement(
+                                    'button',
+                                    { className: 'btn btn-success' },
+                                    'Add Review'
+                                ),
+                                _react2.default.createElement('br', null),
+                                _react2.default.createElement('hr', { style: { borderTop: '1px solid red #444' } }),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'list-group' },
+                                    _react2.default.createElement(
+                                        'a',
+                                        { href: '#', className: 'list-group-item' },
+                                        _react2.default.createElement(
+                                            'h4',
+                                            { className: 'list-group-item-heading' },
+                                            'List group item heading'
+                                        ),
+                                        _react2.default.createElement(
+                                            'p',
+                                            { className: 'list-group-item-text' },
+                                            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.'
+                                        )
+                                    ),
+                                    _react2.default.createElement(
+                                        'a',
+                                        { href: '#', className: 'list-group-item' },
+                                        _react2.default.createElement(
+                                            'h4',
+                                            { className: 'list-group-item-heading' },
+                                            'List group item heading'
+                                        ),
+                                        _react2.default.createElement(
+                                            'p',
+                                            { className: 'list-group-item-text' },
+                                            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.'
+                                        )
+                                    ),
+                                    _react2.default.createElement(
+                                        'a',
+                                        { href: '#', className: 'list-group-item' },
+                                        _react2.default.createElement(
+                                            'h4',
+                                            { className: 'list-group-item-heading' },
+                                            'List group item heading'
+                                        ),
+                                        _react2.default.createElement(
+                                            'p',
+                                            { className: 'list-group-item-text' },
+                                            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, sit, reiciendis expedita voluptate fuga perferendis soluta doloribus quasi quia odio.'
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
 
-  return Camp;
+    return Camp;
 }(_react.Component);
 
-exports.default = Camp;
+var stateToProps = function stateToProps(state) {
+    // var campsArray = state.camps.list
+    var campsArray = state.camp.list;
+
+    return {
+        camp: campsArray.length == 0 ? { name: '' } : campsArray[0]
+    };
+};
+
+var dispatchToProps = function dispatchToProps(dispatch) {
+    return {
+        campsReceived: function campsReceived(camps) {
+            return dispatch(_actions2.default.campsReceived(camps));
+        }
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Camp);
 
 /***/ }),
 /* 249 */
@@ -28882,7 +28964,7 @@ exports.default = function () {
 			return updatedState;
 
 		case _constants2.default.CAMP_CREATED:
-			var updatedList = Object.assign([], updatedState.list);
+			// const updatedList = Object.assign([], updatedState.list)
 			updatedList.push(action.camp);
 			updatedState['list'] = updatedList;
 			return updatedState;
@@ -29328,6 +29410,160 @@ var Nav = function (_Component) {
 }(_react.Component);
 
 exports.default = Nav;
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(8);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Footer = function (_Component) {
+    _inherits(Footer, _Component);
+
+    function Footer() {
+        _classCallCheck(this, Footer);
+
+        return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
+    }
+
+    _createClass(Footer, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { id: "copyrights" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "container clearfix" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col_half" },
+                        _react2.default.createElement("img", { src: "images/footer-logo.png", alt: "", className: "footer-logo" }),
+                        "Copyrights \xA9 2014 All Rights Reserved by Canvas Inc."
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col_half col_last tright" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "copyrights-menu copyright-links fright clearfix" },
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#" },
+                                "Home"
+                            ),
+                            "/",
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#" },
+                                "About"
+                            ),
+                            "/",
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#" },
+                                "Features"
+                            ),
+                            "/",
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#" },
+                                "Portfolio"
+                            ),
+                            "/",
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#" },
+                                "FAQs"
+                            ),
+                            "/",
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#" },
+                                "Contact"
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "fright clearfix" },
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#", className: "social-icon si-small si-borderless nobottommargin si-facebook" },
+                                _react2.default.createElement("i", { className: "icon-facebook" }),
+                                _react2.default.createElement("i", { className: "icon-facebook" })
+                            ),
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#", className: "social-icon si-small si-borderless nobottommargin si-twitter" },
+                                _react2.default.createElement("i", { className: "icon-twitter" }),
+                                _react2.default.createElement("i", { className: "icon-twitter" })
+                            ),
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#", className: "social-icon si-small si-borderless nobottommargin si-gplus" },
+                                _react2.default.createElement("i", { className: "icon-gplus" }),
+                                _react2.default.createElement("i", { className: "icon-gplus" })
+                            ),
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#", className: "social-icon si-small si-borderless nobottommargin si-pinterest" },
+                                _react2.default.createElement("i", { className: "icon-pinterest" }),
+                                _react2.default.createElement("i", { className: "icon-pinterest" })
+                            ),
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#", className: "social-icon si-small si-borderless nobottommargin si-vimeo" },
+                                _react2.default.createElement("i", { className: "icon-vimeo" }),
+                                _react2.default.createElement("i", { className: "icon-vimeo" })
+                            ),
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#", className: "social-icon si-small si-borderless nobottommargin si-github" },
+                                _react2.default.createElement("i", { className: "icon-github" }),
+                                _react2.default.createElement("i", { className: "icon-github" })
+                            ),
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#", className: "social-icon si-small si-borderless nobottommargin si-yahoo" },
+                                _react2.default.createElement("i", { className: "icon-yahoo" }),
+                                _react2.default.createElement("i", { className: "icon-yahoo" })
+                            ),
+                            _react2.default.createElement(
+                                "a",
+                                { href: "#", className: "social-icon si-small si-borderless nobottommargin si-linkedin" },
+                                _react2.default.createElement("i", { className: "icon-linkedin" }),
+                                _react2.default.createElement("i", { className: "icon-linkedin" })
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Footer;
+}(_react.Component);
+
+exports.default = Footer;
 
 /***/ })
 /******/ ]);

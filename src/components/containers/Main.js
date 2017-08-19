@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Camps from './Camps'
 import Nav from './Nav'
-// import Camp from '../layout/Camp'
+//import Footer from './Footer'  
+import Footer from './Footer'
 import { Camp, Register, Account } from '../layout'
 
 class Main extends Component {
@@ -30,6 +31,8 @@ class Main extends Component {
 			<div>
                 <Nav />
                 { content }
+                <Footer />
+
 	        </div>
 		)
 	}

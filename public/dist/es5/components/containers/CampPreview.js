@@ -51,7 +51,7 @@ var CampPreview = (function (Component) {
                                 React.createElement(
                                     "a",
                                     { href: "/camp/" + this.props.camp.slug },
-                                    this.props.camp.name
+                                    this.props.camp.title
                                 )
                             )
                         ),
@@ -75,7 +75,7 @@ var CampPreview = (function (Component) {
                                     { href: "#" },
                                     React.createElement("i", { className: "icon-time" }),
                                     " ",
-                                    this.props.camp.address,
+                                    this.props.camp.url,
                                     " "
                                 )
                             ),
@@ -87,7 +87,7 @@ var CampPreview = (function (Component) {
                                     { href: "#" },
                                     React.createElement("i", { className: "icon-map-marker2" }),
                                     " ",
-                                    this.props.camp.city,
+                                    this.props.camp.country,
                                     " "
                                 )
                             )

@@ -27,6 +27,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^3.0.0",
     "hjs": "~0.0.6",
+    "hogan-middleware": "^0.2.2",
     "jsonwebtoken": "^7.4.0",
     "mongoose": "^4.10.2",
     "morgan": "~1.6.1",

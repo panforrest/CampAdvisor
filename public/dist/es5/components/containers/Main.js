@@ -17,7 +17,9 @@ var Camps = _interopRequire(require("./Camps"));
 
 var Nav = _interopRequire(require("./Nav"));
 
-// import Camp from '../layout/Camp'
+//import Footer from './Footer' 
+var Footer = _interopRequire(require("./Footer"));
+
 var _layout = require("../layout");
 
 var Camp = _layout.Camp;
@@ -62,7 +64,8 @@ var Main = (function (Component) {
                     "div",
                     null,
                     React.createElement(Nav, null),
-                    content
+                    content,
+                    React.createElement(Footer, null)
                 );
             },
             writable: true,
