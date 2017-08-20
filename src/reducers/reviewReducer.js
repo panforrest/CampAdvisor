@@ -19,6 +19,13 @@ export default (state=initialState, action) => {
             updatedList.push(action.review)   
             updated['list'] = updatedList
             console.log('REVIEW_CREATED: '+JSON.stringify(updated['list']))
+
+            // var updatedList = (updated.list) ? Object.assign([], updated.list) : []
+            // updatedList.push(action.review)   
+            // updated['list'] = updatedList
+            // console.log('REVIEW_CREATED: '+JSON.stringify(updated['list']))
+
+
             return updated
 
     	default:

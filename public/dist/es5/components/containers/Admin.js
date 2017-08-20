@@ -10,6 +10,10 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
+// <div className="3u 12u$(small)">
+//                             <button className="button special small" style={{marginTop:12, marginLeft:12, width:90+'%'}} onClick={this.submitCamp.bind(this)} >Submit</button>                       
+//                         </div>
+// <input onClick={this.submitCamp.bind(this)} type="submit" value="Submit" />
 var _react = require("react");
 
 var React = _interopRequire(_react);
@@ -239,23 +243,27 @@ var Admin = (function (Component) {
                             null,
                             "Welcome! ",
                             this.props.currentUser.firstName,
-                            " ",
-                            this.props.currentUser.lastName
+                            " "
                         ),
                         React.createElement(
                             "h3",
                             null,
-                            "Create Camp"
+                            "添加一个新的营地产品"
                         ),
-                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "title", placeholder: "Camp Title" }),
+                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "title", placeholder: "Camp Title", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "description", placeholder: "Camp Description" }),
+                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "description", placeholder: "Camp Description", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "country", placeholder: "Camp Country" }),
+                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "country", placeholder: "Camp Country", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "url", placeholder: "Camp Url" }),
+                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "url", placeholder: "Camp Url", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onClick: this.submitCamp.bind(this), type: "submit", value: "Submit" })
+                        React.createElement(
+                            "button",
+                            { onClick: this.submitCamp.bind(this), className: "btn btn-success" },
+                            "Submit New Camp"
+                        ),
+                        React.createElement("br", null)
                     )
                 );
             },

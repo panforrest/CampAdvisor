@@ -21,7 +21,7 @@ class Nav extends Component {
 	}
 
     render(){
-        var content = (this.props.currentUser == null) ? '' : this.props.currentUser.email
+        var content = (this.props.currentUser == null) ? '' : this.props.currentUser.firstName
 
     	return (
 		        <header id="header" className="transparent-header dark">

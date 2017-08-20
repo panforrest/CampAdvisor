@@ -50,7 +50,7 @@ var Nav = (function (Component) {
 		},
 		render: {
 			value: function render() {
-				var content = this.props.currentUser == null ? "" : this.props.currentUser.email;
+				var content = this.props.currentUser == null ? "" : this.props.currentUser.firstName;
 
 				return React.createElement(
 					"header",

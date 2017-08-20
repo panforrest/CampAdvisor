@@ -1,3 +1,7 @@
+// <div className="3u 12u$(small)">
+//                             <button className="button special small" style={{marginTop:12, marginLeft:12, width:90+'%'}} onClick={this.submitCamp.bind(this)} >Submit</button>                        
+//                         </div>
+// <input onClick={this.submitCamp.bind(this)} type="submit" value="Submit" /> 
 import React, { Component } from 'react'
 import actions from '../../actions'
 import { connect } from 'react-redux'
@@ -193,15 +197,17 @@ class Admin extends Component {
             <div>
                 {(this.props.currentUser == null) ? <Signup onRegister={this.register.bind(this)} onLogin={this.login.bind(this)}/> : 
                   <div>    
-                    <h2>Welcome! { this.props.currentUser.firstName } { this.props.currentUser.lastName }</h2> 
+                    <h2>Welcome! { this.props.currentUser.firstName } </h2> 
 
                         
-                        <h3>Create Camp</h3>
-                        <input onChange={this.updateCamp.bind(this)} type="text" id="title" placeholder="Camp Title" /><br />
-                        <input onChange={this.updateCamp.bind(this)} type="text" id="description" placeholder="Camp Description" /><br />
-                        <input onChange={this.updateCamp.bind(this)} type="text" id="country" placeholder="Camp Country" /><br />
-                        <input onChange={this.updateCamp.bind(this)} type="text" id="url" placeholder="Camp Url" /><br />
-                        <input onClick={this.submitCamp.bind(this)} type="submit" value="Submit" />
+                        <h3>添加一个新的营地产品</h3>
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="title" placeholder="Camp Title" className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="description" placeholder="Camp Description" className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="country" placeholder="Camp Country" className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="url" placeholder="Camp Url" className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
+                        
+                        <button onClick={this.submitCamp.bind(this)} className="btn btn-success">Submit New Camp</button><br />
+                            
                   </div>
 
                 }   

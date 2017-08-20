@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {APIManager} from '../../utils' 
+import {APIManager, DateUtils} from '../../utils' 
 import { Nav } from '../containers'
 import actions from '../../actions'
 import { connect } from 'react-redux'
@@ -81,9 +81,14 @@ class Camp extends Component {
 
         var review = Object.assign({}, this.state.review)   
         console.log(JSON.stringify(this.props.camp._id))
-        console.log(JSON.stringify(this.props.currentUser._id))
+        console.log(JSON.stringify(this.props.currentUser.id))
         review['camp'] = this.props.camp._id
-        review['profile'] = this.props.currentUser.id  //WHY NOT _id?
+        // review['profile'] = this.props.currentUser.id  //WHY NOT _id?
+        review['profile'] = this.props.currentUser.firstName
+        // review['profile'] = {
+        //     email: this.props.currentUser.email,
+        //     id: this.props.currentUser.id 
+        // }
 
         APIManager.post('/api/review', review, (err, response) => {
             if (err) {
@@ -103,7 +108,7 @@ class Camp extends Component {
         var reviewList = this.props.reviews.map((review, i) => {
             return (
                 <a key={i} href="#" className="list-group-item">
-                        <h4 className="list-group-item-heading">{review.profile}, {review.timestamp}</h4>
+                        <h4 className="list-group-item-heading">User {review.profile} 发表评论: </h4>
                         <p className="list-group-item-text">{review.text}</p>
                 </a> 
             )
@@ -117,8 +122,8 @@ class Camp extends Component {
                     <div className="content-wrap">
                         <div className="container clearfix">
                             <div className="postcontent nobottommargin clearfix">
-
-                                <h4>{this.props.camp.title}</h4>
+                                <h3>请在以下讨论社区发表您的评论：</h3>
+                                <h4>Camp Name: {this.props.camp.title}</h4>
                                 <p>Country: {this.props.camp.country}</p>
                                 <p>Description: {this.props.camp.description}</p>
                                 
@@ -126,9 +131,9 @@ class Camp extends Component {
                                 
                                 <button onClick={this.submitReview.bind(this)} className="btn btn-success">Submit Review</button><br />
                                 <hr style={{borderTop: '1px solid red #444'}} />
-                                <ol>
-                                    {reviewList}
-                                </ol>
+                                
+                                {reviewList}
+                                
                             </div>
                         </div>
                     </div>
@@ -145,6 +150,7 @@ const stateToProps = (state) => {
 
     return {
         camp: (campsArray.length == 0) ? {name:''} : campsArray[0],
+        // reviews: state.review.list,
         reviews: state.review.list,
         currentUser: state.account.currentUser 
     }

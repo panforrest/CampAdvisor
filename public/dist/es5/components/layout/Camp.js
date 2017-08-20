@@ -15,7 +15,10 @@ var _react = require("react");
 var React = _interopRequire(_react);
 
 var Component = _react.Component;
-var APIManager = require("../../utils").APIManager;
+var _utils = require("../../utils");
+
+var APIManager = _utils.APIManager;
+var DateUtils = _utils.DateUtils;
 var Nav = require("../containers").Nav;
 var actions = _interopRequire(require("../../actions"));
 
@@ -111,9 +114,14 @@ var Camp = (function (Component) {
 
                 var review = Object.assign({}, this.state.review);
                 console.log(JSON.stringify(this.props.camp._id));
-                console.log(JSON.stringify(this.props.currentUser._id));
+                console.log(JSON.stringify(this.props.currentUser.id));
                 review.camp = this.props.camp._id;
-                review.profile = this.props.currentUser.id; //WHY NOT _id?
+                // review['profile'] = this.props.currentUser.id  //WHY NOT _id?
+                review.profile = this.props.currentUser.firstName;
+                // review['profile'] = {
+                //     email: this.props.currentUser.email,
+                //     id: this.props.currentUser.id
+                // }
 
                 APIManager.post("/api/review", review, function (err, response) {
                     if (err) {
@@ -138,9 +146,9 @@ var Camp = (function (Component) {
                         React.createElement(
                             "h4",
                             { className: "list-group-item-heading" },
+                            "User ",
                             review.profile,
-                            ", ",
-                            review.timestamp
+                            " 发表评论: "
                         ),
                         React.createElement(
                             "p",
@@ -166,8 +174,14 @@ var Camp = (function (Component) {
                                     "div",
                                     { className: "postcontent nobottommargin clearfix" },
                                     React.createElement(
+                                        "h3",
+                                        null,
+                                        "请在以下讨论社区发表您的评论："
+                                    ),
+                                    React.createElement(
                                         "h4",
                                         null,
+                                        "Camp Name: ",
                                         this.props.camp.title
                                     ),
                                     React.createElement(
@@ -191,11 +205,7 @@ var Camp = (function (Component) {
                                     ),
                                     React.createElement("br", null),
                                     React.createElement("hr", { style: { borderTop: "1px solid red #444" } }),
-                                    React.createElement(
-                                        "ol",
-                                        null,
-                                        reviewList
-                                    )
+                                    reviewList
                                 )
                             )
                         )
@@ -216,6 +226,7 @@ var stateToProps = function (state) {
 
     return {
         camp: campsArray.length == 0 ? { name: "" } : campsArray[0],
+        // reviews: state.review.list,
         reviews: state.review.list,
         currentUser: state.account.currentUser
     };

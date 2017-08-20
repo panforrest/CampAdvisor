@@ -10,6 +10,7 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
+// <button onClick={this.login.bind(this)}>Submit</button>
 var _react = require("react");
 
 var React = _interopRequire(_react);
@@ -115,33 +116,36 @@ var Signup = (function (Component) {
                             null,
                             "Sign up"
                         ),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "email", placeholder: "Email" }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "email", placeholder: "Email", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "firstName", placeholder: "First Name" }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "firstName", placeholder: "First Name", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "lastName", placeholder: "Last Name" }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "lastName", placeholder: "Last Name", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "password", placeholder: "Password" }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "password", id: "password", placeholder: "Password", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
                         React.createElement("br", null),
                         React.createElement(
                             "button",
-                            { onClick: this.register.bind(this) },
+                            { onClick: this.register.bind(this), className: "btn btn-success" },
                             "Submit"
                         ),
+                        React.createElement("br", null),
+                        React.createElement("br", null),
                         React.createElement(
                             "h2",
                             null,
                             "Log in"
                         ),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "email", placeholder: "Email" }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "email", placeholder: "Email", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "password", placeholder: "Password" }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "password", id: "password", placeholder: "Password", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
                         React.createElement("br", null),
                         React.createElement(
                             "button",
-                            { onClick: this.login.bind(this) },
+                            { onClick: this.login.bind(this), className: "btn btn-success" },
                             "Submit"
-                        )
+                        ),
+                        React.createElement("br", null)
                     )
                 );
             },

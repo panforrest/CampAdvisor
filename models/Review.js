@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
 
 var ReviewSchema = new mongoose.Schema({
 	profile:{type:String},
+	// profile: {type:mongoose.Schema.Types.Mixed, default:{}}, 
 	camp:{type:String},
 	text:{type:String},    
     timestamp: {type:String, default:Date.now}

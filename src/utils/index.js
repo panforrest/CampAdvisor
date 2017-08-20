@@ -1,7 +1,9 @@
 import APIManager from './APIManager'
+import DateUtils from './DateUtils'
 
 export {
 
-    APIManager
+    APIManager,
+    DateUtils
 
 }
