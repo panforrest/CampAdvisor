@@ -81,7 +81,11 @@ var Camps = (function (Component) {
 							campList
 						)
 					),
-					React.createElement(Admin, null)
+					React.createElement(
+						"div",
+						{ className: "col_one_fifth bothsidebar nobottommargin" },
+						React.createElement(Admin, null)
+					)
 				);
 			},
 			writable: true,

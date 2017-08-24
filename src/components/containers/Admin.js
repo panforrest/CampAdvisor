@@ -7,6 +7,7 @@ import actions from '../../actions'
 import { connect } from 'react-redux'
 import { Signup } from '../presentation'
 import { APIManager } from '../../utils'
+import Dropzone from 'react-dropzone'
 
 class Admin extends Component {
 
@@ -201,11 +202,11 @@ class Admin extends Component {
 
                         
                         <h3>添加一个新的营地产品</h3>
-                        <input onChange={this.updateCamp.bind(this)} type="text" id="title" placeholder="Camp Title" className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
-                        <input onChange={this.updateCamp.bind(this)} type="text" id="description" placeholder="Camp Description" className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
-                        <input onChange={this.updateCamp.bind(this)} type="text" id="country" placeholder="Camp Country" className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
-                        <input onChange={this.updateCamp.bind(this)} type="text" id="url" placeholder="Camp Url" className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
-                        
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="title" placeholder="Camp Title" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="description" placeholder="Camp Description" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="country" placeholder="Camp Country" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
+                        <input onChange={this.updateCamp.bind(this)} type="text" id="url" placeholder="Camp Url" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
+                        <Dropzone />
                         <button onClick={this.submitCamp.bind(this)} className="btn btn-success">Submit New Camp</button><br />
                             
                   </div>

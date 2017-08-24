@@ -24,6 +24,8 @@ var actions = _interopRequire(require("../../actions"));
 var connect = require("react-redux").connect;
 var Signup = require("../presentation").Signup;
 var APIManager = require("../../utils").APIManager;
+var Dropzone = _interopRequire(require("react-dropzone"));
+
 var Admin = (function (Component) {
     function Admin() {
         _classCallCheck(this, Admin);
@@ -250,14 +252,15 @@ var Admin = (function (Component) {
                             null,
                             "添加一个新的营地产品"
                         ),
-                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "title", placeholder: "Camp Title", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
+                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "title", placeholder: "Camp Title", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "description", placeholder: "Camp Description", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
+                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "description", placeholder: "Camp Description", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "country", placeholder: "Camp Country", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
+                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "country", placeholder: "Camp Country", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "url", placeholder: "Camp Url", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
+                        React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "url", placeholder: "Camp Url", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
+                        React.createElement(Dropzone, null),
                         React.createElement(
                             "button",
                             { onClick: this.submitCamp.bind(this), className: "btn btn-success" },

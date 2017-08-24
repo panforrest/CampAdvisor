@@ -34,6 +34,7 @@ class Camps extends Component {
 
     	return(
     		<div className="container clearifx">
+                
                 <div className="col_three_fifth bothsidebar nobottommargin">
                     <div className="fancy-title title-border">
                         <h3>CampAdvisor's Camping Review</h3>
@@ -43,7 +44,9 @@ class Camps extends Component {
                         {campList}
                     </div>    
                 </div>
-                <Admin />
+                <div className="col_one_fifth bothsidebar nobottommargin">
+                    <Admin />
+                </div>    
             </div>    
         )
 	}
