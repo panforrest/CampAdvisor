@@ -53,6 +53,25 @@ module.exports = {
 
             callback(null, response.body);
         });
+    },
+
+    upload: function (endpoint, file, params, callback) {
+        console.log("APIManager - upload: ");
+        var uploadRequest = superagent.post(endpoint);
+
+        uploadRequest.attach("file", file);
+        Object.keys(params).forEach(function (key) {
+            uploadRequest.field(key, params[key]);
+        });
+
+        uploadRequest.end(function (err, resp) {
+            if (err) {
+                callback(err, null);
+                return;
+            }
+
+            callback(null, resp);
+        });
     }
 };
 //console.log(JSON.stringify(response.body))

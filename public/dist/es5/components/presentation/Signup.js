@@ -116,13 +116,13 @@ var Signup = (function (Component) {
                             null,
                             "Sign up"
                         ),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "email", placeholder: "Email", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "email", placeholder: "Email", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "firstName", placeholder: "First Name", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "firstName", placeholder: "First Name", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "lastName", placeholder: "Last Name", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "lastName", placeholder: "Last Name", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "password", id: "password", placeholder: "Password", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "password", id: "password", placeholder: "Password", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
                         React.createElement(
                             "button",
@@ -136,9 +136,9 @@ var Signup = (function (Component) {
                             null,
                             "Log in"
                         ),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "email", placeholder: "Email", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "text", id: "email", placeholder: "Email", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement("input", { onChange: this.update.bind(this), type: "password", id: "password", placeholder: "Password", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 20 + "%" } }),
+                        React.createElement("input", { onChange: this.update.bind(this), type: "password", id: "password", placeholder: "Password", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
                         React.createElement(
                             "button",

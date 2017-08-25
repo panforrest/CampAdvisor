@@ -53,5 +53,24 @@ export default  {
 
             callback(null, response.body)   //callback(null, response.result)
         })
-    })
+    }),
+
+    upload: (endpoint, file, params, callback) => {
+        console.log('APIManager - upload: ')
+        let uploadRequest = superagent.post(endpoint)
+
+        uploadRequest.attach('file', file)
+        Object.keys(params).forEach((key) => {
+            uploadRequest.field(key, params[key])
+        })
+
+        uploadRequest.end((err, resp) => {
+            if (err) {
+                callback(err, null)
+                return
+            }
+
+            callback(null, resp)
+        })
+    }
 }

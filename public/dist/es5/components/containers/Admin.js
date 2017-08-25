@@ -26,6 +26,8 @@ var Signup = require("../presentation").Signup;
 var APIManager = require("../../utils").APIManager;
 var Dropzone = _interopRequire(require("react-dropzone"));
 
+var sha1 = _interopRequire(require("sha1"));
+
 var Admin = (function (Component) {
     function Admin() {
         _classCallCheck(this, Admin);
@@ -232,6 +234,40 @@ var Admin = (function (Component) {
             writable: true,
             configurable: true
         },
+        uploadImage: {
+            value: function uploadImage(files) {
+                var image = files[0];
+
+                var cloudName = "hnejahtlt";
+                var url = "https://api.cloudinary.com/v1_1/" + cloudName + "/image/upload";
+
+
+                var timestamp = Date.now() / 1000;
+                var uploadPreset = "ohhbo4mb";
+
+                var paramsStr = "timestamp=" + timestamp + "&upload_preset=" + uploadPreset + "Eclmz2Dy6ddNQAkj9VL07CDE7Cs";
+                var signature = sha1(paramsStr);
+
+                var params = {
+                    api_key: "386581151724518",
+                    timestamp: timestamp,
+                    upload_preset: uploadPreset,
+                    signature: signature
+                };
+
+                // console.log('uploadImage: ')
+                APIManager.upload(url, image, params, function (err, response) {
+                    if (err) {
+                        console.log("UPLOAD ERROR: " + JSON.stringify(err));
+                        return;
+                    }
+
+                    console.log("UPLOAD COMPLETE: " + JSON.stringify(response.body));
+                });
+            },
+            writable: true,
+            configurable: true
+        },
         render: {
             value: function render() {
                 return React.createElement(
@@ -260,7 +296,7 @@ var Admin = (function (Component) {
                         React.createElement("br", null),
                         React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "url", placeholder: "Camp Url", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
-                        React.createElement(Dropzone, null),
+                        React.createElement(Dropzone, { onDrop: this.uploadImage.bind(this) }),
                         React.createElement(
                             "button",
                             { onClick: this.submitCamp.bind(this), className: "btn btn-success" },

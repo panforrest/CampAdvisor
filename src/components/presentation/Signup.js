@@ -69,17 +69,17 @@ class Signup extends Component {
                 {(this.props.currentUser != null) ? <h2> Welcome! { this.props.currentUser.email } { this.props.currentUser.firstName } { this.props.currentUser.lastName } </h2> : 
                 <div>
                     <h2>Sign up</h2>
-                    <input onChange={this.update.bind(this)} type='text' id='email' placeholder='Email' className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
-                    <input onChange={this.update.bind(this)} type='text' id='firstName' placeholder='First Name' className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
-                    <input onChange={this.update.bind(this)} type='text' id='lastName' placeholder='Last Name' className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
-                    <input onChange={this.update.bind(this)} type='password' id='password' placeholder='Password' className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
+                    <input onChange={this.update.bind(this)} type='text' id='email' placeholder='Email' className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
+                    <input onChange={this.update.bind(this)} type='text' id='firstName' placeholder='First Name' className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
+                    <input onChange={this.update.bind(this)} type='text' id='lastName' placeholder='Last Name' className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
+                    <input onChange={this.update.bind(this)} type='password' id='password' placeholder='Password' className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
                     
                     
                     <button onClick={this.register.bind(this)} className="btn btn-success">Submit</button><br />
                     <br />
                     <h2>Log in</h2>
-                    <input onChange={this.update.bind(this)} type='text' id='email' placeholder='Email' className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
-                    <input onChange={this.update.bind(this)} type='password' id='password' placeholder='Password' className="form-control" style={{marginTop:1, marginLeft:12, width:20+'%'}}/><br />
+                    <input onChange={this.update.bind(this)} type='text' id='email' placeholder='Email' className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
+                    <input onChange={this.update.bind(this)} type='password' id='password' placeholder='Password' className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
                     
                     
                     <button onClick={this.login.bind(this)} className="btn btn-success">Submit</button><br />

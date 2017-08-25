@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { Signup } from '../presentation'
 import { APIManager } from '../../utils'
 import Dropzone from 'react-dropzone'
+import sha1 from 'sha1'
 
 class Admin extends Component {
 
@@ -193,6 +194,38 @@ class Admin extends Component {
         })
     }
 
+    uploadImage(files){
+        const image = files[0]
+
+        const cloudName = 'hnejahtlt'
+        const url ='https://api.cloudinary.com/v1_1/'+cloudName+'/image/upload'
+
+
+        let timestamp = Date.now() / 1000
+        const uploadPreset = 'ohhbo4mb'
+
+        const paramsStr = 'timestamp='+timestamp+'&upload_preset='+uploadPreset+'Eclmz2Dy6ddNQAkj9VL07CDE7Cs'
+        const signature = sha1(paramsStr)
+
+        const params = {
+            'api_key': '386581151724518',
+            'timestamp': timestamp,
+            'upload_preset': uploadPreset,
+            'signature': signature
+        }
+
+        // console.log('uploadImage: ')
+        APIManager.upload(url, image, params, (err, response) => {
+            if (err) {
+                console.log('UPLOAD ERROR: '+JSON.stringify(err))
+                return
+            }
+
+            console.log('UPLOAD COMPLETE: '+JSON.stringify(response.body))
+
+        })
+    }
+
     render(){
     	return(
             <div>
@@ -206,7 +239,7 @@ class Admin extends Component {
                         <input onChange={this.updateCamp.bind(this)} type="text" id="description" placeholder="Camp Description" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
                         <input onChange={this.updateCamp.bind(this)} type="text" id="country" placeholder="Camp Country" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
                         <input onChange={this.updateCamp.bind(this)} type="text" id="url" placeholder="Camp Url" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
-                        <Dropzone />
+                        <Dropzone onDrop={this.uploadImage.bind(this)}/>
                         <button onClick={this.submitCamp.bind(this)} className="btn btn-success">Submit New Camp</button><br />
                             
                   </div>
