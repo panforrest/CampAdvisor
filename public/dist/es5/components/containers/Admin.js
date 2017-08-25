@@ -44,7 +44,8 @@ var Admin = (function (Component) {
                 slug: "",
                 description: "",
                 country: "",
-                url: ""
+                url: "",
+                image: ""
             }
         };
     }
@@ -236,6 +237,7 @@ var Admin = (function (Component) {
         },
         uploadImage: {
             value: function uploadImage(files) {
+                var _this = this;
                 var image = files[0];
 
                 var cloudName = "hnejahtlt";
@@ -263,6 +265,14 @@ var Admin = (function (Component) {
                     }
 
                     console.log("UPLOAD COMPLETE: " + JSON.stringify(response.body));
+                    var imageUrl = response.body.secure_url;
+
+                    var updatedCamp = Object.assign({}, _this.state.camp);
+                    updatedCamp.image = response.body.secure_url;
+                    _this.setState({
+                        camp: updatedCamp
+                    });
+
                 });
             },
             writable: true,
@@ -270,6 +280,8 @@ var Admin = (function (Component) {
         },
         render: {
             value: function render() {
+                var image = this.state.camp.image == null ? "" : this.state.camp.image;
+
                 return React.createElement(
                     "div",
                     null,
@@ -295,6 +307,8 @@ var Admin = (function (Component) {
                         React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "country", placeholder: "Camp Country", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
                         React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "url", placeholder: "Camp Url", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
+                        React.createElement("br", null),
+                        React.createElement("img", { src: image }),
                         React.createElement("br", null),
                         React.createElement(Dropzone, { onDrop: this.uploadImage.bind(this) }),
                         React.createElement(

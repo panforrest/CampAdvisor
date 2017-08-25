@@ -25,7 +25,8 @@ class Admin extends Component {
                 slug: '',
                 description: '',
                 country: '',
-                url: ''
+                url: '',
+                image: ''
             }
         }
     }
@@ -222,11 +223,21 @@ class Admin extends Component {
             }
 
             console.log('UPLOAD COMPLETE: '+JSON.stringify(response.body))
+            const imageUrl = response.body['secure_url']
+
+            var updatedCamp = Object.assign({}, this.state.camp)
+            updatedCamp['image'] = response.body['secure_url']
+            this.setState({
+                camp: updatedCamp
+            })
+
 
         })
     }
 
     render(){
+        const image = (this.state.camp.image == null) ? '' : this.state.camp.image
+
     	return(
             <div>
                 {(this.props.currentUser == null) ? <Signup onRegister={this.register.bind(this)} onLogin={this.login.bind(this)}/> : 
@@ -239,6 +250,7 @@ class Admin extends Component {
                         <input onChange={this.updateCamp.bind(this)} type="text" id="description" placeholder="Camp Description" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
                         <input onChange={this.updateCamp.bind(this)} type="text" id="country" placeholder="Camp Country" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
                         <input onChange={this.updateCamp.bind(this)} type="text" id="url" placeholder="Camp Url" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
+                        <img src={image} /><br />
                         <Dropzone onDrop={this.uploadImage.bind(this)}/>
                         <button onClick={this.submitCamp.bind(this)} className="btn btn-success">Submit New Camp</button><br />
                             

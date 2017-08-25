@@ -11563,7 +11563,8 @@ var Admin = function (_Component) {
                 slug: '',
                 description: '',
                 country: '',
-                url: ''
+                url: '',
+                image: ''
             }
         };
         return _this;
@@ -11745,6 +11746,8 @@ var Admin = function (_Component) {
     }, {
         key: 'uploadImage',
         value: function uploadImage(files) {
+            var _this6 = this;
+
             var image = files[0];
 
             var cloudName = 'hnejahtlt';
@@ -11770,11 +11773,20 @@ var Admin = function (_Component) {
                 }
 
                 console.log('UPLOAD COMPLETE: ' + JSON.stringify(response.body));
+                var imageUrl = response.body['secure_url'];
+
+                var updatedCamp = Object.assign({}, _this6.state.camp);
+                updatedCamp['image'] = response.body['secure_url'];
+                _this6.setState({
+                    camp: updatedCamp
+                });
             });
         }
     }, {
         key: 'render',
         value: function render() {
+            var image = this.state.camp.image == null ? '' : this.state.camp.image;
+
             return _react2.default.createElement(
                 'div',
                 null,
@@ -11800,6 +11812,8 @@ var Admin = function (_Component) {
                     _react2.default.createElement('input', { onChange: this.updateCamp.bind(this), type: 'text', id: 'country', placeholder: 'Camp Country', className: 'form-control', style: { marginTop: 1, marginLeft: 12, width: 95 + '%' } }),
                     _react2.default.createElement('br', null),
                     _react2.default.createElement('input', { onChange: this.updateCamp.bind(this), type: 'text', id: 'url', placeholder: 'Camp Url', className: 'form-control', style: { marginTop: 1, marginLeft: 12, width: 95 + '%' } }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('img', { src: image }),
                     _react2.default.createElement('br', null),
                     _react2.default.createElement(_reactDropzone2.default, { onDrop: this.uploadImage.bind(this) }),
                     _react2.default.createElement(
