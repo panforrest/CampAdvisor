@@ -5,7 +5,7 @@ var ProfileSchema = new mongoose.Schema({
     password:{type:String, default:''},
     firstName: {type:String, default:''},
     lastName: {type:String, default:''},
-    timestamp: {type:String, default:Date.now}
+    timestamp: {type:Date, default:Date.now}
 })
 
 ProfileSchema.methods.summary = function(){  

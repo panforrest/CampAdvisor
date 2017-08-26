@@ -5,7 +5,7 @@ var ReviewSchema = new mongoose.Schema({
 	// profile: {type:mongoose.Schema.Types.Mixed, default:{}}, 
 	camp:{type:String},
 	text:{type:String},    
-    timestamp: {type:String, default:Date.now}
+    timestamp: {type:Date, default:Date.now}
 })
 
 ReviewSchema.methods.summary = function(){

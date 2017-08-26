@@ -8,19 +8,12 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-// <li><span className="label label-warning">Private</span></li>
-// <a href={'/camp/'+this.props.camp.slug} className="btn  btn-danger">Visit</a>
-
-// <div className="entry-image hidden-sm">
-//     <a href={'/camp/'+this.props.camp.slug}>
-//         <img src="images/events/thumbs/1.jpg" alt="tenetur" />
-//     </a>
-// </div>
 var _react = require("react");
 
 var React = _interopRequire(_react);
 
 var Component = _react.Component;
+var DateUtils = require("../../utils").DateUtils;
 var CampPreview = (function (Component) {
     function CampPreview() {
         _classCallCheck(this, CampPreview);

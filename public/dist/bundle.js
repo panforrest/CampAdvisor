@@ -28014,21 +28014,15 @@ var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _utils = __webpack_require__(16);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <li><span className="label label-warning">Private</span></li>
-// <a href={'/camp/'+this.props.camp.slug} className="btn  btn-danger">Visit</a>
-
-// <div className="entry-image hidden-sm">
-//     <a href={'/camp/'+this.props.camp.slug}>
-//         <img src="images/events/thumbs/1.jpg" alt="tenetur" />
-//     </a>
-// </div>
-
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CampPreview = function (_Component) {
     _inherits(CampPreview, _Component);
@@ -28040,72 +28034,73 @@ var CampPreview = function (_Component) {
     }
 
     _createClass(CampPreview, [{
-        key: "render",
+        key: 'render',
         value: function render() {
+
             return _react2.default.createElement(
-                "div",
-                { className: "entry clearfix" },
+                'div',
+                { className: 'entry clearfix' },
                 _react2.default.createElement(
-                    "div",
-                    { className: "entry-image hidden-sm" },
+                    'div',
+                    { className: 'entry-image hidden-sm' },
                     _react2.default.createElement(
-                        "a",
+                        'a',
                         { href: '/camp/' + this.props.camp.slug },
-                        _react2.default.createElement("img", { src: this.props.camp.image })
+                        _react2.default.createElement('img', { src: this.props.camp.image })
                     )
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "entry-c" },
+                    'div',
+                    { className: 'entry-c' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "entry-title" },
+                        'div',
+                        { className: 'entry-title' },
                         _react2.default.createElement(
-                            "h2",
+                            'h2',
                             null,
                             _react2.default.createElement(
-                                "a",
+                                'a',
                                 { href: '/camp/' + this.props.camp.slug },
                                 this.props.camp.title
                             )
                         )
                     ),
                     _react2.default.createElement(
-                        "ul",
-                        { className: "entry-meta clearfix" },
+                        'ul',
+                        { className: 'entry-meta clearfix' },
                         _react2.default.createElement(
-                            "li",
+                            'li',
                             null,
                             _react2.default.createElement(
-                                "a",
-                                { target: "_blank", href: this.props.camp.url },
-                                _react2.default.createElement("i", { className: "icon-time" }),
-                                " ",
+                                'a',
+                                { target: '_blank', href: this.props.camp.url },
+                                _react2.default.createElement('i', { className: 'icon-time' }),
+                                ' ',
                                 this.props.camp.url,
-                                " "
+                                ' '
                             )
                         ),
                         _react2.default.createElement(
-                            "li",
+                            'li',
                             null,
                             _react2.default.createElement(
-                                "a",
-                                { href: "#" },
-                                _react2.default.createElement("i", { className: "icon-map-marker2" }),
-                                " ",
+                                'a',
+                                { href: '#' },
+                                _react2.default.createElement('i', { className: 'icon-map-marker2' }),
+                                ' ',
                                 this.props.camp.country,
-                                " "
+                                ' '
                             )
                         )
                     ),
-                    _react2.default.createElement("hr", { style: { borderTop: '1px solid #ddd' } }),
+                    _react2.default.createElement('hr', { style: { borderTop: '1px solid #ddd' } }),
                     _react2.default.createElement(
-                        "div",
-                        { className: "entry-content" },
+                        'div',
+                        { className: 'entry-content' },
                         _react2.default.createElement(
-                            "p",
+                            'p',
                             null,
-                            "Description: ",
+                            'Description: ',
                             this.props.camp.description
                         )
                     )
@@ -28579,7 +28574,7 @@ exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Review
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28608,99 +28603,119 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var Account = function (_Component) {
-  _inherits(Account, _Component);
+    _inherits(Account, _Component);
 
-  function Account(props, context) {
-    _classCallCheck(this, Account);
+    function Account(props, context) {
+        _classCallCheck(this, Account);
 
-    var _this = _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).call(this, props, context));
+        var _this = _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).call(this, props, context));
 
-    _this.state = {
-      currentUser: {
-        // firstName: '',
-        // lastName: '',
-        // email: ''
-      }
-    };
-    return _this;
-  }
+        _this.state = {
+            currentUser: {
+                // firstName: '',
+                // lastName: '',
+                // email: ''
+            }
+        };
+        return _this;
+    }
 
-  _createClass(Account, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
+    _createClass(Account, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
 
-      // console.log('componentDidMount: ')
-      _utils.APIManager.get('/account/currentuser', null, function (err, response) {
-        if (err) {
-          var msg = err.message || err;
-          alert(msg);
-          return;
+            // console.log('componentDidMount: ')
+            _utils.APIManager.get('/account/currentuser', null, function (err, response) {
+                if (err) {
+                    var msg = err.message || err;
+                    alert(msg);
+                    return;
+                }
+                // console.log('Admin.js: ', JSON.stringify(response.profile))
+                _this2.props.currentUserReceived(response.profile);
+            });
         }
-        // console.log('Admin.js: ', JSON.stringify(response.profile))
-        _this2.props.currentUserReceived(response.profile);
-      });
-    }
-  }, {
-    key: 'logout',
-    value: function logout(event) {
-      var _this3 = this;
+    }, {
+        key: 'logout',
+        value: function logout(event) {
+            var _this3 = this;
 
-      //logout(){
-      // console.log('logout: ')
-      _utils.APIManager.get('/account/logout', null, function (err, response) {
-        if (err) {
-          var msg = err.message || err;
-          alert(msg);
-          return;
+            //logout(){
+            // console.log('logout: ')
+            _utils.APIManager.get('/account/logout', null, function (err, response) {
+                if (err) {
+                    var msg = err.message || err;
+                    alert(msg);
+                    return;
+                }
+                console.log(_this3.props.currentUser.firstName);
+                window.location.href = '/';
+            });
         }
-        console.log(_this3.props.currentUser.firstName);
-        window.location.href = '/';
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
+    }, {
+        key: 'render',
+        value: function render() {
 
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'h3',
-          null,
-          'Hi, ',
-          this.props.currentUser.firstName,
-          ' ',
-          this.props.currentUser.lastName
-        ),
-        _react2.default.createElement(
-          'button',
-          { onClick: this.logout.bind(this) },
-          'logout'
-        )
-      );
-    }
-  }]);
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'section',
+                    { id: 'content' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'content-wrap' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'container clearfix' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'postcontent nobottommargin clearfix' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'col_two_fifth bothsidebar nobottommargin' },
+                                    _react2.default.createElement(
+                                        'h3',
+                                        null,
+                                        'Hi, ',
+                                        this.props.currentUser.firstName,
+                                        ' ',
+                                        this.props.currentUser.lastName
+                                    ),
+                                    _react2.default.createElement(
+                                        'button',
+                                        { onClick: this.logout.bind(this) },
+                                        'logout'
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
 
-  return Account;
+    return Account;
 }(_react.Component);
 
 var stateToProps = function stateToProps(state) {
-  return {
-    // profile: state.account.currentUser
-    //currentUser: state.account.currentUser
-    currentUser: state.account.currentUser
-  };
+    return {
+        // profile: state.account.currentUser
+        //currentUser: state.account.currentUser
+        currentUser: state.account.currentUser
+    };
 };
 
 var dispatchToProps = function dispatchToProps(dispatch) {
-  return {
-    // currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile))
-    currentUserReceived: function currentUserReceived(profile) {
-      return dispatch(_actions2.default.currentUserReceived(profile));
-    }
+    return {
+        // currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile))
+        currentUserReceived: function currentUserReceived(profile) {
+            return dispatch(_actions2.default.currentUserReceived(profile));
+        }
 
-  };
+    };
 };
 
 exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Account);
@@ -28731,6 +28746,10 @@ var _actions = __webpack_require__(15);
 var _actions2 = _interopRequireDefault(_actions);
 
 var _reactRedux = __webpack_require__(12);
+
+var _reactTime = __webpack_require__(361);
+
+var _reactTime2 = _interopRequireDefault(_reactTime);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28854,7 +28873,10 @@ var Camp = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
+
             var reviewList = this.props.reviews.map(function (review, i) {
+                // var timestamp = review.timestamp
+
                 return _react2.default.createElement(
                     'a',
                     { key: i, href: '#', className: 'list-group-item' },
@@ -28863,7 +28885,9 @@ var Camp = function (_Component) {
                         { className: 'list-group-item-heading' },
                         'User ',
                         review.profile,
-                        ' \u53D1\u8868\u8BC4\u8BBA: '
+                        ' \u53D1\u8868\u8BC4\u8BBA ',
+                        _utils.DateUtils.formattedDate(review.timestamp),
+                        ': '
                     ),
                     _react2.default.createElement(
                         'p',
@@ -29100,18 +29124,22 @@ var Register = function (_Component) {
                             _react2.default.createElement(
                                 'div',
                                 { className: 'postcontent nobottommargin clearfix' },
-                                this.props.currentUser != null ? _react2.default.createElement(
-                                    'h2',
-                                    null,
-                                    ' Welcome! ',
-                                    this.props.currentUser.firstName,
-                                    ' ',
-                                    this.props.currentUser.lastName,
-                                    ' '
-                                ) : _react2.default.createElement(
+                                _react2.default.createElement(
                                     'div',
-                                    null,
-                                    _react2.default.createElement(_presentation.Signup, { onRegister: this.register.bind(this), onLogin: this.login.bind(this) })
+                                    { className: 'col_two_fifth bothsidebar nobottommargin' },
+                                    this.props.currentUser != null ? _react2.default.createElement(
+                                        'h2',
+                                        null,
+                                        ' Welcome! ',
+                                        this.props.currentUser.firstName,
+                                        ' ',
+                                        this.props.currentUser.lastName,
+                                        ' '
+                                    ) : _react2.default.createElement(
+                                        'div',
+                                        null,
+                                        _react2.default.createElement(_presentation.Signup, { onRegister: this.register.bind(this), onLogin: this.login.bind(this) })
+                                    )
                                 )
                             )
                         )
@@ -29699,40 +29727,31 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import React from 'react'
 // import Time from 'react-time'
+// import React from 'react'
 
 // export default {
 
-// 	formattedDate: (date) => {
+//     formattedDate: (timestamp) => {
+//         var now = new Date()
+//         var timestamp = new Date(timestamp)
+//         var diff = now-timestamp
 
-//         const now = new Date().getTime()
+//         var date = null
+//         if (diff > 24*60*1000) 
+//             return <Time value={timestamp} format="MMM DD, YYYY" /> 
 
-//         const diff = now - new Date(date).getTime() // seconds???
+//         return <Time value={timestamp} titleFormat="YYYY/MM/DD HH:mm" relative />
+//     }
 
-
-//         const seconds = diff /1000
-//         const mins = seconds / 60
-//         const hours = mins / 60
-//         console.log('DIFF: '+hours)  
-
-//         if (hours < 24)
-//             return <Time value={date} format="MMM DD, YYYY" relative />      
-
-// 		return <Time value={date} format="MMM DD, YYYY" />
-// 	}
 // }
+
 
 exports.default = {
 
     formattedDate: function formattedDate(timestamp) {
-        var now = new Date();
+        // var now = new Date()
         var timestamp = new Date(timestamp);
-        var diff = now - timestamp;
-
-        var date = null;
-        if (diff > 24 * 60 * 1000) return _react2.default.createElement(_reactTime2.default, { value: timestamp, format: 'MMM DD, YYYY' });
-
         return _react2.default.createElement(_reactTime2.default, { value: timestamp, titleFormat: 'YYYY/MM/DD HH:mm', relative: true });
     }
 

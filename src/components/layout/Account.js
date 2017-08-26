@@ -48,9 +48,19 @@ class Account extends Component {
 
 		return(
 			<div>
+              <section id="content">
+                    <div className="content-wrap">
+                        <div className="container clearfix">
+                            <div className="postcontent nobottommargin clearfix">
+                              <div className="col_two_fifth bothsidebar nobottommargin">
+                                    <h3>Hi, {this.props.currentUser.firstName} {this.props.currentUser.lastName}</h3>
+                    			    <button onClick={this.logout.bind(this)}>logout</button>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>  
 
-                <h3>Hi, {this.props.currentUser.firstName} {this.props.currentUser.lastName}</h3>
-			    <button onClick={this.logout.bind(this)}>logout</button>
 
 			</div>
 		)

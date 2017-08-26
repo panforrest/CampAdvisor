@@ -3,6 +3,7 @@ import {APIManager, DateUtils} from '../../utils'
 import { Nav } from '../containers'
 import actions from '../../actions'
 import { connect } from 'react-redux'
+import Time from 'react-time'
 
 class Camp extends Component {
     constructor(){
@@ -105,10 +106,13 @@ class Camp extends Component {
     }   
 
 	render(){
+
         var reviewList = this.props.reviews.map((review, i) => {
+            // var timestamp = review.timestamp
+
             return (
                 <a key={i} href="#" className="list-group-item">
-                        <h4 className="list-group-item-heading">User {review.profile} 发表评论: </h4>
+                        <h4 className="list-group-item-heading">User {review.profile} 发表评论 {DateUtils.formattedDate(review.timestamp)}: </h4>
                         <p className="list-group-item-text">{review.text}</p>
                 </a> 
             )
@@ -133,7 +137,7 @@ class Camp extends Component {
                                 <hr style={{borderTop: '1px solid red #444'}} />
                                 
                                 {reviewList}
-                                
+
                             </div>
                         </div>
                     </div>

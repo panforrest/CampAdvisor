@@ -85,7 +85,7 @@ class Register extends Component {
                     <div className="content-wrap">
                         <div className="container clearfix">
                             <div className="postcontent nobottommargin clearfix">
-
+                              <div className="col_two_fifth bothsidebar nobottommargin">
                                 {(this.props.currentUser != null) ? <h2> Welcome! { this.props.currentUser.firstName } { this.props.currentUser.lastName } </h2> :  
 
                                     <div>
@@ -93,7 +93,7 @@ class Register extends Component {
                                         <Signup onRegister={this.register.bind(this)} onLogin={this.login.bind(this)}/>
                                     </div>
                                 }
-
+                              </div>
                             </div>
                         </div>
                     </div>

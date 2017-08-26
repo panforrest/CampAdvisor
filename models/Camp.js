@@ -7,7 +7,7 @@ var CampSchema = new mongoose.Schema({
     country: {type:String, default:''},
     url: {type:String, default:''},  
     image: {type:String, default:''},    
-    timestamp: {type:String, default:Date.now}
+    timestamp: {type:Date, default:Date.now}
 })
 
 CampSchema.methods.summary = function(){

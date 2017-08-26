@@ -131,18 +131,22 @@ var Register = (function (Component) {
                                 React.createElement(
                                     "div",
                                     { className: "postcontent nobottommargin clearfix" },
-                                    this.props.currentUser != null ? React.createElement(
-                                        "h2",
-                                        null,
-                                        " Welcome! ",
-                                        this.props.currentUser.firstName,
-                                        " ",
-                                        this.props.currentUser.lastName,
-                                        " "
-                                    ) : React.createElement(
+                                    React.createElement(
                                         "div",
-                                        null,
-                                        React.createElement(Signup, { onRegister: this.register.bind(this), onLogin: this.login.bind(this) })
+                                        { className: "col_two_fifth bothsidebar nobottommargin" },
+                                        this.props.currentUser != null ? React.createElement(
+                                            "h2",
+                                            null,
+                                            " Welcome! ",
+                                            this.props.currentUser.firstName,
+                                            " ",
+                                            this.props.currentUser.lastName,
+                                            " "
+                                        ) : React.createElement(
+                                            "div",
+                                            null,
+                                            React.createElement(Signup, { onRegister: this.register.bind(this), onLogin: this.login.bind(this) })
+                                        )
                                     )
                                 )
                             )

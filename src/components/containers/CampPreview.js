@@ -1,15 +1,12 @@
-// <li><span className="label label-warning">Private</span></li>
-// <a href={'/camp/'+this.props.camp.slug} className="btn  btn-danger">Visit</a>
-
-                    // <div className="entry-image hidden-sm">
-                    //     <a href={'/camp/'+this.props.camp.slug}>
-                    //         <img src="images/events/thumbs/1.jpg" alt="tenetur" />
-                    //     </a>
-                    // </div>
 import React, { Component } from 'react'
+import { DateUtils } from '../../utils'
 
 class CampPreview extends Component {
+
+    
+
 	render(){
+
 		return (
 
 			<div className="entry clearfix">
@@ -34,6 +31,7 @@ class CampPreview extends Component {
                     <hr style={{borderTop:'1px solid #ddd'}} />
                     <div className="entry-content">
                         <p>Description: {this.props.camp.description}</p>
+                    
                     </div>
                 </div>
             </div>

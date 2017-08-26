@@ -22,99 +22,119 @@ var actions = _interopRequire(require("../../actions"));
 var connect = require("react-redux").connect;
 var Nav = require("../containers").Nav;
 var Account = (function (Component) {
-  function Account(props, context) {
-    _classCallCheck(this, Account);
+    function Account(props, context) {
+        _classCallCheck(this, Account);
 
-    _get(Object.getPrototypeOf(Account.prototype), "constructor", this).call(this, props, context);
-    this.state = {
-      currentUser: {}
-    };
-  }
-
-  _inherits(Account, Component);
-
-  _prototypeProperties(Account, null, {
-    componentDidMount: {
-      value: function componentDidMount() {
-        var _this = this;
-        // console.log('componentDidMount: ')
-        APIManager.get("/account/currentuser", null, function (err, response) {
-          if (err) {
-            var msg = err.message || err;
-            alert(msg);
-            return;
-          }
-          // console.log('Admin.js: ', JSON.stringify(response.profile))
-          _this.props.currentUserReceived(response.profile);
-        });
-      },
-      writable: true,
-      configurable: true
-    },
-    logout: {
-      value: function logout(event) {
-        var _this = this;
-        //logout(){
-        // console.log('logout: ')
-        APIManager.get("/account/logout", null, function (err, response) {
-          if (err) {
-            var msg = err.message || err;
-            alert(msg);
-            return;
-          }
-          console.log(_this.props.currentUser.firstName);
-          window.location.href = "/";
-        });
-      },
-      writable: true,
-      configurable: true
-    },
-    render: {
-      value: function render() {
-
-
-        return React.createElement(
-          "div",
-          null,
-          React.createElement(
-            "h3",
-            null,
-            "Hi, ",
-            this.props.currentUser.firstName,
-            " ",
-            this.props.currentUser.lastName
-          ),
-          React.createElement(
-            "button",
-            { onClick: this.logout.bind(this) },
-            "logout"
-          )
-        );
-      },
-      writable: true,
-      configurable: true
+        _get(Object.getPrototypeOf(Account.prototype), "constructor", this).call(this, props, context);
+        this.state = {
+            currentUser: {}
+        };
     }
-  });
 
-  return Account;
+    _inherits(Account, Component);
+
+    _prototypeProperties(Account, null, {
+        componentDidMount: {
+            value: function componentDidMount() {
+                var _this = this;
+                // console.log('componentDidMount: ')
+                APIManager.get("/account/currentuser", null, function (err, response) {
+                    if (err) {
+                        var msg = err.message || err;
+                        alert(msg);
+                        return;
+                    }
+                    // console.log('Admin.js: ', JSON.stringify(response.profile))
+                    _this.props.currentUserReceived(response.profile);
+                });
+            },
+            writable: true,
+            configurable: true
+        },
+        logout: {
+            value: function logout(event) {
+                var _this = this;
+                //logout(){
+                // console.log('logout: ')
+                APIManager.get("/account/logout", null, function (err, response) {
+                    if (err) {
+                        var msg = err.message || err;
+                        alert(msg);
+                        return;
+                    }
+                    console.log(_this.props.currentUser.firstName);
+                    window.location.href = "/";
+                });
+            },
+            writable: true,
+            configurable: true
+        },
+        render: {
+            value: function render() {
+
+
+                return React.createElement(
+                    "div",
+                    null,
+                    React.createElement(
+                        "section",
+                        { id: "content" },
+                        React.createElement(
+                            "div",
+                            { className: "content-wrap" },
+                            React.createElement(
+                                "div",
+                                { className: "container clearfix" },
+                                React.createElement(
+                                    "div",
+                                    { className: "postcontent nobottommargin clearfix" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "col_two_fifth bothsidebar nobottommargin" },
+                                        React.createElement(
+                                            "h3",
+                                            null,
+                                            "Hi, ",
+                                            this.props.currentUser.firstName,
+                                            " ",
+                                            this.props.currentUser.lastName
+                                        ),
+                                        React.createElement(
+                                            "button",
+                                            { onClick: this.logout.bind(this) },
+                                            "logout"
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                );
+            },
+            writable: true,
+            configurable: true
+        }
+    });
+
+    return Account;
 })(Component);
 
 var stateToProps = function (state) {
-  return {
-    // profile: state.account.currentUser
-    //currentUser: state.account.currentUser
-    currentUser: state.account.currentUser
-  };
+    return {
+        // profile: state.account.currentUser
+        //currentUser: state.account.currentUser
+        currentUser: state.account.currentUser
+    };
 };
 
 var dispatchToProps = function (dispatch) {
-  return {
-    // currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile))
-    currentUserReceived: function (profile) {
-      return dispatch(actions.currentUserReceived(profile));
-    }
+    return {
+        // currentUserReceived: (profile) => dispatch(actions.currentUserReceived(profile))
+        currentUserReceived: function (profile) {
+            return dispatch(actions.currentUserReceived(profile));
+        }
 
-  };
+    };
 };
 
 module.exports = connect(stateToProps, dispatchToProps)(Account);

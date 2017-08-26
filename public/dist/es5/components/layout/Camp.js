@@ -23,6 +23,8 @@ var Nav = require("../containers").Nav;
 var actions = _interopRequire(require("../../actions"));
 
 var connect = require("react-redux").connect;
+var Time = _interopRequire(require("react-time"));
+
 var Camp = (function (Component) {
     function Camp() {
         _classCallCheck(this, Camp);
@@ -140,6 +142,8 @@ var Camp = (function (Component) {
         render: {
             value: function render() {
                 var reviewList = this.props.reviews.map(function (review, i) {
+                    // var timestamp = review.timestamp
+
                     return React.createElement(
                         "a",
                         { key: i, href: "#", className: "list-group-item" },
@@ -148,7 +152,9 @@ var Camp = (function (Component) {
                             { className: "list-group-item-heading" },
                             "User ",
                             review.profile,
-                            " 发表评论: "
+                            " 发表评论 ",
+                            DateUtils.formattedDate(review.timestamp),
+                            ": "
                         ),
                         React.createElement(
                             "p",
