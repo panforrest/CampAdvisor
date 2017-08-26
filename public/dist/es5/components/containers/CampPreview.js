@@ -71,7 +71,7 @@ var CampPreview = (function (Component) {
                                 null,
                                 React.createElement(
                                     "a",
-                                    { href: "#" },
+                                    { target: "_blank", href: this.props.camp.url },
                                     React.createElement("i", { className: "icon-time" }),
                                     " ",
                                     this.props.camp.url,

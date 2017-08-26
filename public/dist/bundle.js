@@ -11795,14 +11795,14 @@ var Admin = function (_Component) {
                     'div',
                     null,
                     _react2.default.createElement(
-                        'h2',
+                        'h3',
                         null,
-                        'Welcome! ',
+                        'Hi! ',
                         this.props.currentUser.firstName,
                         ' '
                     ),
                     _react2.default.createElement(
-                        'h3',
+                        'h5',
                         null,
                         '\u6DFB\u52A0\u4E00\u4E2A\u65B0\u7684\u8425\u5730\u4EA7\u54C1'
                     ),
@@ -11815,8 +11815,13 @@ var Admin = function (_Component) {
                     _react2.default.createElement('input', { onChange: this.updateCamp.bind(this), type: 'text', id: 'url', placeholder: 'Camp Url', className: 'form-control', style: { marginTop: 1, marginLeft: 12, width: 95 + '%' } }),
                     _react2.default.createElement('br', null),
                     _react2.default.createElement('img', { src: image }),
-                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'h6',
+                        null,
+                        'Click below, upload image'
+                    ),
                     _react2.default.createElement(_reactDropzone2.default, { onDrop: this.uploadImage.bind(this) }),
+                    _react2.default.createElement('br', null),
                     _react2.default.createElement(
                         'button',
                         { onClick: this.submitCamp.bind(this), className: 'btn btn-success' },
@@ -28073,7 +28078,7 @@ var CampPreview = function (_Component) {
                             null,
                             _react2.default.createElement(
                                 "a",
-                                { href: "#" },
+                                { target: "_blank", href: this.props.camp.url },
                                 _react2.default.createElement("i", { className: "icon-time" }),
                                 " ",
                                 this.props.camp.url,

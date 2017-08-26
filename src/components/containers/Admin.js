@@ -243,16 +243,18 @@ class Admin extends Component {
             <div>
                 {(this.props.currentUser == null) ? <Signup onRegister={this.register.bind(this)} onLogin={this.login.bind(this)}/> : 
                   <div>    
-                    <h2>Welcome! { this.props.currentUser.firstName } </h2> 
+                    <h3>Hi! { this.props.currentUser.firstName } </h3> 
 
                         
-                        <h3>添加一个新的营地产品</h3>
+                        <h5>添加一个新的营地产品</h5>
                         <input onChange={this.updateCamp.bind(this)} type="text" id="title" placeholder="Camp Title" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
                         <input onChange={this.updateCamp.bind(this)} type="text" id="description" placeholder="Camp Description" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
                         <input onChange={this.updateCamp.bind(this)} type="text" id="country" placeholder="Camp Country" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
                         <input onChange={this.updateCamp.bind(this)} type="text" id="url" placeholder="Camp Url" className="form-control" style={{marginTop:1, marginLeft:12, width:95+'%'}}/><br />
-                        <img src={image} /><br />
+                        <img src={image} />
+                        <h6>Click below, upload image</h6>
                         <Dropzone onDrop={this.uploadImage.bind(this)}/>
+                        <br />
                         <button onClick={this.submitCamp.bind(this)} className="btn btn-success">Submit New Camp</button><br />
                             
                   </div>

@@ -28,7 +28,7 @@ class CampPreview extends Component {
                     </div>
                     <ul className="entry-meta clearfix">
                         
-                        <li><a href="#"><i className="icon-time"></i> {this.props.camp.url} </a></li>
+                        <li><a target="_blank" href={this.props.camp.url}><i className="icon-time"></i> {this.props.camp.url} </a></li>
                         <li><a href="#"><i className="icon-map-marker2"></i> {this.props.camp.country} </a></li>
                     </ul>
                     <hr style={{borderTop:'1px solid #ddd'}} />

@@ -290,14 +290,14 @@ var Admin = (function (Component) {
                         "div",
                         null,
                         React.createElement(
-                            "h2",
+                            "h3",
                             null,
-                            "Welcome! ",
+                            "Hi! ",
                             this.props.currentUser.firstName,
                             " "
                         ),
                         React.createElement(
-                            "h3",
+                            "h5",
                             null,
                             "添加一个新的营地产品"
                         ),
@@ -310,8 +310,13 @@ var Admin = (function (Component) {
                         React.createElement("input", { onChange: this.updateCamp.bind(this), type: "text", id: "url", placeholder: "Camp Url", className: "form-control", style: { marginTop: 1, marginLeft: 12, width: 95 + "%" } }),
                         React.createElement("br", null),
                         React.createElement("img", { src: image }),
-                        React.createElement("br", null),
+                        React.createElement(
+                            "h6",
+                            null,
+                            "Click below, upload image"
+                        ),
                         React.createElement(Dropzone, { onDrop: this.uploadImage.bind(this) }),
+                        React.createElement("br", null),
                         React.createElement(
                             "button",
                             { onClick: this.submitCamp.bind(this), className: "btn btn-success" },
