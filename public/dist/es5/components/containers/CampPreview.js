@@ -12,10 +12,10 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 // <a href={'/camp/'+this.props.camp.slug} className="btn  btn-danger">Visit</a>
 
 // <div className="entry-image hidden-sm">
-//                     <a href={'/camp/'+this.props.camp.slug}>
-//                         <img src="images/events/thumbs/1.jpg" alt="tenetur" />
-//                     </a>
-//                 </div>
+//     <a href={'/camp/'+this.props.camp.slug}>
+//         <img src="images/events/thumbs/1.jpg" alt="tenetur" />
+//     </a>
+// </div>
 var _react = require("react");
 
 var React = _interopRequire(_react);
@@ -38,6 +38,15 @@ var CampPreview = (function (Component) {
                 return React.createElement(
                     "div",
                     { className: "entry clearfix" },
+                    React.createElement(
+                        "div",
+                        { className: "entry-image hidden-sm" },
+                        React.createElement(
+                            "a",
+                            { href: "/camp/" + this.props.camp.slug },
+                            React.createElement("img", { src: this.props.camp.image })
+                        )
+                    ),
                     React.createElement(
                         "div",
                         { className: "entry-c" },

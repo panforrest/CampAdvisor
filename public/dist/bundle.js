@@ -11768,12 +11768,13 @@ var Admin = function (_Component) {
                 // console.log('uploadImage: ')
             };_utils.APIManager.upload(url, image, params, function (err, response) {
                 if (err) {
-                    console.log('UPLOAD ERROR: ' + JSON.stringify(err));
+                    // console.log('UPLOAD ERROR: '+JSON.stringify(err))
+                    alert(err);
                     return;
                 }
 
-                console.log('UPLOAD COMPLETE: ' + JSON.stringify(response.body));
-                var imageUrl = response.body['secure_url'];
+                // console.log('UPLOAD COMPLETE: '+JSON.stringify(response.body))
+                // const imageUrl = response.body['secure_url']
 
                 var updatedCamp = Object.assign({}, _this6.state.camp);
                 updatedCamp['image'] = response.body['secure_url'];
@@ -11785,7 +11786,7 @@ var Admin = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var image = this.state.camp.image == null ? '' : this.state.camp.image;
+            var image = this.state.camp.image == null ? '' : this.state.camp.image.replace('upload', 'upload/c_thumb,h_150,w_150,x_0,y_0'); //thumbnail, not entire image
 
             return _react2.default.createElement(
                 'div',
@@ -28018,10 +28019,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // <a href={'/camp/'+this.props.camp.slug} className="btn  btn-danger">Visit</a>
 
 // <div className="entry-image hidden-sm">
-//                     <a href={'/camp/'+this.props.camp.slug}>
-//                         <img src="images/events/thumbs/1.jpg" alt="tenetur" />
-//                     </a>
-//                 </div>
+//     <a href={'/camp/'+this.props.camp.slug}>
+//         <img src="images/events/thumbs/1.jpg" alt="tenetur" />
+//     </a>
+// </div>
 
 
 var CampPreview = function (_Component) {
@@ -28039,6 +28040,15 @@ var CampPreview = function (_Component) {
             return _react2.default.createElement(
                 "div",
                 { className: "entry clearfix" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "entry-image hidden-sm" },
+                    _react2.default.createElement(
+                        "a",
+                        { href: '/camp/' + this.props.camp.slug },
+                        _react2.default.createElement("img", { src: this.props.camp.image })
+                    )
+                ),
                 _react2.default.createElement(
                     "div",
                     { className: "entry-c" },

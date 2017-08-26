@@ -1,11 +1,11 @@
 // <li><span className="label label-warning">Private</span></li>
 // <a href={'/camp/'+this.props.camp.slug} className="btn  btn-danger">Visit</a>
 
-    // <div className="entry-image hidden-sm">
-    //                     <a href={'/camp/'+this.props.camp.slug}>
-    //                         <img src="images/events/thumbs/1.jpg" alt="tenetur" />
-    //                     </a>
-    //                 </div>
+                    // <div className="entry-image hidden-sm">
+                    //     <a href={'/camp/'+this.props.camp.slug}>
+                    //         <img src="images/events/thumbs/1.jpg" alt="tenetur" />
+                    //     </a>
+                    // </div>
 import React, { Component } from 'react'
 
 class CampPreview extends Component {
@@ -13,6 +13,12 @@ class CampPreview extends Component {
 		return (
 
 			<div className="entry clearfix">
+
+                <div className="entry-image hidden-sm">
+                    <a href={'/camp/'+this.props.camp.slug}>
+                        <img src={this.props.camp.image}  />
+                    </a>
+                </div>
                 
                 <div className="entry-c">
                     <div className="entry-title">
